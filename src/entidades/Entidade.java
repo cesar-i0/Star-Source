@@ -16,5 +16,5 @@ public class Entidade {
 
 //    public int contadorDoEstado = 0;
 //    public int numeroDoEstado = 1;
-
+// oi
 }
