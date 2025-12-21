@@ -1,7 +1,7 @@
 package main;
 
 import entidades.Jogador;
-
+import peca.GerenciadorDePeca;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -12,22 +12,17 @@ public class PainelDoJogo extends JPanel implements Runnable {
     final int escala = 3;
 
     public final int tamanhoDaPeca = tamanhoOriginalDaPeca * escala; // 48x48 por peça
-    final int telaMaximaHorizontal = 16; // Tamanho máximo de colunas. 3:4 = 16; 16:9 = 32.
-    final int telaMaximaVertical = 12; // Tamanho máximo de linhas. 3:4 = 12; 16:9 = 18.
-    final int larguraDaTela = tamanhoDaPeca * telaMaximaHorizontal; // 48*16 = 768 pixels ou 48*32 = 1536 pixels.
-    final int comprimentoDaTela = tamanhoDaPeca * telaMaximaVertical; // 48*12 = 576 pixels ou 48*18 = 864 pixels.
+    public final int telaMaximaHorizontal = 16; // Tamanho máximo de colunas. 3:4 = 16; 16:9 = 32.
+    public final int telaMaximaVertical = 12; // Tamanho máximo de linhas. 3:4 = 12; 16:9 = 18.
+    public final int larguraDaTela = tamanhoDaPeca * telaMaximaHorizontal; // 48*16 = 768 pixels ou 48*32 = 1536 pixels.
+    public final int comprimentoDaTela = tamanhoDaPeca * telaMaximaVertical; // 48*12 = 576 pixels ou 48*18 = 864 pixels.
 
     int FPS = 60; // Frames Per Second
 
+    GerenciadorDePeca peca_tela = new GerenciadorDePeca(this);
     Manipulador keyManipulador = new Manipulador();
     Thread threadDoJogo; // ALgo que podemos iniciar e parar a fim de deixar o programa rodando.
     Jogador jogador = new Jogador(this, keyManipulador);
-
-    // Definição da posição inicial do jogador
-    int jogadorX = 100;
-    int jogadorY = 100;
-    int velocidadeDoJogador = 4;
-
 
     public PainelDoJogo() {
         this.setPreferredSize(new Dimension(larguraDaTela, comprimentoDaTela));
@@ -82,6 +77,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g; // Muda os gráficos de g para g2.
         // A classe Graphics2D extende a classe Graphics para promover um controle mais sofisticado de geometria,
         // transformações de coordenadas, gerenciamento de cor, e layout de texto.
+        peca_tela.desenhar(g2);
         jogador.desenhar(g2);
         g2.dispose(); // Descarta isso do contexto de graphics e libera qualquer recursos que estão sendo usandos.
     }

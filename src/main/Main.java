@@ -18,6 +18,6 @@ public class Main {
         window.setVisible(true); // Permite que vejamos essa tela
 
         painelDoJogo.iniciarThreadDoJogo();
-        // Teste
+    
     }
 }

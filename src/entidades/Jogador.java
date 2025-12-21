@@ -29,7 +29,7 @@ public class Jogador extends Entidade{
 
     public void getImagemDoJogador(){
         try{
-            bogo = ImageIO.read(getClass().getResourceAsStream("/jogador/personagem.png")); // Mudei
+            bogo = ImageIO.read(getClass().getResourceAsStream("/res/jogador/personagem.png")); // Mudei
         } catch (IOException e) {
             e.printStackTrace();
         }
