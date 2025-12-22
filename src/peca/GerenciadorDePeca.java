@@ -14,22 +14,26 @@ public class GerenciadorDePeca {
 
     PainelDoJogo pj;
     Peca[] peca;
-    int pecaDeMapas[][];
+    int numeroDaPecaDoMundo[][];
 
     public GerenciadorDePeca(PainelDoJogo pj){
         this.pj = pj;
         peca = new Peca[10]; // Cria 10 espaços para cada peça
-        pecaDeMapas = new int[pj.telaMaximaHorizontal][pj.telaMaximaVertical];
+        numeroDaPecaDoMundo = new int[pj.maxColunasDoMundo][pj.maxLinhaDoMundo];
         getImagemDaPeca();
-        carregaMapa("/res/mapas/mapa1.txt");
+        carregaMapa("/res/mapas/mapa_do_mundo.txt");
     }
     // Essa classe carrega as imagens das peças.
     public void getImagemDaPeca(){
         try{
             peca[0] = new Peca();
             peca[0].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/Água.png"));
+
             peca[1] = new Peca();
             peca[1].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/Parede.png"));
+
+            peca[2] = new Peca();
+            peca[2].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/caminho.png"));
             /*
             peca[1] = new Peca();
             peca[1].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/pecaTeste.png"));
@@ -49,15 +53,15 @@ public class GerenciadorDePeca {
             InputStream arq = getClass().getResourceAsStream(caminho_do_mapa);
             BufferedReader leitura = new BufferedReader(new InputStreamReader(arq));
             int col = 0, lin = 0;
-            while(col < pj.telaMaximaHorizontal && lin < pj.telaMaximaVertical){
+            while(col < pj.maxColunasDoMundo && lin < pj.maxLinhaDoMundo){
                 String linha = leitura.readLine();
-                while(col < pj.telaMaximaHorizontal){
+                while(col < pj.maxColunasDoMundo){
                     String numeros[] = linha.split(" "); // split remove da string de acordo com o parâmetro
                     int num = Integer.parseInt(numeros[col]); // Transforma a string em inteiro
-                    pecaDeMapas[col][lin] = num;
+                    numeroDaPecaDoMundo[col][lin] = num;
                     col++;
                 }
-                if(col == pj.telaMaximaHorizontal){
+                if(col == pj.maxColunasDoMundo){
                     col = 0;
                     lin++;
                 }
@@ -71,18 +75,28 @@ public class GerenciadorDePeca {
 
     public void desenhar(Graphics2D g2){
 
-        int col = 0, lin = 0, x = 0, y = 0;
+        int colunaDoMundo = 0;
+        int linhaDoMundo = 0;
         // Cria o plano de fundo do jogo;
-        while(col < pj.telaMaximaHorizontal && lin < pj.telaMaximaVertical){
-            int pecaNum = pecaDeMapas[col][lin]; // Faz a leitura do número que estava no arquivo e informa qual é a peça
-            g2.drawImage(peca[pecaNum].imagem, x, y, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
-            col++;
-            x += pj.tamanhoDaPeca;
-            if(col == pj.telaMaximaHorizontal){
-                col = 0;
-                x = 0;
-                lin++;
-                y += pj.tamanhoDaPeca;
+        while(colunaDoMundo < pj.maxColunasDoMundo && linhaDoMundo < pj.maxLinhaDoMundo){
+            int pecaNum = numeroDaPecaDoMundo[colunaDoMundo][linhaDoMundo]; // Faz a leitura do número que estava no arquivo e informa qual é a peça
+            
+            int mundoX = colunaDoMundo * pj.tamanhoDaPeca;
+            int mundoY = linhaDoMundo * pj.tamanhoDaPeca;
+            int telaX = mundoX - pj.jogador.mundoX + pj.jogador.telaX; // Foi necessário subtrair para encontrar até onde deveria ser desenhado a tela
+            int telaY = mundoY - pj.jogador.mundoY + pj.jogador.telaY; // Foi necessário subtrair para encontrar até onde deveria ser desenhado a tela
+            // Foi necessária a soma para garantir que o jogador não encontrasse áreas que não estivessem desenhadas com peças e conseguisse progredir
+            
+            // Esse condicional garante que a peça só será desenhada se estiver dentro do limite da tela que o jogador vê
+            if(mundoX + pj.tamanhoDaPeca > pj.jogador.mundoX - pj.jogador.telaX && mundoX - pj.tamanhoDaPeca < pj.jogador.mundoX + pj.jogador.telaX
+            && mundoY + pj.tamanhoDaPeca > pj.jogador.mundoY - pj.jogador.telaY && mundoY - pj.tamanhoDaPeca < pj.jogador.mundoY + pj.jogador.telaY){
+                g2.drawImage(peca[pecaNum].imagem, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
+            }
+            colunaDoMundo++;
+
+            if(colunaDoMundo == pj.maxColunasDoMundo){
+                colunaDoMundo = 0;
+                linhaDoMundo++;
             }
         }
 

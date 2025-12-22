@@ -17,12 +17,18 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int larguraDaTela = tamanhoDaPeca * telaMaximaHorizontal; // 48*16 = 768 pixels ou 48*32 = 1536 pixels.
     public final int comprimentoDaTela = tamanhoDaPeca * telaMaximaVertical; // 48*12 = 576 pixels ou 48*18 = 864 pixels.
 
-    int FPS = 60; // Frames Per Second
+    // Condigurações do mundo
+    public final int maxColunasDoMundo = 50;
+    public final int maxLinhaDoMundo = 50;
+    public final int larguraDoMundo = tamanhoDaPeca * maxColunasDoMundo;
+    public final int comprimentoDoMundo = tamanhoDaPeca * maxLinhaDoMundo;
+    // Frames Per Second
+    int FPS = 60; 
 
     GerenciadorDePeca peca_tela = new GerenciadorDePeca(this);
     Manipulador keyManipulador = new Manipulador();
     Thread threadDoJogo; // ALgo que podemos iniciar e parar a fim de deixar o programa rodando.
-    Jogador jogador = new Jogador(this, keyManipulador);
+    public Jogador jogador = new Jogador(this, keyManipulador);
 
     public PainelDoJogo() {
         this.setPreferredSize(new Dimension(larguraDaTela, comprimentoDaTela));

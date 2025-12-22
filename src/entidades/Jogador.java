@@ -10,20 +10,24 @@ import java.io.IOException;
 
 public class Jogador extends Entidade{
 
-    PainelDoJogo jp;
+    PainelDoJogo pj;
     Manipulador manipulador;
 
-    public Jogador(PainelDoJogo jp, Manipulador manipulador){
-        this.jp = jp;
+    public final int telaX, telaY;
+
+    public Jogador(PainelDoJogo pj, Manipulador manipulador){
+        this.pj = pj;
         this.manipulador = manipulador;
+        telaX = pj.larguraDaTela / 2 - (pj.tamanhoDaPeca / 2); // Coloca o personagem no centro da tela
+        telaY = pj.comprimentoDaTela / 2 - (pj.tamanhoDaPeca / 2); // Coloca o personagem no centro da tela
         setValoresPadroes();
         getImagemDoJogador();
     }
 
     public void setValoresPadroes(){
-        x = 100;
-        y = 100;
-        speed = 4;
+        mundoX = pj.tamanhoDaPeca * 23; // Essa linha vai indicar em que posição do mapa o jogador inicia.
+        mundoY = pj.tamanhoDaPeca * 21; // Essa linha vai indicar em que posição do mapa o jogador inicia.  
+        velocidade = 4;
         direcao = "cima";
     }
 
@@ -41,19 +45,19 @@ public class Jogador extends Entidade{
 //        }
         if(manipulador.cimaPrecionado){
             direcao = "cima";
-            y -= speed;
+            mundoY -= velocidade;
         }
         else if(manipulador.baixoPrecionado){
             direcao = "baixo";
-            y += speed;
+            mundoY += velocidade;
         }
         else if(manipulador.esquerdaPrecionado){
             direcao = "esquerda";
-            x -= speed;
+            mundoX -= velocidade;
         }
         else if(manipulador.direitaPreciondo){
             direcao = "direita";
-            x += speed;
+            mundoX += velocidade;
         }
 
 //        contadorDoEstado++;
@@ -111,7 +115,7 @@ public class Jogador extends Entidade{
                 image = bogo;
                 break;
         }
-        g2.drawImage(image,x, y, jp.tamanhoDaPeca, jp.tamanhoDaPeca, null);
+        g2.drawImage(image, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
     }
 
 }

@@ -7,11 +7,11 @@ import java.awt.image.BufferedImage;
  */
 public class Entidade {
 
-    public int x, y;
-    public int speed;
+    public int mundoX, mundoY;
+    public int velocidade;
 
     // Precisamos usamos variáveis como essas para trazer as imagens que serão as animações de movimentação
-    public BufferedImage bogo;
+    public BufferedImage bogo; // up, down, left, right
     public String direcao; // Aqui será guardado qual imagem deve ser mostarda com determinada ação
 
 //    public int contadorDoEstado = 0;
