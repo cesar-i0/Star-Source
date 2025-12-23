@@ -18,8 +18,16 @@ public class Jogador extends Entidade{
     public Jogador(PainelDoJogo pj, Manipulador manipulador){
         this.pj = pj;
         this.manipulador = manipulador;
+
         telaX = pj.larguraDaTela / 2 - (pj.tamanhoDaPeca / 2); // Coloca o personagem no centro da tela
         telaY = pj.comprimentoDaTela / 2 - (pj.tamanhoDaPeca / 2); // Coloca o personagem no centro da tela
+
+        area_solida =  new Rectangle();
+        area_solida.x = 8;
+        area_solida.y = 8;
+        area_solida.width = 32;
+        area_solida.height = 32;
+
         setValoresPadroes();
         getImagemDoJogador();
     }
@@ -40,36 +48,53 @@ public class Jogador extends Entidade{
     }
 
     public void update(){
-//        if(manipulador.cimaPrecionado || manipulador.baixoPrecionado || manipulador.esquerdaPrecionado || manipulador.direitaPreciondo){
-//            // Coloque todas as condições abaixo para o personagem se mover apenas quando algum botão estiver selecionado
-//        }
-        if(manipulador.cimaPrecionado){
-            direcao = "cima";
-            mundoY -= velocidade;
-        }
-        else if(manipulador.baixoPrecionado){
-            direcao = "baixo";
-            mundoY += velocidade;
-        }
-        else if(manipulador.esquerdaPrecionado){
-            direcao = "esquerda";
-            mundoX -= velocidade;
-        }
-        else if(manipulador.direitaPreciondo){
-            direcao = "direita";
-            mundoX += velocidade;
-        }
-
-//        contadorDoEstado++;
-//        if(numeroDoEstado > 12){
-//            if(numeroDoEstado == 1){
-//                numeroDoEstado = 2;
-//            }
-//            else if (numeroDoEstado == 2){
-//                numeroDoEstado = 1;
-//            }
-//            numeroDoEstado = 0;
-//        }
+       if(manipulador.cimaPrecionado || manipulador.baixoPrecionado || manipulador.esquerdaPrecionado || manipulador.direitaPreciondo){
+           // Coloque todas as condições abaixo para o personagem se mover apenas quando algum botão estiver selecionado
+           if(manipulador.cimaPrecionado){
+               direcao = "cima";
+           }
+           else if(manipulador.baixoPrecionado){
+               direcao = "baixo";
+           }
+           else if(manipulador.esquerdaPrecionado){
+               direcao = "esquerda";
+           }
+           else if(manipulador.direitaPreciondo){
+               direcao = "direita";
+           }
+   
+           // Verfica a colisão da peça
+           colisao_ligada = false;
+           pj.verifica.verificaPeca(this);
+           // Se a colisão for false o joagador pode se mover
+           if(colisao_ligada == false){
+               switch (direcao){
+                   case "cima":
+                       mundoY -= velocidade;
+                       break;
+                   case "baixo":
+                       mundoY += velocidade;
+                       break;
+                   case "esquerda":
+                       mundoX -= velocidade;
+                       break;
+                   case "direita":
+                       mundoX += velocidade;
+                       break;
+               }
+           }
+   
+   //        contadorDoEstado++;
+   //        if(numeroDoEstado > 12){
+   //            if(numeroDoEstado == 1){
+   //                numeroDoEstado = 2;
+   //            }
+   //            else if (numeroDoEstado == 2){
+   //                numeroDoEstado = 1;
+   //            }
+   //            numeroDoEstado = 0;
+   //        }
+       }
 
     }
 

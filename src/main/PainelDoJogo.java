@@ -1,6 +1,7 @@
 package main;
 
 import entidades.Jogador;
+import objetos.SuperObjetos;
 import peca.GerenciadorDePeca;
 
 import javax.swing.JPanel;
@@ -28,7 +29,10 @@ public class PainelDoJogo extends JPanel implements Runnable {
     GerenciadorDePeca peca_tela = new GerenciadorDePeca(this);
     Manipulador keyManipulador = new Manipulador();
     Thread threadDoJogo; // ALgo que podemos iniciar e parar a fim de deixar o programa rodando.
+    public VerificaColisao verifica = new VerificaColisao(this);
+    public ConfiguraRecurso configura_recurso = new ConfiguraRecurso(this);
     public Jogador jogador = new Jogador(this, keyManipulador);
+    public SuperObjetos obj[] = new SuperObjetos[10]; // Torna possível mostrar 10 objetos no mesmo display/tela 
 
     public PainelDoJogo() {
         this.setPreferredSize(new Dimension(larguraDaTela, comprimentoDaTela));
@@ -36,6 +40,12 @@ public class PainelDoJogo extends JPanel implements Runnable {
         this.setDoubleBuffered(true); // Toda a pintura do componente será feita se fora da tela pela pintura do buffer. (Pode melhorar a performance do jogo)
         this.addKeyListener(keyManipulador);
         this.setFocusable(true); // Com isso, o PainelDoJogo pode focar em receber a key de entrada
+
+    }
+
+    public void configura_objetos(){
+
+        configura_recurso.setObjeto();
 
     }
 
@@ -83,8 +93,17 @@ public class PainelDoJogo extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g; // Muda os gráficos de g para g2.
         // A classe Graphics2D extende a classe Graphics para promover um controle mais sofisticado de geometria,
         // transformações de coordenadas, gerenciamento de cor, e layout de texto.
-        peca_tela.desenhar(g2);
-        jogador.desenhar(g2);
+    
+        peca_tela.desenhar(g2); // Peça
+
+        // Objeto
+        for(int i = 0; i < obj.length; i++){
+            if(obj[i] != null){
+                obj[i].desenhar(g2, this);
+            }
+        }
+
+        jogador.desenhar(g2); // Jogador
         g2.dispose(); // Descarta isso do contexto de graphics e libera qualquer recursos que estão sendo usandos.
     }
 

@@ -13,8 +13,8 @@ import main.PainelDoJogo;
 public class GerenciadorDePeca {
 
     PainelDoJogo pj;
-    Peca[] peca;
-    int numeroDaPecaDoMundo[][];
+    public Peca[] peca;
+    public int numeroDaPecaDoMundo[][];
 
     public GerenciadorDePeca(PainelDoJogo pj){
         this.pj = pj;
@@ -31,6 +31,7 @@ public class GerenciadorDePeca {
 
             peca[1] = new Peca();
             peca[1].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/Parede.png"));
+            peca[1].colisao = true; // Define que essa peça não pode ser ultrapassada com o personagem
 
             peca[2] = new Peca();
             peca[2].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/caminho.png"));
