@@ -14,6 +14,7 @@ public class OBJ_Porta extends SuperObjetos{
         catch(IOException e){
             e.printStackTrace();
         }
+        colisao = true;
     }
 
 }

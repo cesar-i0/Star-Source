@@ -1,6 +1,7 @@
 package main;
 
 import objetos.OBJ_Bau;
+import objetos.OBJ_Bota;
 import objetos.OBJ_Chave;
 import objetos.OBJ_Porta;
 
@@ -29,6 +30,10 @@ public class ConfiguraRecurso {
         pj.obj[4] = new OBJ_Bau();
         pj.obj[4].mundoX = 26 * pj.tamanhoDaPeca;
         pj.obj[4].mundoY = 48 * pj.tamanhoDaPeca;
+
+        pj.obj[5] = new OBJ_Bota();
+        pj.obj[5].mundoX = 37 * pj.tamanhoDaPeca;
+        pj.obj[5].mundoY = 42 * pj.tamanhoDaPeca;
 
     }
 

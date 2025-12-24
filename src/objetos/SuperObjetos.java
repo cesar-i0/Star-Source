@@ -1,5 +1,6 @@
 package objetos;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import main.PainelDoJogo;
@@ -10,6 +11,9 @@ public class SuperObjetos {
     public String nome;
     public boolean colisao = false;
     public int mundoX, mundoY;
+    public Rectangle area_solida = new Rectangle(0,0,48,48); // Aqui definimos a área que é sólida no objeto
+    public int area_solida_padraoX = 0;
+    public int area_solida_padraoY = 0;
 
     public void desenhar(Graphics2D g2, PainelDoJogo pj){
         int telaX = mundoX - pj.jogador.mundoX + pj.jogador.telaX; // Foi necessário subtrair para encontrar até onde deveria ser desenhado a tela

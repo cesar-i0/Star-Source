@@ -21,16 +21,21 @@ public class PainelDoJogo extends JPanel implements Runnable {
     // Condigurações do mundo
     public final int maxColunasDoMundo = 50;
     public final int maxLinhaDoMundo = 50;
-    public final int larguraDoMundo = tamanhoDaPeca * maxColunasDoMundo;
-    public final int comprimentoDoMundo = tamanhoDaPeca * maxLinhaDoMundo;
+    // public final int larguraDoMundo = tamanhoDaPeca * maxColunasDoMundo;
+    // public final int comprimentoDoMundo = tamanhoDaPeca * maxLinhaDoMundo;
+
     // Frames Per Second
     int FPS = 60; 
 
+    // Sistema
     GerenciadorDePeca peca_tela = new GerenciadorDePeca(this);
     Manipulador keyManipulador = new Manipulador();
-    Thread threadDoJogo; // ALgo que podemos iniciar e parar a fim de deixar o programa rodando.
+    Som som = new Som();
     public VerificaColisao verifica = new VerificaColisao(this);
     public ConfiguraRecurso configura_recurso = new ConfiguraRecurso(this);
+    Thread threadDoJogo; // ALgo que podemos iniciar e parar a fim de deixar o programa rodando.
+    
+    // Entidade e Objeto
     public Jogador jogador = new Jogador(this, keyManipulador);
     public SuperObjetos obj[] = new SuperObjetos[10]; // Torna possível mostrar 10 objetos no mesmo display/tela 
 
@@ -43,9 +48,10 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
     }
 
-    public void configura_objetos(){
+    public void configuracao_do_jogo(){
 
         configura_recurso.setObjeto();
+        tocarMusica(0);
 
     }
 
@@ -105,6 +111,25 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
         jogador.desenhar(g2); // Jogador
         g2.dispose(); // Descarta isso do contexto de graphics e libera qualquer recursos que estão sendo usandos.
+    }
+
+    public void tocarMusica(int i){
+
+        som.selecionaArquivo(i);
+        som.tocar();
+        som.loop();
+
+    }
+
+    public void pararMusica(){
+        som.para();
+    }
+
+    public void tocarEfeitoSonoro(int i){
+
+        som.selecionaArquivo(i);
+        som.tocar();
+
     }
 
 }

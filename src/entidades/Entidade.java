@@ -17,6 +17,7 @@ public class Entidade {
 //    public int contadorDoEstado = 0;
 //    public int numeroDoEstado = 1;
     public Rectangle area_solida;
+    public int area_solida_padraoX, area_solida_padraoY;
     public boolean colisao_ligada = false;
 
 }

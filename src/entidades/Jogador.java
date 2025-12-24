@@ -12,8 +12,8 @@ public class Jogador extends Entidade{
 
     PainelDoJogo pj;
     Manipulador manipulador;
-
     public final int telaX, telaY;
+    int possuiChave = 0;
 
     public Jogador(PainelDoJogo pj, Manipulador manipulador){
         this.pj = pj;
@@ -25,6 +25,8 @@ public class Jogador extends Entidade{
         area_solida =  new Rectangle();
         area_solida.x = 8;
         area_solida.y = 8;
+        area_solida_padraoX = area_solida.x;
+        area_solida_padraoY = area_solida.y;
         area_solida.width = 32;
         area_solida.height = 32;
 
@@ -66,6 +68,11 @@ public class Jogador extends Entidade{
            // Verfica a colisão da peça
            colisao_ligada = false;
            pj.verifica.verificaPeca(this);
+
+           // Verifica a colisao com objetos
+           int index_do_objeto = pj.verifica.verificaObjeto(this, true);
+           pegueObjeto(index_do_objeto);
+
            // Se a colisão for false o joagador pode se mover
            if(colisao_ligada == false){
                switch (direcao){
@@ -95,6 +102,37 @@ public class Jogador extends Entidade{
    //            numeroDoEstado = 0;
    //        }
        }
+
+    }
+
+    public void pegueObjeto(int index){
+        // Se não for 999 então a entidade tocou no objeto
+        if(index != 999){
+            // pj.obj[index] = null; // Deleta o objeto tocado
+            String nome_do_objeto =  pj.obj[index].nome;
+            
+            switch (nome_do_objeto) {
+                case "Chave":
+                    //pj.tocarEfeitoSonoro(1); // Toca o efeito sonoro da coleta da chave
+                    possuiChave++;
+                    pj.obj[index] = null;
+                    System.out.println("Chave: " + possuiChave);
+                    break;
+                case "Porta":
+                    //pj.tocarEfeitoSonoro(2); // Toca o efeito sonoro da coleta da porta
+                    if(possuiChave > 0){
+                        pj.obj[index] = null;
+                        possuiChave--;
+                    }
+                    System.out.println("Chave: " + possuiChave);
+                    break;
+                case "Bota":
+                    //pj.tocarEfeitoSonoro(3); // Toca o efeito sonoro da coleta de item
+                    velocidade += 2;
+                    pj.obj[index] = null;
+                    break;
+            }
+        }
 
     }
 
