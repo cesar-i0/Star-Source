@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 
+import main.FerramentaUtilitaria;
 import main.PainelDoJogo;
 
 public class GerenciadorDePeca {
@@ -25,28 +26,26 @@ public class GerenciadorDePeca {
     }
     // Essa classe carrega as imagens das peças.
     public void getImagemDaPeca(){
-        try{
-            peca[0] = new Peca();
-            peca[0].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/Água.png"));
 
-            peca[1] = new Peca();
-            peca[1].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/Parede.png"));
-            peca[1].colisao = true; // Define que essa peça não pode ser ultrapassada com o personagem
+        configuracoes(0, "Água", false);
+        configuracoes(1, "Parede", true);
+        configuracoes(2, "caminho", false);
 
-            peca[2] = new Peca();
-            peca[2].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/caminho.png"));
-            /*
-            peca[1] = new Peca();
-            peca[1].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/pecaTeste.png"));
+    }
 
-            peca[2] = new Peca();
-            peca[2].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/pecaTeste.png"));
+    public void configuracoes(int index, String nome_da_imagem, boolean colisao){
 
-            */
-        }
-        catch(IOException e){
+        FerramentaUtilitaria ferramenta = new FerramentaUtilitaria();
+
+        try {
+            peca[index] = new Peca();
+            peca[index].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/" + nome_da_imagem + ".png"));
+            peca[index].imagem = ferramenta.imagemRedimensionada(peca[index].imagem, pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+            peca[index].colisao = colisao;
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public void carregaMapa(String caminho_do_mapa){
@@ -91,7 +90,7 @@ public class GerenciadorDePeca {
             // Esse condicional garante que a peça só será desenhada se estiver dentro do limite da tela que o jogador vê
             if(mundoX + pj.tamanhoDaPeca > pj.jogador.mundoX - pj.jogador.telaX && mundoX - pj.tamanhoDaPeca < pj.jogador.mundoX + pj.jogador.telaX
             && mundoY + pj.tamanhoDaPeca > pj.jogador.mundoY - pj.jogador.telaY && mundoY - pj.tamanhoDaPeca < pj.jogador.mundoY + pj.jogador.telaY){
-                g2.drawImage(peca[pecaNum].imagem, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
+                g2.drawImage(peca[pecaNum].imagem, telaX, telaY, null);
             }
             colunaDoMundo++;
 

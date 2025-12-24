@@ -17,7 +17,7 @@ public class Main {
         window.setLocationRelativeTo(null); // A janela será aberta no centro da tela
         window.setVisible(true); // Permite que vejamos essa tela
 
-        painelDoJogo.configuracao_do_jogoa(); // Posiciona itens no mapa do jogo
+        painelDoJogo.configuracao_do_jogo(); // Posiciona itens no mapa do jogo
         painelDoJogo.iniciarThreadDoJogo();
     
     }

@@ -29,21 +29,23 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
     // Sistema
     GerenciadorDePeca peca_tela = new GerenciadorDePeca(this);
-    Manipulador keyManipulador = new Manipulador();
-    Som som = new Som();
+    Manipulador chaveManipuladora = new Manipulador();
+    Som musica = new Som();
+    Som efeitoSonoro =  new Som();
     public VerificaColisao verifica = new VerificaColisao(this);
     public ConfiguraRecurso configura_recurso = new ConfiguraRecurso(this);
+    public UI ui =  new UI(this);
     Thread threadDoJogo; // ALgo que podemos iniciar e parar a fim de deixar o programa rodando.
     
     // Entidade e Objeto
-    public Jogador jogador = new Jogador(this, keyManipulador);
+    public Jogador jogador = new Jogador(this, chaveManipuladora);
     public SuperObjetos obj[] = new SuperObjetos[10]; // Torna possível mostrar 10 objetos no mesmo display/tela 
 
     public PainelDoJogo() {
         this.setPreferredSize(new Dimension(larguraDaTela, comprimentoDaTela));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true); // Toda a pintura do componente será feita se fora da tela pela pintura do buffer. (Pode melhorar a performance do jogo)
-        this.addKeyListener(keyManipulador);
+        this.addKeyListener(chaveManipuladora);
         this.setFocusable(true); // Com isso, o PainelDoJogo pode focar em receber a key de entrada
 
     }
@@ -95,6 +97,11 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
     // A classe "Graphics" tem muitas funções para desenhar objetos na tela.
     public void paintComponent(Graphics g){
+        
+        // DEBUG
+        long inicio_de_desenhar = 0;
+        if(chaveManipuladora.verificaTempoDeDesenho == true) inicio_de_desenhar = System.nanoTime();
+
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g; // Muda os gráficos de g para g2.
         // A classe Graphics2D extende a classe Graphics para promover um controle mais sofisticado de geometria,
@@ -108,27 +115,39 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 obj[i].desenhar(g2, this);
             }
         }
+        // Jogador
+        jogador.desenhar(g2);
+        // UI
+        ui.desenhar(g2);
 
-        jogador.desenhar(g2); // Jogador
+        //DEBUG
+        if(chaveManipuladora.verificaTempoDeDesenho == true){
+            long fim_de_desenhar = System.nanoTime();
+            long passou = fim_de_desenhar - inicio_de_desenhar;
+            g2.setColor(Color.white);
+            g2.drawString("Tempo de desenho: "+ passou, 10, 400);
+            System.out.println("Tempo de desenho: "+ passou);
+        }
+
         g2.dispose(); // Descarta isso do contexto de graphics e libera qualquer recursos que estão sendo usandos.
     }
 
     public void tocarMusica(int i){
 
-        som.selecionaArquivo(i);
-        som.tocar();
-        som.loop();
+        musica.selecionaArquivo(i);
+        musica.tocar();
+        musica.loop();
 
     }
 
     public void pararMusica(){
-        som.para();
+        musica.para();
     }
 
     public void tocarEfeitoSonoro(int i){
 
-        som.selecionaArquivo(i);
-        som.tocar();
+        efeitoSonoro.selecionaArquivo(i);
+        efeitoSonoro.tocar();
 
     }
 

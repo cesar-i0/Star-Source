@@ -1,5 +1,6 @@
 package entidades;
 
+import main.FerramentaUtilitaria;
 import main.Manipulador;
 import main.PainelDoJogo;
 
@@ -13,7 +14,8 @@ public class Jogador extends Entidade{
     PainelDoJogo pj;
     Manipulador manipulador;
     public final int telaX, telaY;
-    int possuiChave = 0;
+    public  int possuiChave = 0;
+    // int estadoInicial = 0;
 
     public Jogador(PainelDoJogo pj, Manipulador manipulador){
         this.pj = pj;
@@ -42,11 +44,28 @@ public class Jogador extends Entidade{
     }
 
     public void getImagemDoJogador(){
-        try{
-            bogo = ImageIO.read(getClass().getResourceAsStream("/res/jogador/personagem.png")); // Mudei
+        
+        bogo = configuracoes("personagem");
+        // cima1, cima2, baixo1, baixo2, esquerda1, esquerda2, direita1, direita2;
+
+    }
+
+    public BufferedImage configuracoes(String nome_da_imagem){
+
+        FerramentaUtilitaria ferramenta = new FerramentaUtilitaria();
+
+        BufferedImage imagem = null;
+
+        try {
+
+            imagem = ImageIO.read(getClass().getResourceAsStream("/res/jogador/"+ nome_da_imagem +".png"));
+            imagem = ferramenta.imagemRedimensionada(imagem, pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return imagem;
     }
 
     public void update(){
@@ -91,17 +110,24 @@ public class Jogador extends Entidade{
                }
            }
    
-   //        contadorDoEstado++;
-   //        if(numeroDoEstado > 12){
-   //            if(numeroDoEstado == 1){
-   //                numeroDoEstado = 2;
-   //            }
-   //            else if (numeroDoEstado == 2){
-   //                numeroDoEstado = 1;
-   //            }
-   //            numeroDoEstado = 0;
-   //        }
-       }
+            // contadorDoEstado++;
+            // if(numeroDoEstado > 12){
+            //     if(numeroDoEstado == 1){
+            //         numeroDoEstado = 2;
+            //     }
+            //     else if (numeroDoEstado == 2){
+            //         numeroDoEstado = 1;
+            //     }
+            //     numeroDoEstado = 0;
+            // }
+        }
+    //    else{
+    //         estadoInicial++;
+    //         if(estadoInicial == 20){
+    //             numeroDoEstado = 1;
+    //             estadoInicial = 0;
+    //         }
+    //    }
 
     }
 
@@ -116,20 +142,29 @@ public class Jogador extends Entidade{
                     //pj.tocarEfeitoSonoro(1); // Toca o efeito sonoro da coleta da chave
                     possuiChave++;
                     pj.obj[index] = null;
-                    System.out.println("Chave: " + possuiChave);
+                    pj.ui.mostrarMensagem("Você conseguiu uma chave!");
+                    // System.out.println("Chave: " + possuiChave);
                     break;
                 case "Porta":
                     //pj.tocarEfeitoSonoro(2); // Toca o efeito sonoro da coleta da porta
                     if(possuiChave > 0){
                         pj.obj[index] = null;
                         possuiChave--;
+                        pj.ui.mostrarMensagem("Você abriu a porta!");
                     }
-                    System.out.println("Chave: " + possuiChave);
+                    else pj.ui.mostrarMensagem("Você precisa de uma chave!");
+                    // System.out.println("Chave: " + possuiChave);
                     break;
                 case "Bota":
                     //pj.tocarEfeitoSonoro(3); // Toca o efeito sonoro da coleta de item
                     velocidade += 2;
                     pj.obj[index] = null;
+                    pj.ui.mostrarMensagem("Aumento de velociadade!");
+                    break;
+                case "Baú":
+                    pj.ui.jogoFinalisado = true;
+                    pj.pararMusica();
+                    // pj.tocarEfeitoSonoro(5);
                     break;
             }
         }
@@ -178,7 +213,11 @@ public class Jogador extends Entidade{
                 image = bogo;
                 break;
         }
-        g2.drawImage(image, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
+        g2.drawImage(image, telaX, telaY, null);
+
+        // Para ver a área de colisão usamos isso
+        g2.setColor(Color.red);
+        g2.drawRect(telaX + area_solida.x, telaY + area_solida.y, area_solida.width, area_solida.height);
     }
 
 }

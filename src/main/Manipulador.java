@@ -7,6 +7,8 @@ import java.awt.event.KeyListener;
 public class Manipulador implements KeyListener {
 
     public boolean cimaPrecionado, baixoPrecionado, esquerdaPrecionado, direitaPreciondo;
+    //DEBUG
+    boolean verificaTempoDeDesenho = false;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -20,6 +22,17 @@ public class Manipulador implements KeyListener {
         if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) baixoPrecionado = true;
         if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) esquerdaPrecionado = true;
         if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) direitaPreciondo = true;
+
+        //DEBUG
+        if(code == KeyEvent.VK_T){
+            if(verificaTempoDeDesenho == false){
+                verificaTempoDeDesenho = true;
+            }
+            else if(verificaTempoDeDesenho == true){
+                verificaTempoDeDesenho = false;
+            }
+        }
+
     }
 
     @Override
