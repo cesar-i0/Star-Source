@@ -1,28 +1,24 @@
 package entidades;
 
-import main.FerramentaUtilitaria;
 import main.Manipulador;
 import main.PainelDoJogo;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Jogador extends Entidade{
 
-    PainelDoJogo pj;
     Manipulador manipulador;
     public final int telaX, telaY;
-    public  int possuiChave = 0;
     // int estadoInicial = 0;
 
     public Jogador(PainelDoJogo pj, Manipulador manipulador){
-        this.pj = pj;
+        
+        super(pj);  // Aqui estamos passando o painel do jogo para a super classe "Entidade"
+
         this.manipulador = manipulador;
 
         telaX = pj.larguraDaTela / 2 - (pj.tamanhoDaPeca / 2); // Coloca o personagem no centro da tela
-        telaY = pj.comprimentoDaTela / 2 - (pj.tamanhoDaPeca / 2); // Coloca o personagem no centro da tela
+        telaY = pj.alturaDaTela / 2 - (pj.tamanhoDaPeca / 2); // Coloca o personagem no centro da tela
 
         area_solida =  new Rectangle();
         area_solida.x = 8;
@@ -37,36 +33,26 @@ public class Jogador extends Entidade{
     }
 
     public void setValoresPadroes(){
+
         mundoX = pj.tamanhoDaPeca * 23; // Essa linha vai indicar em que posição do mapa o jogador inicia.
         mundoY = pj.tamanhoDaPeca * 21; // Essa linha vai indicar em que posição do mapa o jogador inicia.  
         velocidade = 4;
         direcao = "cima";
+
+        // Status do jogador
+        vidaMaxima = 6;
+        vida = vidaMaxima;
+
     }
 
     public void getImagemDoJogador(){
         
-        bogo = configuracoes("personagem");
+        bogo = configuracoes("/res/jogador/personagem");
         // cima1, cima2, baixo1, baixo2, esquerda1, esquerda2, direita1, direita2;
 
     }
 
-    public BufferedImage configuracoes(String nome_da_imagem){
-
-        FerramentaUtilitaria ferramenta = new FerramentaUtilitaria();
-
-        BufferedImage imagem = null;
-
-        try {
-
-            imagem = ImageIO.read(getClass().getResourceAsStream("/res/jogador/"+ nome_da_imagem +".png"));
-            imagem = ferramenta.imagemRedimensionada(imagem, pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return imagem;
-    }
+    
 
     public void update(){
        if(manipulador.cimaPrecionado || manipulador.baixoPrecionado || manipulador.esquerdaPrecionado || manipulador.direitaPreciondo){
@@ -91,6 +77,14 @@ public class Jogador extends Entidade{
            // Verifica a colisao com objetos
            int index_do_objeto = pj.verifica.verificaObjeto(this, true);
            pegueObjeto(index_do_objeto);
+
+           // Verifica a colisão com NPC
+           int index_do_NPC = pj.verifica.verificaEntidade(this, pj.npc);
+           interacaoNPC(index_do_NPC);
+
+           // Verifica evento
+           pj.evento.verificaEvento();
+           pj.chaveManipuladora.enterPressionado = false;
 
            // Se a colisão for false o joagador pode se mover
            if(colisao_ligada == false){
@@ -131,50 +125,31 @@ public class Jogador extends Entidade{
 
     }
 
-    public void pegueObjeto(int index){
+    public void pegueObjeto(int i){
         // Se não for 999 então a entidade tocou no objeto
-        if(index != 999){
-            // pj.obj[index] = null; // Deleta o objeto tocado
-            String nome_do_objeto =  pj.obj[index].nome;
+        if(i != 999){
             
-            switch (nome_do_objeto) {
-                case "Chave":
-                    //pj.tocarEfeitoSonoro(1); // Toca o efeito sonoro da coleta da chave
-                    possuiChave++;
-                    pj.obj[index] = null;
-                    pj.ui.mostrarMensagem("Você conseguiu uma chave!");
-                    // System.out.println("Chave: " + possuiChave);
-                    break;
-                case "Porta":
-                    //pj.tocarEfeitoSonoro(2); // Toca o efeito sonoro da coleta da porta
-                    if(possuiChave > 0){
-                        pj.obj[index] = null;
-                        possuiChave--;
-                        pj.ui.mostrarMensagem("Você abriu a porta!");
-                    }
-                    else pj.ui.mostrarMensagem("Você precisa de uma chave!");
-                    // System.out.println("Chave: " + possuiChave);
-                    break;
-                case "Bota":
-                    //pj.tocarEfeitoSonoro(3); // Toca o efeito sonoro da coleta de item
-                    velocidade += 2;
-                    pj.obj[index] = null;
-                    pj.ui.mostrarMensagem("Aumento de velociadade!");
-                    break;
-                case "Baú":
-                    pj.ui.jogoFinalisado = true;
-                    pj.pararMusica();
-                    // pj.tocarEfeitoSonoro(5);
-                    break;
-            }
+            
+
         }
 
+    }
+
+    public void interacaoNPC(int i){
+
+        if(i != 999){
+            if(pj.chaveManipuladora.enterPressionado == true){
+                // System.out.println("Colidindo com NPC");
+                pj.estado_do_jogo = pj.estado_de_dialogo;
+                pj.npc[i].falar();
+            }
+        }
     }
 
     public void desenhar(Graphics g2){
 //        g2.setColor(Color.white);
 //        g2.fillRect(x, y, jp.tamanhoDaPeca, jp.tamanhoDaPeca); // Vai desenhar o retangulo e completa com a cor especificada.
-        BufferedImage image = null;
+        BufferedImage imagem = null;
         switch (direcao){
             case "cima":
 //                if(numeroDoEstado == 1){
@@ -183,7 +158,7 @@ public class Jogador extends Entidade{
 //                if(numeroDoEstado){
 //                    image = bogo;
 //                }
-                image = bogo;
+                imagem = bogo;
                 break;
             case "baixo":
 //                if(numeroDoEstado == 1){
@@ -192,7 +167,7 @@ public class Jogador extends Entidade{
 //                if(numeroDoEstado){
 //                    image = bogo;
 //                }
-                image = bogo;
+                imagem = bogo;
                 break;
             case "esquerda":
 //                if(numeroDoEstado == 1){
@@ -201,7 +176,7 @@ public class Jogador extends Entidade{
 //                if(numeroDoEstado){
 //                    image = bogo;
 //                }
-                image = bogo;
+                imagem = bogo;
                 break;
             case "direita":
 //                if(numeroDoEstado == 1){
@@ -210,10 +185,10 @@ public class Jogador extends Entidade{
 //                if(numeroDoEstado){
 //                    image = bogo;
 //                }
-                image = bogo;
+                imagem = bogo;
                 break;
         }
-        g2.drawImage(image, telaX, telaY, null);
+        g2.drawImage(imagem, telaX, telaY, null);
 
         // Para ver a área de colisão usamos isso
         g2.setColor(Color.red);

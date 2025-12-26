@@ -130,4 +130,123 @@ public class VerificaColisao {
 
     }
 
+    // Verifica colisão de NPC ou monstro
+    public int verificaEntidade(Entidade entidade, Entidade[] alvo){
+       
+        int index = 999;
+
+        for(int i = 0; i < alvo.length; i++){
+
+            if(alvo[i] != null){
+                // Pega a posição área sólida das entidades
+                entidade.area_solida.x = entidade.mundoX + entidade.area_solida.x;
+                entidade.area_solida.y = entidade.mundoY + entidade.area_solida.y;
+                // Pega a posição área sólida dos objetos
+                alvo[i].area_solida.x = alvo[i].mundoX + alvo[i].area_solida.x;
+                alvo[i].area_solida.y = alvo[i].mundoY + alvo[i].area_solida.y;
+
+                // Simulamos o movimento da entidade e verificamos onde ela vai estar após o movimento.
+                switch (entidade.direcao) {
+                    case "cima":
+                        entidade.area_solida.y -= entidade.velocidade;
+                        // Verifica se os dois retangulos estão colidindo
+                        if(entidade.area_solida.intersects(alvo[i].area_solida)){
+                            // System.out.println("Colisão para cima!");
+                            entidade.colisao_ligada = true;
+                            index = i;
+                        }
+                        break;
+                    case "baixo":
+                        entidade.area_solida.y += entidade.velocidade;
+                        // Verifica se os dois retangulos estão colidindo
+                        if(entidade.area_solida.intersects(alvo[i].area_solida)){
+                            // System.out.println("Colisão para baixo!");
+                            entidade.colisao_ligada = true;
+                            index = i;
+                        }
+                        break;
+                    case "esquerda":
+                        entidade.area_solida.x -= entidade.velocidade;
+                        // Verifica se os dois retangulos estão colidindo
+                        if(entidade.area_solida.intersects(alvo[i].area_solida)){
+                            // System.out.println("Colisão para esquerda!");
+                            entidade.colisao_ligada = true;
+                            index = i;
+                        }
+                        break;
+                    case "direita":
+                        entidade.area_solida.x += entidade.velocidade;
+                        // Verifica se os dois retangulos estão colidindo
+                        if(entidade.area_solida.intersects(alvo[i].area_solida)){
+                            // System.out.println("Colisão para direita!");
+                            entidade.colisao_ligada = true;
+                            index = i;
+                        }
+                        break;
+                }
+
+                entidade.area_solida.x = entidade.area_solida_padraoX;
+                entidade.area_solida.y = entidade.area_solida_padraoY;
+                alvo[i].area_solida.x = alvo[i].area_solida_padraoX;
+                alvo[i].area_solida.y = alvo[i].area_solida_padraoY;
+
+            }
+
+        }
+
+        return index; 
+    }
+
+    public void verificaJogador(Entidade entidade){
+
+        // Pega a posição área sólida das entidades
+        entidade.area_solida.x = entidade.mundoX + entidade.area_solida.x;
+        entidade.area_solida.y = entidade.mundoY + entidade.area_solida.y;
+        // Pega a posição área sólida dos objetos
+        pj.jogador.area_solida.x = pj.jogador.mundoX + pj.jogador.area_solida.x;
+        pj.jogador.area_solida.y = pj.jogador.mundoY + pj.jogador.area_solida.y;
+
+        // Simulamos o movimento da entidade e verificamos onde ela vai estar após o movimento.
+        switch (entidade.direcao) {
+            case "cima":
+                entidade.area_solida.y -= entidade.velocidade;
+                // Verifica se os dois retangulos estão colidindo
+                if(entidade.area_solida.intersects(pj.jogador.area_solida)){
+                    // System.out.println("Colisão para cima!");
+                    entidade.colisao_ligada = true;
+                }
+                break;
+            case "baixo":
+                entidade.area_solida.y += entidade.velocidade;
+                // Verifica se os dois retangulos estão colidindo
+                if(entidade.area_solida.intersects(pj.jogador.area_solida)){
+                    // System.out.println("Colisão para baixo!");
+                    entidade.colisao_ligada = true;
+                }
+                break;
+            case "esquerda":
+                entidade.area_solida.x -= entidade.velocidade;
+                // Verifica se os dois retangulos estão colidindo
+                if(entidade.area_solida.intersects(pj.jogador.area_solida)){
+                    // System.out.println("Colisão para esquerda!");
+                    entidade.colisao_ligada = true;
+                }
+                break;
+            case "direita":
+                entidade.area_solida.x += entidade.velocidade;
+                // Verifica se os dois retangulos estão colidindo
+                if(entidade.area_solida.intersects(pj.jogador.area_solida)){
+                    // System.out.println("Colisão para direita!");
+                    entidade.colisao_ligada = true;
+                }
+                break;
+        }
+
+        entidade.area_solida.x = entidade.area_solida_padraoX;
+        entidade.area_solida.y = entidade.area_solida_padraoY;
+        pj.jogador.area_solida.x = pj.jogador.area_solida_padraoX;
+        pj.jogador.area_solida.y = pj.jogador.area_solida_padraoY;
+
+    }
+
 }

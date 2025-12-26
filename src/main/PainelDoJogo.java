@@ -1,5 +1,6 @@
 package main;
 
+import entidades.Entidade;
 import entidades.Jogador;
 import objetos.SuperObjetos;
 import peca.GerenciadorDePeca;
@@ -15,8 +16,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int tamanhoDaPeca = tamanhoOriginalDaPeca * escala; // 48x48 por peça
     public final int telaMaximaHorizontal = 16; // Tamanho máximo de colunas. 3:4 = 16; 16:9 = 32.
     public final int telaMaximaVertical = 12; // Tamanho máximo de linhas. 3:4 = 12; 16:9 = 18.
-    public final int larguraDaTela = tamanhoDaPeca * telaMaximaHorizontal; // 48*16 = 768 pixels ou 48*32 = 1536 pixels.
-    public final int comprimentoDaTela = tamanhoDaPeca * telaMaximaVertical; // 48*12 = 576 pixels ou 48*18 = 864 pixels.
+    public final int larguraDaTela = tamanhoDaPeca * telaMaximaHorizontal; // 48*16 = 768 pixels ou 48*32 = 1536 pixels. WIDTH
+    public final int alturaDaTela = tamanhoDaPeca * telaMaximaVertical; // 48*12 = 576 pixels ou 48*18 = 864 pixels. LENGHT
 
     // Condigurações do mundo
     public final int maxColunasDoMundo = 50;
@@ -29,20 +30,29 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
     // Sistema
     GerenciadorDePeca peca_tela = new GerenciadorDePeca(this);
-    Manipulador chaveManipuladora = new Manipulador();
+    public Manipulador chaveManipuladora = new Manipulador(this);
     Som musica = new Som();
     Som efeitoSonoro =  new Som();
     public VerificaColisao verifica = new VerificaColisao(this);
     public ConfiguraRecurso configura_recurso = new ConfiguraRecurso(this);
     public UI ui =  new UI(this);
+    public ManipuladorDeEvento evento = new ManipuladorDeEvento(this);
     Thread threadDoJogo; // ALgo que podemos iniciar e parar a fim de deixar o programa rodando.
     
     // Entidade e Objeto
     public Jogador jogador = new Jogador(this, chaveManipuladora);
-    public SuperObjetos obj[] = new SuperObjetos[10]; // Torna possível mostrar 10 objetos no mesmo display/tela 
+    public SuperObjetos obj[] = new SuperObjetos[10]; // Torna possível mostrar 10 objetos no mesmo display/tela
+    public Entidade npc[] = new Entidade[10]; 
+
+    // Estado do jogo
+    public int estado_do_jogo;
+    public final int estado_de_titulo = 0;
+    public final int estado_de_jogar = 1;
+    public final int estado_de_pausa = 2;
+    public final int estado_de_dialogo = 3;
 
     public PainelDoJogo() {
-        this.setPreferredSize(new Dimension(larguraDaTela, comprimentoDaTela));
+        this.setPreferredSize(new Dimension(larguraDaTela, alturaDaTela));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true); // Toda a pintura do componente será feita se fora da tela pela pintura do buffer. (Pode melhorar a performance do jogo)
         this.addKeyListener(chaveManipuladora);
@@ -53,7 +63,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public void configuracao_do_jogo(){
 
         configura_recurso.setObjeto();
-        tocarMusica(0);
+        configura_recurso.setNPC(); // Adiciona o NPC
+        // tocarMusica(0);
+        estado_do_jogo = estado_de_titulo;
 
     }
 
@@ -92,44 +104,61 @@ public class PainelDoJogo extends JPanel implements Runnable {
     }
 
     public void update(){
-        jogador.update();
+        if(estado_do_jogo == estado_de_jogar){
+            // Jogador
+            jogador.update();
+            // NPC
+            for(int i = 0; i < npc.length; i++){
+                if(npc[i] != null){
+                    npc[i].update();
+                }
+            }
+
+        }
+        if(estado_do_jogo == estado_de_pausa){
+            // nada por enquanto
+        }
     }
 
     // A classe "Graphics" tem muitas funções para desenhar objetos na tela.
     public void paintComponent(Graphics g){
-        
-        // DEBUG
-        long inicio_de_desenhar = 0;
-        if(chaveManipuladora.verificaTempoDeDesenho == true) inicio_de_desenhar = System.nanoTime();
 
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g; // Muda os gráficos de g para g2.
         // A classe Graphics2D extende a classe Graphics para promover um controle mais sofisticado de geometria,
         // transformações de coordenadas, gerenciamento de cor, e layout de texto.
-    
-        peca_tela.desenhar(g2); // Peça
+        Graphics2D g2 = (Graphics2D)g; // Muda os gráficos de g para g2.
 
-        // Objeto
-        for(int i = 0; i < obj.length; i++){
-            if(obj[i] != null){
-                obj[i].desenhar(g2, this);
+        // Tela de título
+        if(estado_do_jogo == estado_de_titulo){
+            ui.desenhar(g2);
+        }
+        else{
+            // Peça
+            peca_tela.desenhar(g2); 
+            
+            // Objeto
+            for(int i = 0; i < obj.length; i++){
+                if(obj[i] != null){
+                    obj[i].desenhar(g2, this);
+                }
             }
+    
+            // NPC
+            for(int  i = 0; i < npc.length; i++){
+                if(npc[i] != null){
+                    npc[i].desenhar(g2);
+                }
+            }
+    
+            // Jogador
+            jogador.desenhar(g2);
+    
+            // UI
+            ui.desenhar(g2);
+    
+            g2.dispose(); // Descarta isso do contexto de graphics e libera qualquer recursos que estão sendo usandos.
         }
-        // Jogador
-        jogador.desenhar(g2);
-        // UI
-        ui.desenhar(g2);
-
-        //DEBUG
-        if(chaveManipuladora.verificaTempoDeDesenho == true){
-            long fim_de_desenhar = System.nanoTime();
-            long passou = fim_de_desenhar - inicio_de_desenhar;
-            g2.setColor(Color.white);
-            g2.drawString("Tempo de desenho: "+ passou, 10, 400);
-            System.out.println("Tempo de desenho: "+ passou);
-        }
-
-        g2.dispose(); // Descarta isso do contexto de graphics e libera qualquer recursos que estão sendo usandos.
+    
     }
 
     public void tocarMusica(int i){

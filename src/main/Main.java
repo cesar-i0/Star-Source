@@ -12,7 +12,7 @@ public class Main {
         PainelDoJogo painelDoJogo = new PainelDoJogo();
         window.add(painelDoJogo); // As configurações padrões serão aplicadas no JFrame.
 
-        window.pack(); // Modifica a tela para se encaixar no tamanho preferido e os layouts dos subcomponentes
+        window.pack(); // Modifica a tela para se encaixar no tamanho preferido e os layouts dos subcomponentesd
 
         window.setLocationRelativeTo(null); // A janela será aberta no centro da tela
         window.setVisible(true); // Permite que vejamos essa tela

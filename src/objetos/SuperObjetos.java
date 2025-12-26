@@ -8,7 +8,7 @@ import main.PainelDoJogo;
 
 public class SuperObjetos {
     
-    public BufferedImage imagem;
+    public BufferedImage imagem, imagem2, imagem3;
     public String nome;
     public boolean colisao = false;
     public int mundoX, mundoY;
@@ -18,6 +18,7 @@ public class SuperObjetos {
     FerramentaUtilitaria ferramenta =  new FerramentaUtilitaria();
 
     public void desenhar(Graphics2D g2, PainelDoJogo pj){
+        
         int telaX = mundoX - pj.jogador.mundoX + pj.jogador.telaX; // Foi necessário subtrair para encontrar até onde deveria ser desenhado a tela
         int telaY = mundoY - pj.jogador.mundoY + pj.jogador.telaY; // Foi necessário subtrair para encontrar até onde deveria ser desenhado a tela
 
@@ -25,6 +26,7 @@ public class SuperObjetos {
         && mundoY + pj.tamanhoDaPeca > pj.jogador.mundoY - pj.jogador.telaY && mundoY - pj.tamanhoDaPeca < pj.jogador.mundoY + pj.jogador.telaY){
             g2.drawImage(imagem, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
         }
+
     }
 
 }

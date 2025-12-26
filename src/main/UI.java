@@ -1,33 +1,41 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.text.DecimalFormat;
+import objetos.OBJ_Coracao;
+import objetos.SuperObjetos;
 
-import objetos.OBJ_Chave;
 
 // Esta classe vai lidar com mensagens de texto, ícones de itens, etc.
 public class UI {
 
     PainelDoJogo pj;
+    Graphics2D g2;
+
     Font arial, arial_2;
-    BufferedImage imagem_da_chave;
+    BufferedImage coracao_cheio, meio_coracao, coracao_vazio;
     public boolean mensagem_ligada = false;
     public String mensagem  = "";
     int contador_da_mensagem = 0;
     public boolean jogoFinalisado = false;
-
-    double tempo_de_jogo;
-    DecimalFormat dFormat = new DecimalFormat("#0.00");
+    public String dialogo_atual = "";
+    public int numeroDoComando = 0;
+    public int estado_do_titulo_na_tela = 0;
 
     public UI(PainelDoJogo pj){
         this.pj = pj;
         arial = new Font("Arial", Font.PLAIN,30); // Tipo, estilo e tamanho
         arial_2 = new Font("Arial", Font.BOLD,80); // Tipo, estilo e tamanho
-        OBJ_Chave chave = new OBJ_Chave(pj);
-        imagem_da_chave = chave.imagem;
+        
+        //Cria um objeto mediador(HUD)
+        SuperObjetos coracao = new OBJ_Coracao(pj);
+        coracao_vazio = coracao.imagem;
+        meio_coracao = coracao.imagem2;
+        coracao_cheio = coracao.imagem3;
+
     }
 
     public void mostrarMensagem(String texto){
@@ -37,64 +45,177 @@ public class UI {
 
     public void desenhar(Graphics2D g2){
 
-        if(jogoFinalisado == true){
+        this.g2 = g2;
 
-            g2.setFont(arial); 
-            g2.setColor(Color.white);
+        g2.setFont(arial);
+        g2.setColor(Color.white);
 
-            String texto;
-            int comprimento_do_texto, x, y;
-            
-            texto = "Você ganhou o jogo!";
-            comprimento_do_texto = (int)g2.getFontMetrics().getStringBounds(texto, g2).getWidth();
+        // Estado de título de jogo;
+        if(pj.estado_do_jogo == pj.estado_de_titulo){
+            desenharTelaDeTitulo();
+        }
 
-            x = pj.larguraDaTela / 2 - comprimento_do_texto / 2;
-            y = pj.comprimentoDaTela / 2 - (pj.tamanhoDaPeca * 3);
-            g2.drawString(texto, x, y);
+        // Estado de jogo em curso
+        if(pj.estado_do_jogo == pj.estado_de_jogar){
+            desenharVidaDoJogador();
+        }
+        // Estado de pausa de jogo
+        if(pj.estado_do_jogo == pj.estado_de_pausa){
+            desenharTelaDePausa();
+        }
+        // Estado de diálogo de jogo
+        if(pj.estado_do_jogo == pj.estado_de_dialogo){
+            desenharVidaDoJogador();
+            desenharTelaDeDialogo();
+        }
 
-            // Outra mensagem
-            texto = "Seu tempo foi: " + dFormat.format(tempo_de_jogo) + "!";
-            comprimento_do_texto = (int)g2.getFontMetrics().getStringBounds(texto, g2).getWidth();
-            x = pj.larguraDaTela / 2 - comprimento_do_texto / 2;
-            y = pj.comprimentoDaTela / 2 + (pj.tamanhoDaPeca * 4);
-            g2.drawString(texto, x, y);
+    }
 
-            // Outra mensagem
-            g2.setFont(arial_2); 
-            g2.setColor(Color.yellow);
+    public void desenharVidaDoJogador(){
 
-            texto = "PARABÉNS!";
-            comprimento_do_texto = (int)g2.getFontMetrics().getStringBounds(texto, g2).getWidth();
-            x = pj.larguraDaTela / 2 - comprimento_do_texto / 2;
-            y = pj.comprimentoDaTela / 2 + (pj.tamanhoDaPeca * 2);
-            g2.drawString(texto, x, y);
-            pj.threadDoJogo = null;
+        int x = pj.tamanhoDaPeca / 2;
+        int y = pj.tamanhoDaPeca / 2;
+        int i = 0;
+
+        // Desenhar os corações que representam a vida máxima(obs: só modificar depois)
+        while(i < pj.jogador.vidaMaxima / 2){
+
+            g2.drawImage(coracao_vazio, x, y, null);
+            i++;
+            x += pj.tamanhoDaPeca;
 
         }
-        else{
-            g2.setFont(arial); 
-            g2.setColor(Color.white);
-            g2.drawImage(imagem_da_chave, pj.tamanhoDaPeca / 6 , pj.tamanhoDaPeca / 6, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
-            g2.drawString("x " +  pj.jogador.possuiChave , 40, 40);
 
-            // Tempo
-            tempo_de_jogo += (double)1/60;
-            g2.drawString("Tempo: "+ dFormat.format(tempo_de_jogo), pj.tamanhoDaPeca * 11 , 65);
+        // Reset
+        x = pj.tamanhoDaPeca / 2;
+        y = pj.tamanhoDaPeca / 2;
+        i = 0;
+
+        // Desenhar vida atual
+        while(i < pj.jogador.vida){
+            g2.drawImage(meio_coracao, x, y, null);
+            i++;
+            if(i < pj.jogador.vida){
+                g2.drawImage(coracao_cheio, x, y, null);
+            }
+            i++;
+            x += pj.tamanhoDaPeca;
+        }
+
+    }
+
+    public void desenharTelaDeTitulo(){
+
+        if(estado_do_titulo_na_tela == 0){
+            
+            g2.setColor(new Color(0,0,0));
+            g2.fillRect(0, 0, pj.larguraDaTela,pj.alturaDaTela);
     
-            // Mensagem 
-            if(mensagem_ligada == true){
-                g2.setFont(g2.getFont().deriveFont(20F));
-                g2.drawString(mensagem, pj.tamanhoDaPeca / 2, pj.tamanhoDaPeca * 5);
+            // Nome do título do jogo
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+            String texto = "Star Source";
+            int x = getXdoTextoCentralizado(texto);
+            int y = pj.tamanhoDaPeca * 3;
     
-                contador_da_mensagem++;
+            // Sombra
+            g2.setColor(Color.GRAY);
+            g2.drawString(texto, x + 5, y + 5);
     
-                if(contador_da_mensagem > 120){ // Após dois segundos ela irá summir porque 60 é um frame por segundo
-                    contador_da_mensagem = 0;
-                    mensagem_ligada = false;
-                }
+            // Cor principal
+            g2.setColor(Color.white);
+            g2.drawString(texto, x, y);
+    
+            // Personagem principal
+            x = pj.larguraDaTela / 2 - (pj.tamanhoDaPeca * 2) / 2;
+            y += pj.tamanhoDaPeca * 2;
+            g2.drawImage(pj.jogador.bogo, x, y, pj.tamanhoDaPeca * 2, pj.tamanhoDaPeca * 2, null);
+    
+            // Menu
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+    
+            texto = "Novo Jogo";
+            x = getXdoTextoCentralizado(texto);
+            y += pj.tamanhoDaPeca * 3.5;
+            g2.drawString(texto, x, y);
+            if(numeroDoComando == 0){
+                g2.drawString(">", x - pj.tamanhoDaPeca, y);
+            }
+    
+            texto = "Carrega Jogo";
+            x = getXdoTextoCentralizado(texto);
+            y += pj.tamanhoDaPeca;
+            g2.drawString(texto, x, y);
+            if(numeroDoComando == 1){
+                g2.drawString(">", x - pj.tamanhoDaPeca, y);
+            }
+    
+            texto = "Sair";
+            x = getXdoTextoCentralizado(texto);
+            y += pj.tamanhoDaPeca;
+            g2.drawString(texto, x, y);
+            if(numeroDoComando == 2){
+                g2.drawString(">", x - pj.tamanhoDaPeca, y);
             }
 
         }
+        else if(estado_do_titulo_na_tela == 1){
+
+            // Vídeo 17
+
+        }
+
+    }
+
+    public void desenharTelaDePausa(){
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
+        String texto = "PAUSA";
+        int x = getXdoTextoCentralizado(texto);
+        int y = pj.alturaDaTela / 2;
+
+        g2.drawString(texto, x, y);
+
+    }
+
+    public int getXdoTextoCentralizado(String texto){
+
+        int comprimento = (int)g2.getFontMetrics().getStringBounds(texto, g2).getWidth();
+        int x = pj.larguraDaTela / 2 - comprimento / 2; // A mensagem será colocada no centro da tela;
+        return x;
+
+    }
+
+    public void desenharTelaDeDialogo(){
+
+        // Janela
+        int x = pj.tamanhoDaPeca * 2;
+        int y = pj.tamanhoDaPeca / 2;
+        int largura = pj.larguraDaTela - (pj.tamanhoDaPeca * 4);
+        int altura = pj.tamanhoDaPeca * 4;
+
+        desenharSubTela(x, y, largura, altura);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
+        x += pj.tamanhoDaPeca;
+        y += pj.tamanhoDaPeca;
+
+        for(String linha : dialogo_atual.split("\n")){
+            g2.drawString(linha, x, y);
+            y += 40;
+        }
+
+    }
+
+    public void desenharSubTela(int x, int y, int largura, int altura){
+
+        Color c = new Color(0,0,0, 220); // Cria uma cor personalizada
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, largura, altura, 35, 35);
+
+        c = new Color(255,255, 255);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5)); // Define o contorno
+        g2.drawRoundRect(x + 5, y + 5, largura - 10, altura - 10, 25, 25);
 
     }
 
