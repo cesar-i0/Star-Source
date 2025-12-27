@@ -19,11 +19,11 @@ public class Entidade {
     public int velocidade;
 
     // Precisamos usamos variáveis como essas para trazer as imagens que serão as animações de movimentação
-    public BufferedImage bogo; // up, down, left, right
-    public BufferedImage npc;
+    public BufferedImage cima1, cima2, baixo1, baixo2, esquerda1, esquerda2, direita1, direita2, parado_frente, parado_costas;
     public String direcao; // Aqui será guardado qual imagem deve ser mostarda com determinada ação
-//    public int contadorDoEstado = 0;
-//    public int numeroDoEstado = 1;
+    public int contadorDoEstado = 0;
+    public int numeroDoEstado = 1;
+    int estadoInicial = 0;
     public Rectangle area_solida;
     public int area_solida_padraoX, area_solida_padraoY;
     public boolean colisao_ligada = false;
@@ -109,26 +109,26 @@ public class Entidade {
                        mundoX += velocidade;
                        break;
                }
-           }
+            }
    
-            // contadorDoEstado++;
-            // if(numeroDoEstado > 12){
-            //     if(numeroDoEstado == 1){
-            //         numeroDoEstado = 2;
-            //     }
-            //     else if (numeroDoEstado == 2){
-            //         numeroDoEstado = 1;
-            //     }
-            //     numeroDoEstado = 0;
-            // }
+            contadorDoEstado++;
+            if(contadorDoEstado > 12){
+                if(numeroDoEstado == 1){
+                    numeroDoEstado = 2;
+                }
+                else if (numeroDoEstado == 2){
+                     numeroDoEstado = 1;
+                }
+                contadorDoEstado = 0;
+            }
 
-    //    else{
-    //         estadoInicial++;
-    //         if(estadoInicial == 20){
-    //             numeroDoEstado = 1;
-    //             estadoInicial = 0;
-    //         }
-    //    }
+            else{
+                estadoInicial++;
+                if(estadoInicial == 20){
+                    numeroDoEstado = 1;
+                    estadoInicial = 0;
+                }
+            }
 
     }
 
@@ -144,40 +144,40 @@ public class Entidade {
             
             switch (direcao){
                 case "cima":
-//                if(numeroDoEstado == 1){
-//                    image = bogo;
-//                }
-//                if(numeroDoEstado){
-//                    image = bogo;
-//                }
-                    imagem = bogo;
-                    break;
+                if(numeroDoEstado == 1){
+                   imagem = cima1;
+                }
+                if(numeroDoEstado == 2){
+                   imagem = cima2;
+                }
+                // imagem = bogo;
+                break;
                 case "baixo":
-//                if(numeroDoEstado == 1){
-//                    image = bogo;
-//                }
-//                if(numeroDoEstado){
-//                    image = bogo;
-//                }
-                    imagem = bogo;
+                    if(numeroDoEstado == 1){
+                    imagem = baixo1;
+                    }
+                    if(numeroDoEstado == 2){
+                    imagem = baixo2;
+                    }
+                    // imagem = bogo;
                     break;
                 case "esquerda":
-//                if(numeroDoEstado == 1){
-//                    image = bogo;
-//                }
-//                if(numeroDoEstado){
-//                    image = bogo;
-//                }
-                    imagem = bogo;
+                    if(numeroDoEstado == 1){
+                        imagem = esquerda1;
+                    }
+                    if(numeroDoEstado == 2){
+                        imagem = esquerda2;
+                    }
+                    // imagem = bogo;
                     break;
                 case "direita":
-//                if(numeroDoEstado == 1){
-//                    image = bogo;
-//                }
-//                if(numeroDoEstado){
-//                    image = bogo;
-//                }
-                    imagem = bogo;
+                    if(numeroDoEstado == 1){
+                        imagem = direita1;
+                    }
+                    if(numeroDoEstado == 2){
+                        imagem = direita2;
+                    }
+                    // imagem = bogo;
                     break;
             }
 

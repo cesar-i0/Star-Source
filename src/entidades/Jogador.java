@@ -9,7 +9,7 @@ public class Jogador extends Entidade{
 
     Manipulador manipulador;
     public final int telaX, telaY;
-    // int estadoInicial = 0;
+    int estadoInicial = 0;
 
     public Jogador(PainelDoJogo pj, Manipulador manipulador){
         
@@ -47,8 +47,16 @@ public class Jogador extends Entidade{
 
     public void getImagemDoJogador(){
         
-        bogo = configuracoes("/res/jogador/personagem");
-        // cima1, cima2, baixo1, baixo2, esquerda1, esquerda2, direita1, direita2;
+        cima1 = configuracoes("/res/jogador/andando_costas1");
+        cima2 = configuracoes("/res/jogador/andando_costas2");
+        baixo1 = configuracoes("/res/jogador/andando_frente1");
+        baixo2 = configuracoes("/res/jogador/andando_frente2");
+        esquerda1 = configuracoes("/res/jogador/parado_esquerda");
+        esquerda2 = configuracoes("/res/jogador/andando_esquerda");
+        direita1 = configuracoes("/res/jogador/parado_direita");
+        direita2 = configuracoes("/res/jogador/andando_direita"); 
+        parado_frente = configuracoes("/res/jogador/parado");
+        parado_costas = configuracoes("/res/jogador/parado_costas");
 
     }
 
@@ -104,24 +112,25 @@ public class Jogador extends Entidade{
                }
            }
    
-            // contadorDoEstado++;
-            // if(numeroDoEstado > 12){
-            //     if(numeroDoEstado == 1){
-            //         numeroDoEstado = 2;
-            //     }
-            //     else if (numeroDoEstado == 2){
-            //         numeroDoEstado = 1;
-            //     }
-            //     numeroDoEstado = 0;
-            // }
+            contadorDoEstado++;
+            if(contadorDoEstado > 12){
+                if(numeroDoEstado == 1){
+                    numeroDoEstado = 2;
+                }
+                else if (numeroDoEstado == 2){
+                    numeroDoEstado = 1;
+                }
+                contadorDoEstado = 0;
+            }
         }
-    //    else{
-    //         estadoInicial++;
-    //         if(estadoInicial == 20){
-    //             numeroDoEstado = 1;
-    //             estadoInicial = 0;
-    //         }
-    //    }
+
+        else{
+            estadoInicial++;
+            if(estadoInicial == 20){
+                numeroDoEstado = 1;
+                estadoInicial = 0;
+            }
+        }
 
     }
 
@@ -152,40 +161,40 @@ public class Jogador extends Entidade{
         BufferedImage imagem = null;
         switch (direcao){
             case "cima":
-//                if(numeroDoEstado == 1){
-//                    image = bogo;
-//                }
-//                if(numeroDoEstado){
-//                    image = bogo;
-//                }
-                imagem = bogo;
+                if(numeroDoEstado == 1){
+                    imagem = cima1;
+                }
+                if(numeroDoEstado == 2){
+                    imagem = cima2;
+                }
+                // imagem = bogo;
                 break;
             case "baixo":
-//                if(numeroDoEstado == 1){
-//                    image = bogo;
-//                }
-//                if(numeroDoEstado){
-//                    image = bogo;
-//                }
-                imagem = bogo;
+                if(numeroDoEstado == 1){
+                   imagem = baixo1;
+                }
+                if(numeroDoEstado == 2){
+                   imagem = baixo2;
+                }
+                // imagem = bogo;
                 break;
             case "esquerda":
-//                if(numeroDoEstado == 1){
-//                    image = bogo;
-//                }
-//                if(numeroDoEstado){
-//                    image = bogo;
-//                }
-                imagem = bogo;
+                if(numeroDoEstado == 1){
+                    imagem = esquerda1;
+                }
+                if(numeroDoEstado == 2){
+                    imagem = esquerda2;
+                }
+                // imagem = bogo;
                 break;
             case "direita":
-//                if(numeroDoEstado == 1){
-//                    image = bogo;
-//                }
-//                if(numeroDoEstado){
-//                    image = bogo;
-//                }
-                imagem = bogo;
+                if(numeroDoEstado == 1){
+                    imagem = direita1;
+                }
+                if(numeroDoEstado == 2){
+                    imagem = direita2;
+                }
+                // imagem = bogo;
                 break;
         }
         g2.drawImage(imagem, telaX, telaY, null);
