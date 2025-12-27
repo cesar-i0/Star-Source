@@ -37,7 +37,7 @@ public class Jogador extends Entidade{
         mundoX = pj.tamanhoDaPeca * 23; // Essa linha vai indicar em que posição do mapa o jogador inicia.
         mundoY = pj.tamanhoDaPeca * 21; // Essa linha vai indicar em que posição do mapa o jogador inicia.  
         velocidade = 4;
-        direcao = "cima";
+        direcao = "parado_frente";
 
         // Status do jogador
         vidaMaxima = 6;
@@ -156,8 +156,7 @@ public class Jogador extends Entidade{
     }
 
     public void desenhar(Graphics g2){
-//        g2.setColor(Color.white);
-//        g2.fillRect(x, y, jp.tamanhoDaPeca, jp.tamanhoDaPeca); // Vai desenhar o retangulo e completa com a cor especificada.
+
         BufferedImage imagem = null;
         switch (direcao){
             case "cima":
@@ -195,6 +194,9 @@ public class Jogador extends Entidade{
                     imagem = direita2;
                 }
                 // imagem = bogo;
+                break;
+            case "parado_frente":
+                imagem = parado_frente;
                 break;
         }
         g2.drawImage(imagem, telaX, telaY, null);

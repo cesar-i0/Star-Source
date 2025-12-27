@@ -179,6 +179,9 @@ public class Entidade {
                     }
                     // imagem = bogo;
                     break;
+                case "parado_frente":
+                    imagem = parado_frente;
+                    break;
             }
 
             g2.drawImage(imagem, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
