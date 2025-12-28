@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
+import entidades.Entidade;
 import objetos.OBJ_Coracao;
-import objetos.SuperObjetos;
+
 
 
 // Esta classe vai lidar com mensagens de texto, ícones de itens, etc.
@@ -31,7 +33,7 @@ public class UI {
         arial_2 = new Font("Arial", Font.BOLD,80); // Tipo, estilo e tamanho
         
         //Cria um objeto mediador(HUD)
-        SuperObjetos coracao = new OBJ_Coracao(pj);
+        Entidade coracao = new OBJ_Coracao(pj);
         coracao_vazio = coracao.imagem;
         meio_coracao = coracao.imagem2;
         coracao_cheio = coracao.imagem3;

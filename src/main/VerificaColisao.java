@@ -80,42 +80,19 @@ public class VerificaColisao {
                 // Simulamos o movimento da entidade e verificamos onde ela vai estar após o movimento.
                 switch (entidade.direcao) {
                     case "cima":
-                        entidade.area_solida.y -= entidade.velocidade;
-                        // Verifica se os dois retangulos estão colidindo
-                        if(entidade.area_solida.intersects(pj.obj[i].area_solida)){
-                            // System.out.println("Colisão para cima!");
-                            if(pj.obj[i].colisao == true) entidade.colisao_ligada = true;
-                            if(joagador == true) index = i;
-                        }
-                        break;
+                        entidade.area_solida.y -= entidade.velocidade; break;
                     case "baixo":
-                        entidade.area_solida.y += entidade.velocidade;
-                        // Verifica se os dois retangulos estão colidindo
-                        if(entidade.area_solida.intersects(pj.obj[i].area_solida)){
-                            // System.out.println("Colisão para baixo!");
-                            if(pj.obj[i].colisao == true) entidade.colisao_ligada = true;
-                            if(joagador == true) index = i;
-                        }
-                        break;
+                        entidade.area_solida.y += entidade.velocidade; break;
                     case "esquerda":
-                        entidade.area_solida.x -= entidade.velocidade;
-                        // Verifica se os dois retangulos estão colidindo
-                        if(entidade.area_solida.intersects(pj.obj[i].area_solida)){
-                            // System.out.println("Colisão para esquerda!");
-                            if(pj.obj[i].colisao == true) entidade.colisao_ligada = true;
-                            if(joagador == true) index = i;
-                        }
-                        break;
+                        entidade.area_solida.x -= entidade.velocidade; break;
                     case "direita":
-                        entidade.area_solida.x += entidade.velocidade;
-                        // Verifica se os dois retangulos estão colidindo
-                        if(entidade.area_solida.intersects(pj.obj[i].area_solida)){
+                        entidade.area_solida.x += entidade.velocidade; break;
+                }
+                    if(entidade.area_solida.intersects(pj.obj[i].area_solida)){
                             // System.out.println("Colisão para direita!");
                             if(pj.obj[i].colisao == true) entidade.colisao_ligada = true;
                             if(joagador == true) index = i;
                         }
-                        break;
-                }
 
                 entidade.area_solida.x = entidade.area_solida_padraoX;
                 entidade.area_solida.y = entidade.area_solida_padraoY;
@@ -148,41 +125,20 @@ public class VerificaColisao {
                 // Simulamos o movimento da entidade e verificamos onde ela vai estar após o movimento.
                 switch (entidade.direcao) {
                     case "cima":
-                        entidade.area_solida.y -= entidade.velocidade;
-                        // Verifica se os dois retangulos estão colidindo
-                        if(entidade.area_solida.intersects(alvo[i].area_solida)){
-                            // System.out.println("Colisão para cima!");
-                            entidade.colisao_ligada = true;
-                            index = i;
-                        }
-                        break;
+                        entidade.area_solida.y -= entidade.velocidade; break;
                     case "baixo":
-                        entidade.area_solida.y += entidade.velocidade;
-                        // Verifica se os dois retangulos estão colidindo
-                        if(entidade.area_solida.intersects(alvo[i].area_solida)){
-                            // System.out.println("Colisão para baixo!");
-                            entidade.colisao_ligada = true;
-                            index = i;
-                        }
-                        break;
+                        entidade.area_solida.y += entidade.velocidade; break;
                     case "esquerda":
-                        entidade.area_solida.x -= entidade.velocidade;
-                        // Verifica se os dois retangulos estão colidindo
-                        if(entidade.area_solida.intersects(alvo[i].area_solida)){
-                            // System.out.println("Colisão para esquerda!");
-                            entidade.colisao_ligada = true;
-                            index = i;
-                        }
-                        break;
+                        entidade.area_solida.x -= entidade.velocidade; break;
                     case "direita":
-                        entidade.area_solida.x += entidade.velocidade;
-                        // Verifica se os dois retangulos estão colidindo
-                        if(entidade.area_solida.intersects(alvo[i].area_solida)){
-                            // System.out.println("Colisão para direita!");
-                            entidade.colisao_ligada = true;
-                            index = i;
-                        }
-                        break;
+                        entidade.area_solida.x += entidade.velocidade; break;
+                }
+                
+                if(entidade.area_solida.intersects(alvo[i].area_solida)){
+                    if(alvo[i] != entidade){
+                        entidade.colisao_ligada = true;
+                        index = i;
+                    }
                 }
 
                 entidade.area_solida.x = entidade.area_solida_padraoX;
@@ -196,8 +152,11 @@ public class VerificaColisao {
 
         return index; 
     }
+    
 
-    public void verificaJogador(Entidade entidade){
+    public boolean verificaJogador(Entidade entidade){
+
+        boolean contatoComJogador = false;
 
         // Pega a posição área sólida das entidades
         entidade.area_solida.x = entidade.mundoX + entidade.area_solida.x;
@@ -210,43 +169,35 @@ public class VerificaColisao {
         switch (entidade.direcao) {
             case "cima":
                 entidade.area_solida.y -= entidade.velocidade;
-                // Verifica se os dois retangulos estão colidindo
-                if(entidade.area_solida.intersects(pj.jogador.area_solida)){
-                    // System.out.println("Colisão para cima!");
-                    entidade.colisao_ligada = true;
-                }
                 break;
             case "baixo":
                 entidade.area_solida.y += entidade.velocidade;
-                // Verifica se os dois retangulos estão colidindo
-                if(entidade.area_solida.intersects(pj.jogador.area_solida)){
-                    // System.out.println("Colisão para baixo!");
-                    entidade.colisao_ligada = true;
-                }
                 break;
             case "esquerda":
                 entidade.area_solida.x -= entidade.velocidade;
-                // Verifica se os dois retangulos estão colidindo
-                if(entidade.area_solida.intersects(pj.jogador.area_solida)){
-                    // System.out.println("Colisão para esquerda!");
-                    entidade.colisao_ligada = true;
-                }
                 break;
             case "direita":
                 entidade.area_solida.x += entidade.velocidade;
-                // Verifica se os dois retangulos estão colidindo
-                if(entidade.area_solida.intersects(pj.jogador.area_solida)){
-                    // System.out.println("Colisão para direita!");
-                    entidade.colisao_ligada = true;
-                }
                 break;
         }
+
+        if(entidade.area_solida.intersects(pj.jogador.area_solida)){
+                    entidade.colisao_ligada = true;
+                    contatoComJogador = true;
+                }
 
         entidade.area_solida.x = entidade.area_solida_padraoX;
         entidade.area_solida.y = entidade.area_solida_padraoY;
         pj.jogador.area_solida.x = pj.jogador.area_solida_padraoX;
         pj.jogador.area_solida.y = pj.jogador.area_solida_padraoY;
 
+        return contatoComJogador;
+
+    }
+
+    public void verificaMonstro(Entidade entidade) {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'verificaMonstro'");
     }
 
 }

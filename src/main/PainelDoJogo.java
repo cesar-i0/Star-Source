@@ -2,11 +2,13 @@ package main;
 
 import entidades.Entidade;
 import entidades.Jogador;
-import objetos.SuperObjetos;
 import peca.GerenciadorDePeca;
-
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.awt.*;
+import java.util.Comparator;
+import java.util.Collections;
+
 
 public class PainelDoJogo extends JPanel implements Runnable {
     // Configurações de tela
@@ -29,6 +31,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     int FPS = 60; 
 
     // Sistema
+    
     GerenciadorDePeca peca_tela = new GerenciadorDePeca(this);
     public Manipulador chaveManipuladora = new Manipulador(this);
     Som musica = new Som();
@@ -41,8 +44,10 @@ public class PainelDoJogo extends JPanel implements Runnable {
     
     // Entidade e Objeto
     public Jogador jogador = new Jogador(this, chaveManipuladora);
-    public SuperObjetos obj[] = new SuperObjetos[10]; // Torna possível mostrar 10 objetos no mesmo display/tela
+    public Entidade obj[] = new Entidade[10]; // Torna possível mostrar 10 objetos no mesmo display/tela
     public Entidade npc[] = new Entidade[10]; 
+    public Entidade monstros[] = new Entidade[20];
+    ArrayList<Entidade> entidadesList = new ArrayList<>();
 
     // Estado do jogo
     public int estado_do_jogo;
@@ -63,9 +68,11 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public void configuracao_do_jogo(){
 
         configura_recurso.setObjeto();
-        configura_recurso.setNPC(); // Adiciona o NPC
+        configura_recurso.setNPC();
+        configura_recurso.setMonstro(); // Adiciona os monstros
         // tocarMusica(0);
         estado_do_jogo = estado_de_titulo;
+       
 
     }
 
@@ -118,7 +125,13 @@ public class PainelDoJogo extends JPanel implements Runnable {
         if(estado_do_jogo == estado_de_pausa){
             // nada por enquanto
         }
+        
+        for(int i = 0; i < monstros.length; i++){
+            if(monstros[i] != null){
+                monstros[i].update();
+            }
     }
+}
 
     // A classe "Graphics" tem muitas funções para desenhar objetos na tela.
     public void paintComponent(Graphics g){
@@ -135,24 +148,36 @@ public class PainelDoJogo extends JPanel implements Runnable {
         else{
             // Peça
             peca_tela.desenhar(g2); 
-            
-            // Objeto
+         
+            entidadesList.add(jogador);
+            for(int i = 0; i < npc.length; i++){
+                if(npc[i] != null){
+                    entidadesList.add(npc[i]);
+                }
+            }
             for(int i = 0; i < obj.length; i++){
                 if(obj[i] != null){
-                    obj[i].desenhar(g2, this);
+                    entidadesList.add(obj[i]);
                 }
-            }
-    
-            // NPC
-            for(int  i = 0; i < npc.length; i++){
-                if(npc[i] != null){
-                    npc[i].desenhar(g2);
+            }   
+
+            Collections.sort(entidadesList, new Comparator<Entidade>() {
+                @Override
+                public int compare(Entidade e1, Entidade e2) {
+                    int result = Integer.compare(e1.mundoY, e2.mundoY);
+                    return result;
                 }
+            });
+
+            //DESENHAMOS AS ENTIDADES
+            for(int i = 0; i < entidadesList.size(); i++){
+                entidadesList.get(i).desenhar(g2);
             }
-    
-            // Jogador
-            jogador.desenhar(g2);
-    
+
+            // Limpamos a lista de entidades para a próxima vez
+            entidadesList.clear();
+
+
             // UI
             ui.desenhar(g2);
     

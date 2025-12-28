@@ -4,6 +4,8 @@ import main.Manipulador;
 import main.PainelDoJogo;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
 
 public class Jogador extends Entidade{
 
@@ -63,7 +65,7 @@ public class Jogador extends Entidade{
     
 
     public void update(){
-       if(manipulador.cimaPrecionado || manipulador.baixoPrecionado || manipulador.esquerdaPrecionado || manipulador.direitaPreciondo){
+       if(manipulador.cimaPrecionado || manipulador.baixoPrecionado || manipulador.esquerdaPrecionado || manipulador.direitaPreciondo || manipulador.enterPressionado){
            // Coloque todas as condições abaixo para o personagem se mover apenas quando algum botão estiver selecionado
            if(manipulador.cimaPrecionado){
                direcao = "cima";
@@ -90,12 +92,16 @@ public class Jogador extends Entidade{
            int index_do_NPC = pj.verifica.verificaEntidade(this, pj.npc);
            interacaoNPC(index_do_NPC);
 
+           //Verifica a colisão com monstros
+           int index_do_monstro = pj.verifica.verificaEntidade(this, pj.monstros);
+            combateMonstros(index_do_monstro);
+
            // Verifica evento
            pj.evento.verificaEvento();
-           pj.chaveManipuladora.enterPressionado = false;
+           
 
            // Se a colisão for false o joagador pode se mover
-           if(colisao_ligada == false){
+           if(colisao_ligada == false && manipulador.enterPressionado == false){
                switch (direcao){
                    case "cima":
                        mundoY -= velocidade;
@@ -111,6 +117,8 @@ public class Jogador extends Entidade{
                        break;
                }
            }
+
+           pj.chaveManipuladora.enterPressionado = false;
    
             contadorDoEstado++;
             if(contadorDoEstado > 12){
@@ -122,16 +130,24 @@ public class Jogador extends Entidade{
                 }
                 contadorDoEstado = 0;
             }
+        } 
+        
+        if(invencivel == true){
+            contador_de_invencibilidade++;
+            if(contador_de_invencibilidade > 60){
+                invencivel = false;
+                contador_de_invencibilidade = 0;
+            }
         }
-
-        else{
+        
+        else {
             estadoInicial++;
             if(estadoInicial == 20){
                 numeroDoEstado = 1;
                 estadoInicial = 0;
             }
         }
-
+    
     }
 
     public void pegueObjeto(int i){
@@ -152,6 +168,18 @@ public class Jogador extends Entidade{
                 pj.estado_do_jogo = pj.estado_de_dialogo;
                 pj.npc[i].falar();
             }
+        }
+    }
+
+    public void combateMonstros(int i){
+        // Se não for 999 então a entidade tocou em um monstro
+        if(i != 999){
+          if(invencivel == false){
+              vida -= 1;
+              invencivel = true;
+          }
+            
+
         }
     }
 
@@ -199,7 +227,16 @@ public class Jogador extends Entidade{
                 imagem = parado_frente;
                 break;
         }
+
+        if(invencivel == true){
+            ((Graphics2D) g2).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
+
         g2.drawImage(imagem, telaX, telaY, null);
+
+        if(invencivel == true){
+            ((Graphics2D) g2).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        }
 
         // Para ver a área de colisão usamos isso
         g2.setColor(Color.red);

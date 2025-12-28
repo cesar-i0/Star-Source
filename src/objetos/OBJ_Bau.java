@@ -1,24 +1,18 @@
 package objetos;
 
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-
+import entidades.Entidade;
 import main.PainelDoJogo;
 
-public class OBJ_Bau extends SuperObjetos{
+public class OBJ_Bau extends Entidade{
 
-    PainelDoJogo pj;
 
     public OBJ_Bau(PainelDoJogo pj){
+        super(pj);
         super.nome = "Baú";
-        try{
-            super.imagem = ImageIO.read(getClass().getResourceAsStream("/res/objetos/baú.png"));
-            ferramenta.imagemRedimensionada(super.imagem, pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-    }
 
+        baixo1 = configuracoes("/objetos/bau");
+       
+
+}
 }

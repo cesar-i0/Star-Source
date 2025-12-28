@@ -13,7 +13,9 @@ public class Manipulador implements KeyListener {
     boolean verificaTempoDeDesenho = false;
 
     public Manipulador(PainelDoJogo pj){
+
         this.pj = pj;
+        
     }
 
     @Override
