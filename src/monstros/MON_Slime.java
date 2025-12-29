@@ -10,8 +10,8 @@ public class MON_Slime extends Entidade{
     public MON_Slime(PainelDoJogo pj){
 
         super(pj);
-        // super.nome = "Monstro Gosma";
-        // tipo = 2;
+        super.nome = "Slime";
+        tipo = 2;
 
         velocidade = 1;
         vidaMaxima = 4;
@@ -31,14 +31,14 @@ public class MON_Slime extends Entidade{
 
     public void getImagem() {
       
-        baixo1 = configuracoes("res/monstros/m1");
-        baixo2 = configuracoes("res/monstros/m2");
-        cima1 = configuracoes("res/monstros/m1");
-        cima2 = configuracoes("res/monstros/m2");
-        esquerda1 = configuracoes("res/monstros/m1");
-        esquerda2 = configuracoes("res/monstros/m2");
-        direita1 = configuracoes("res/monstros/m1");
-        direita2 = configuracoes("res/monstros/m2");
+        baixo1 = configuracoes("/res/monstros/m1");
+        baixo2 = configuracoes("/res/monstros/m2");
+        cima1 = configuracoes("/res/monstros/m1");
+        cima2 = configuracoes("/res/monstros/m2");
+        esquerda1 = configuracoes("/res/monstros/m1");
+        esquerda2 = configuracoes("/res/monstros/m2");
+        direita1 = configuracoes("/res/monstros/m1");
+        direita2 = configuracoes("/res/monstros/m2");
 
     }
 

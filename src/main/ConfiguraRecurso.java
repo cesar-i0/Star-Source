@@ -1,9 +1,8 @@
 package main;
 
 import entidades.NPC_random;
+import monstros.MON_Slime;
 import objetos.OBJ_Porta;
-
-
 
 public class ConfiguraRecurso {
 
@@ -16,21 +15,15 @@ public class ConfiguraRecurso {
 
     public void setMonstro(){
         
-        pj.monstros[0] = new MonstroGosma(pj);
-        pj.monstros[0].mundoX = pj.tamanhoDaPeca * 21;
-        pj.monstros[0].mundoY = pj.tamanhoDaPeca * 21;
+        pj.monstros[0] = new MON_Slime(pj);
+        pj.monstros[0].mundoX = pj.tamanhoDaPeca * 8;
+        pj.monstros[0].mundoY = pj.tamanhoDaPeca * 6;
 
-        pj.monstros[1] = new MonstroGosma(pj);
-        pj.monstros[1].mundoX = pj.tamanhoDaPeca * 21;
-        pj.monstros[1].mundoY = pj.tamanhoDaPeca * 21;
+        pj.monstros[1] = new MON_Slime(pj);
+        pj.monstros[1].mundoX = pj.tamanhoDaPeca * 14;
+        pj.monstros[1].mundoY = pj.tamanhoDaPeca * 18;
 
-        pj.monstros[2] = new MonstroGosma(pj);
-        pj.monstros[2].mundoX = pj.tamanhoDaPeca * 21;
-        pj.monstros[2].mundoY = pj.tamanhoDaPeca * 21;
     }
-
-    
-
 
     public void setObjeto(){
 
@@ -54,14 +47,6 @@ public class ConfiguraRecurso {
         pj.npc[1].mundoX = pj.tamanhoDaPeca * 13;
         pj.npc[1].mundoY = pj.tamanhoDaPeca * 4;
 
-
-        pj.npc[1] = new NPC_random(pj);
-        pj.npc[1].mundoX = pj.tamanhoDaPeca * 21;
-        pj.npc[1].mundoY = pj.tamanhoDaPeca * 21;
-
-        pj.npc[2] = new NPC_random(pj);
-        pj.npc[2].mundoX = pj.tamanhoDaPeca * 21;
-        pj.npc[2].mundoY = pj.tamanhoDaPeca * 21;
     }
 
 }

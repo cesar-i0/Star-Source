@@ -21,7 +21,7 @@ public class Main {
         // System.out.println("Janela visível, iniciando configuração...");
         painelDoJogo.configuracao_do_jogo(); // Posiciona itens no mapa do jogo
         painelDoJogo.iniciarThreadDoJogo();
-        // System.out.println("Thread iniciado.");
+        //System.out.println("Thread iniciado.");
     
     }
 }

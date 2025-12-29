@@ -80,13 +80,17 @@ public class VerificaColisao {
                 // Simulamos o movimento da entidade e verificamos onde ela vai estar após o movimento.
                 switch (entidade.direcao) {
                     case "cima":
-                        entidade.area_solida.y -= entidade.velocidade; break;
+                        entidade.area_solida.y -= entidade.velocidade;
+                        break;
                     case "baixo":
-                        entidade.area_solida.y += entidade.velocidade; break;
+                        entidade.area_solida.y += entidade.velocidade;
+                        break;
                     case "esquerda":
-                        entidade.area_solida.x -= entidade.velocidade; break;
+                        entidade.area_solida.x -= entidade.velocidade;
+                        break;
                     case "direita":
-                        entidade.area_solida.x += entidade.velocidade; break;
+                        entidade.area_solida.x += entidade.velocidade;
+                        break;
                 }
                     if(entidade.area_solida.intersects(pj.obj[i].area_solida)){
                             // System.out.println("Colisão para direita!");
@@ -125,13 +129,17 @@ public class VerificaColisao {
                 // Simulamos o movimento da entidade e verificamos onde ela vai estar após o movimento.
                 switch (entidade.direcao) {
                     case "cima":
-                        entidade.area_solida.y -= entidade.velocidade; break;
+                        entidade.area_solida.y -= entidade.velocidade;
+                        break;
                     case "baixo":
-                        entidade.area_solida.y += entidade.velocidade; break;
+                        entidade.area_solida.y += entidade.velocidade;
+                        break;
                     case "esquerda":
-                        entidade.area_solida.x -= entidade.velocidade; break;
+                        entidade.area_solida.x -= entidade.velocidade;
+                        break;
                     case "direita":
-                        entidade.area_solida.x += entidade.velocidade; break;
+                        entidade.area_solida.x += entidade.velocidade;
+                        break;
                 }
                 
                 if(entidade.area_solida.intersects(alvo[i].area_solida)){
@@ -184,7 +192,7 @@ public class VerificaColisao {
         if(entidade.area_solida.intersects(pj.jogador.area_solida)){
                     entidade.colisao_ligada = true;
                     contatoComJogador = true;
-                }
+        }
 
         entidade.area_solida.x = entidade.area_solida_padraoX;
         entidade.area_solida.y = entidade.area_solida_padraoY;
@@ -193,11 +201,6 @@ public class VerificaColisao {
 
         return contatoComJogador;
 
-    }
-
-    public void verificaMonstro(Entidade entidade) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'verificaMonstro'");
     }
 
 }

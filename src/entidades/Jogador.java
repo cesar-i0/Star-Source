@@ -65,60 +65,60 @@ public class Jogador extends Entidade{
     
 
     public void update(){
-       if(manipulador.cimaPrecionado || manipulador.baixoPrecionado || manipulador.esquerdaPrecionado || manipulador.direitaPreciondo || manipulador.enterPressionado){
-           // Coloque todas as condições abaixo para o personagem se mover apenas quando algum botão estiver selecionado
-           if(manipulador.cimaPrecionado){
-               direcao = "cima";
-           }
-           else if(manipulador.baixoPrecionado){
-               direcao = "baixo";
-           }
-           else if(manipulador.esquerdaPrecionado){
-               direcao = "esquerda";
-           }
-           else if(manipulador.direitaPreciondo){
-               direcao = "direita";
-           }
-   
-           // Verfica a colisão da peça
-           colisao_ligada = false;
-           pj.verifica.verificaPeca(this);
+        if(manipulador.cimaPrecionado || manipulador.baixoPrecionado || manipulador.esquerdaPrecionado || manipulador.direitaPreciondo || manipulador.enterPressionado){
+            // Coloque todas as condições abaixo para o personagem se mover apenas quando algum botão estiver selecionado
+            if(manipulador.cimaPrecionado){
+                direcao = "cima";
+            }
+            else if(manipulador.baixoPrecionado){
+                direcao = "baixo";
+            }
+            else if(manipulador.esquerdaPrecionado){
+                direcao = "esquerda";
+            }
+            else if(manipulador.direitaPreciondo){
+                direcao = "direita";
+            }
+    
+            // Verfica a colisão da peça
+            colisao_ligada = false;
+            pj.verifica.verificaPeca(this);
 
-           // Verifica a colisao com objetos
-           int index_do_objeto = pj.verifica.verificaObjeto(this, true);
-           pegueObjeto(index_do_objeto);
+            // Verifica a colisao com objetos
+            int index_do_objeto = pj.verifica.verificaObjeto(this, true);
+            pegueObjeto(index_do_objeto);
 
-           // Verifica a colisão com NPC
-           int index_do_NPC = pj.verifica.verificaEntidade(this, pj.npc);
-           interacaoNPC(index_do_NPC);
+            // Verifica a colisão com NPC
+            int index_do_NPC = pj.verifica.verificaEntidade(this, pj.npc);
+            interacaoNPC(index_do_NPC);
 
-           //Verifica a colisão com monstros
-        //    int index_do_monstro = pj.verifica.verificaEntidade(this, pj.monstros);
-        //     combateMonstros(index_do_monstro);
+            //Verifica a colisão com monstros
+            int index_do_monstro = pj.verifica.verificaEntidade(this, pj.monstros);
+            contatoComMonstros(index_do_monstro);
 
-           // Verifica evento
-           pj.evento.verificaEvento();
-           
+            // Verifica evento
+            pj.evento.verificaEvento();
+            
 
-           // Se a colisão for false o joagador pode se mover
-           if(colisao_ligada == false && manipulador.enterPressionado == false){
-               switch (direcao){
-                   case "cima":
-                       mundoY -= velocidade;
-                       break;
-                   case "baixo":
-                       mundoY += velocidade;
-                       break;
-                   case "esquerda":
-                       mundoX -= velocidade;
-                       break;
-                   case "direita":
-                       mundoX += velocidade;
-                       break;
-               }
-           }
+            // Se a colisão for false o joagador pode se mover
+            if(colisao_ligada == false && manipulador.enterPressionado == false){
+                switch (direcao){
+                    case "cima":
+                        mundoY -= velocidade;
+                        break;
+                    case "baixo":
+                        mundoY += velocidade;
+                        break;
+                    case "esquerda":
+                        mundoX -= velocidade;
+                        break;
+                    case "direita":
+                        mundoX += velocidade;
+                        break;
+                }
+            }
 
-           pj.chaveManipuladora.enterPressionado = false;
+            pj.chaveManipuladora.enterPressionado = false;
    
             contadorDoEstado++;
             if(contadorDoEstado > 12){
@@ -131,6 +131,13 @@ public class Jogador extends Entidade{
                 contadorDoEstado = 0;
             }
         } 
+        else {
+            estadoInicial++;
+            if(estadoInicial == 20){
+                numeroDoEstado = 1;
+                estadoInicial = 0;
+            }
+        }
         
         if(invencivel == true){
             contador_de_invencibilidade++;
@@ -140,13 +147,6 @@ public class Jogador extends Entidade{
             }
         }
         
-        else {
-            estadoInicial++;
-            if(estadoInicial == 20){
-                numeroDoEstado = 1;
-                estadoInicial = 0;
-            }
-        }
     
     }
 
@@ -167,6 +167,15 @@ public class Jogador extends Entidade{
                 // System.out.println("Colidindo com NPC");
                 pj.estado_do_jogo = pj.estado_de_dialogo;
                 pj.npc[i].falar();
+            }
+        }
+    }
+
+    public void contatoComMonstros(int i){
+        if(i != 999){
+            if(invencivel == false){
+                vida--;
+                invencivel = true;
             }
         }
     }
@@ -217,14 +226,20 @@ public class Jogador extends Entidade{
         }
 
         if(invencivel == true){
-            ((Graphics2D) g2).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f)); // Deixa o jogado meio transparente
         }
 
         g2.drawImage(imagem, telaX, telaY, null);
-
+        
+        // Resta o alpha
         if(invencivel == true){
-            ((Graphics2D) g2).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
+
+        // DEBUG
+        // g2.setFont(new Font("Arial",Font.PLAIN, 26));
+        // g2.setColor(Color.white);
+        // g2.drawString("Invencível: " + contador_de_invencibilidade, 10, 400);
 
         // Para ver a área de colisão usamos isso
         // g2.setColor(Color.red);

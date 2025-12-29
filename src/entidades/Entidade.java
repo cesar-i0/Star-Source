@@ -37,6 +37,7 @@ public class Entidade {
     public BufferedImage imagem, imagem2, imagem3;
     public String nome;
     public boolean colisao = false;
+    public int tipo; // 0 = jogador, 1 = npc, 2 = monstro
 
     // Status do personagem
     public int vidaMaxima;
@@ -102,34 +103,34 @@ public class Entidade {
         pj.verifica.verificaPeca(this);
         pj.verifica.verificaObjeto(this, false);
         pj.verifica.verificaEntidade(this, pj.npc);
-        // pj.verifica.verificaEntidade(this, pj.monstros);
-        // boolean contatoComJogador = pj.verifica.verificaJogador(this);
+        pj.verifica.verificaEntidade(this, pj.monstros);
+        boolean contatoComJogador = pj.verifica.verificaJogador(this);
 
-        // if(this.type == 2 && contatoComJogador == true){ // Tipo 2 é monstro
-        //     // System.out.println("Contato com o jogador");
-        //     if(invencivel == false){
-        //         pj.jogador.vida -= 1;
-        //         invencivel = true;
-        //     }
-        // }
+        if(this.tipo == 2 && contatoComJogador == true){ // Tipo 2 é monstro
+            // System.out.println("Contato com o jogador");
+            if(pj.jogador.invencivel == false){
+                pj.jogador.vida--;
+                pj.jogador.invencivel = true;
+            }
+        }
         
 
         // Se a colisão for false o joagador pode se mover
-           if(colisao_ligada == false){
-               switch (direcao){
-                   case "cima":
-                       mundoY -= velocidade;
-                       break;
-                   case "baixo":
-                       mundoY += velocidade;
-                       break;
-                   case "esquerda":
-                       mundoX -= velocidade;
-                       break;
-                   case "direita":
-                       mundoX += velocidade;
-                       break;
-               }
+            if(colisao_ligada == false){
+                switch (direcao){
+                    case "cima":
+                        mundoY -= velocidade;
+                        break;
+                    case "baixo":
+                        mundoY += velocidade;
+                        break;
+                    case "esquerda":
+                        mundoX -= velocidade;
+                        break;
+                    case "direita":
+                        mundoX += velocidade;
+                        break;
+                }
             }
    
             contadorDoEstado++;

@@ -23,8 +23,6 @@ public class PainelDoJogo extends JPanel implements Runnable {
     // Condigurações do mundo
     public final int maxColunasDoMundo = 50;
     public final int maxLinhaDoMundo = 50;
-    // public final int larguraDoMundo = tamanhoDaPeca * maxColunasDoMundo;
-    // public final int comprimentoDoMundo = tamanhoDaPeca * maxLinhaDoMundo;
 
     // Frames Per Second
     int FPS = 60; 
@@ -45,6 +43,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public Jogador jogador = new Jogador(this, chaveManipuladora);
     public Entidade obj[] = new Entidade[10]; // Torna possível mostrar 10 objetos no mesmo display/tela
     public Entidade npc[] = new Entidade[10];
+    public Entidade monstros[] = new Entidade[20];
     ArrayList<Entidade> listaDeEntidades = new ArrayList<>();
 
     // Estado do jogo
@@ -118,17 +117,18 @@ public class PainelDoJogo extends JPanel implements Runnable {
                     npc[i].update();
                 }
             }
+            // Monstros
+            for(int i = 0; i < monstros.length; i++){
+                if(monstros[i] != null){
+                    monstros[i].update();
+                }
+            }
 
         }
         if(estado_do_jogo == estado_de_pausa){
             // nada por enquanto
         }
         
-    //     for(int i = 0; i < monstros.length; i++){
-    //         if(monstros[i] != null){
-    //             monstros[i].update();
-    //         }
-    // }
 }
 
     // A classe "Graphics" tem muitas funções para desenhar objetos na tela.
@@ -157,6 +157,11 @@ public class PainelDoJogo extends JPanel implements Runnable {
             for(int i = 0; i < obj.length; i++){
                 if(obj[i] != null){
                     listaDeEntidades.add(obj[i]);
+                }
+            }
+            for(int i = 0; i < monstros.length; i++){
+                if(monstros[i] != null){
+                    listaDeEntidades.add(monstros[i]);
                 }
             }
 
