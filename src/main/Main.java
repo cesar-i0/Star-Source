@@ -17,8 +17,10 @@ public class Main {
         window.setLocationRelativeTo(null); // A janela será aberta no centro da tela
         window.setVisible(true); // Permite que vejamos essa tela
 
+        // System.out.println("Janela visível, iniciando configuração...");
         painelDoJogo.configuracao_do_jogo(); // Posiciona itens no mapa do jogo
         painelDoJogo.iniciarThreadDoJogo();
+        // System.out.println("Thread iniciado.");
     
     }
 }

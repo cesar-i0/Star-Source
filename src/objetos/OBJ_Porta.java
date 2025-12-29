@@ -1,25 +1,26 @@
 package objetos;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import entidades.Entidade;
 import main.PainelDoJogo;
+import java.awt.Rectangle;
 
-public class OBJ_Porta extends SuperObjetos{
-
-    PainelDoJogo pj;
+public class OBJ_Porta extends Entidade{
 
     public OBJ_Porta(PainelDoJogo pj){
+
+        super(pj);
         super.nome = "Porta";
-        try{
-            super.imagem = ImageIO.read(getClass().getResourceAsStream("/res/objetos/porta.png"));
-            ferramenta.imagemRedimensionada(super.imagem, pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
+        parado_frente = configuracoes("/res/objetos/porta");
         colisao = true;
+
+        area_solida = new Rectangle();
+        area_solida.x = 0;
+        area_solida.y = 16;
+        area_solida.width = 48;
+        area_solida.height = 32;
+        area_solida_padraoX = area_solida.x;
+        area_solida_padraoY = area_solida.y;
+
     }
 
 }

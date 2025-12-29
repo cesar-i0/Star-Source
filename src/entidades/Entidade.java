@@ -20,7 +20,7 @@ public class Entidade {
 
     // Precisamos usamos variáveis como essas para trazer as imagens que serão as animações de movimentação
     public BufferedImage cima1, cima2, baixo1, baixo2, esquerda1, esquerda2, direita1, direita2, parado_frente, parado_costas;
-    public String direcao; // Aqui será guardado qual imagem deve ser mostarda com determinada ação
+    public String direcao = "parado_frente"; // Aqui será guardado qual imagem deve ser mostarda com determinada ação
     public int contadorDoEstado = 0;
     public int numeroDoEstado = 1;
     int estadoInicial = 0;
@@ -30,6 +30,9 @@ public class Entidade {
     public int trava_de_contador_de_acao = 0;
     String dialogos[] =  new String[20];
     int index_de_dialogo = 0;
+    public BufferedImage imagem, imagem2, imagem3;
+    public String nome;
+    public boolean colisao = false;
 
     // Status do personagem
     public int vidaMaxima;

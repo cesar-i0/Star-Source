@@ -155,7 +155,7 @@ public class Jogador extends Entidade{
         }
     }
 
-    public void desenhar(Graphics g2){
+    public void desenhar(Graphics2D g2){
 
         BufferedImage imagem = null;
         switch (direcao){
@@ -202,8 +202,8 @@ public class Jogador extends Entidade{
         g2.drawImage(imagem, telaX, telaY, null);
 
         // Para ver a área de colisão usamos isso
-        g2.setColor(Color.red);
-        g2.drawRect(telaX + area_solida.x, telaY + area_solida.y, area_solida.width, area_solida.height);
+        // g2.setColor(Color.red);
+        // g2.drawRect(telaX + area_solida.x, telaY + area_solida.y, area_solida.width, area_solida.height);
     }
 
 }

@@ -2,11 +2,13 @@ package main;
 
 import entidades.Entidade;
 import entidades.Jogador;
-import objetos.SuperObjetos;
 import peca.GerenciadorDePeca;
 
 import javax.swing.JPanel;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class PainelDoJogo extends JPanel implements Runnable {
     // Configurações de tela
@@ -41,8 +43,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
     
     // Entidade e Objeto
     public Jogador jogador = new Jogador(this, chaveManipuladora);
-    public SuperObjetos obj[] = new SuperObjetos[10]; // Torna possível mostrar 10 objetos no mesmo display/tela
-    public Entidade npc[] = new Entidade[10]; 
+    public Entidade obj[] = new Entidade[10]; // Torna possível mostrar 10 objetos no mesmo display/tela
+    public Entidade npc[] = new Entidade[10];
+    ArrayList<Entidade> listaDeEntidades = new ArrayList<>();
 
     // Estado do jogo
     public int estado_do_jogo;
@@ -136,23 +139,39 @@ public class PainelDoJogo extends JPanel implements Runnable {
             // Peça
             peca_tela.desenhar(g2); 
             
-            // Objeto
+            // Adiciona entidades para a lista
+            listaDeEntidades.add(jogador);
+            for(int i = 0; i < npc.length; i++){
+                if(npc[i] != null){
+                    listaDeEntidades.add(npc[i]);
+                }
+            }
             for(int i = 0; i < obj.length; i++){
                 if(obj[i] != null){
-                    obj[i].desenhar(g2, this);
+                    listaDeEntidades.add(obj[i]);
                 }
             }
-    
-            // NPC
-            for(int  i = 0; i < npc.length; i++){
-                if(npc[i] != null){
-                    npc[i].desenhar(g2);
+
+            // SORT
+            Collections.sort(listaDeEntidades, new Comparator<Entidade>() {
+                @Override
+                public int compare(Entidade e1, Entidade e2) {
+                    int resultado = Integer.compare(e1.mundoX, e2.mundoY);
+                    return resultado;
                 }
+            });
+
+            // Desenha entidades
+            for(int i = 0; i < listaDeEntidades.size(); i++){
+                listaDeEntidades.get(i).desenhar(g2);
             }
-    
-            // Jogador
-            jogador.desenhar(g2);
-    
+
+            // Lista vazia de entidades
+            for(int i = 0; i < listaDeEntidades.size(); i++){
+                listaDeEntidades.remove(i);
+            }
+            // listaDeEntidades.clear();
+
             // UI
             ui.desenhar(g2);
     

@@ -1,24 +1,16 @@
 package objetos;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import entidades.Entidade;
 import main.PainelDoJogo;
 
-public class OBJ_Chave extends SuperObjetos {
-
-    PainelDoJogo pj;
+public class OBJ_Chave extends Entidade {
 
     public OBJ_Chave(PainelDoJogo pj){
+
+        super(pj);
         super.nome = "Chave";
-        try{
-            super.imagem = ImageIO.read(getClass().getResourceAsStream("/res/objetos/chave.png"));
-            ferramenta.imagemRedimensionada(super.imagem, pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
+        parado_frente = configuracoes("/res/objetos/chave");
+
     }
 
 }
