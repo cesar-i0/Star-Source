@@ -3,10 +3,9 @@ package main;
 import entidades.Entidade;
 import entidades.Jogador;
 import peca.GerenciadorDePeca;
-
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -31,6 +30,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     int FPS = 60; 
 
     // Sistema
+    
     GerenciadorDePeca peca_tela = new GerenciadorDePeca(this);
     public Manipulador chaveManipuladora = new Manipulador(this);
     Som musica = new Som();
@@ -66,9 +66,11 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public void configuracao_do_jogo(){
 
         configura_recurso.setObjeto();
-        configura_recurso.setNPC(); // Adiciona o NPC
+        configura_recurso.setNPC();
+        configura_recurso.setMonstro(); // Adiciona os monstros
         // tocarMusica(0);
         estado_do_jogo = estado_de_titulo;
+       
 
     }
 
@@ -121,7 +123,13 @@ public class PainelDoJogo extends JPanel implements Runnable {
         if(estado_do_jogo == estado_de_pausa){
             // nada por enquanto
         }
-    }
+        
+    //     for(int i = 0; i < monstros.length; i++){
+    //         if(monstros[i] != null){
+    //             monstros[i].update();
+    //         }
+    // }
+}
 
     // A classe "Graphics" tem muitas funções para desenhar objetos na tela.
     public void paintComponent(Graphics g){

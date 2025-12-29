@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
+
 import javax.imageio.ImageIO;
 import main.FerramentaUtilitaria;
 import main.PainelDoJogo;
@@ -28,6 +30,8 @@ public class Entidade {
     public int area_solida_padraoX, area_solida_padraoY;
     public boolean colisao_ligada = false;
     public int trava_de_contador_de_acao = 0;
+    public boolean invencivel = false;
+    public int contador_de_invencibilidade = 0;
     String dialogos[] =  new String[20];
     int index_de_dialogo = 0;
     public BufferedImage imagem, imagem2, imagem3;
@@ -49,16 +53,19 @@ public class Entidade {
         BufferedImage imagem = null;
 
         try {
-
-            imagem = ImageIO.read(getClass().getResourceAsStream(caminho_da_imagem +".png"));
+            InputStream is = getClass().getResourceAsStream(caminho_da_imagem + ".png");
+            if (is == null) {
+                throw new IllegalArgumentException("Imagem não encontrada: " + caminho_da_imagem + ".png");
+            }
+            imagem = ImageIO.read(is);
             imagem = ferramenta.imagemRedimensionada(imagem, pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return imagem;
     }
+  
 
     public void setAcao(){}
 
@@ -94,7 +101,18 @@ public class Entidade {
         colisao_ligada = false;
         pj.verifica.verificaPeca(this);
         pj.verifica.verificaObjeto(this, false);
-        pj.verifica.verificaJogador(this);
+        pj.verifica.verificaEntidade(this, pj.npc);
+        // pj.verifica.verificaEntidade(this, pj.monstros);
+        // boolean contatoComJogador = pj.verifica.verificaJogador(this);
+
+        // if(this.type == 2 && contatoComJogador == true){ // Tipo 2 é monstro
+        //     // System.out.println("Contato com o jogador");
+        //     if(invencivel == false){
+        //         pj.jogador.vida -= 1;
+        //         invencivel = true;
+        //     }
+        // }
+        
 
         // Se a colisão for false o joagador pode se mover
            if(colisao_ligada == false){
