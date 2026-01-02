@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.awt.AlphaComposite;
 
 import javax.imageio.ImageIO;
 import main.FerramentaUtilitaria;
@@ -17,49 +18,73 @@ public class Entidade {
 
     PainelDoJogo pj;
 
-    public int mundoX, mundoY;
-    public int velocidade;
+    
+    
 
     // Precisamos usamos variáveis como essas para trazer as imagens que serão as animações de movimentação
     public BufferedImage cima1, cima2, baixo1, baixo2, esquerda1, esquerda2, direita1, direita2, parado_frente, parado_costas;
-    public String direcao = "parado_frente"; // Aqui será guardado qual imagem deve ser mostarda com determinada ação
-    public int contadorDoEstado = 0;
-    public int numeroDoEstado = 1;
+    public BufferedImage ataque;
     int estadoInicial = 0;
-    public Rectangle area_solida;
     public int area_solida_padraoX, area_solida_padraoY;
-    public boolean colisao_ligada = false;
-    public int trava_de_contador_de_acao = 0;
-    public boolean invencivel = false;
-    public int contador_de_invencibilidade = 0;
-    String dialogos[] =  new String[20];
-    int index_de_dialogo = 0;
-    public BufferedImage imagem, imagem2, imagem3;
-    public String nome;
+    public Rectangle area_solida;
+    public Rectangle AtaqueArea = new Rectangle(0,0,0,0);
     public boolean colisao = false;
-    public int tipo; // 0 = jogador, 1 = npc, 2 = monstro
+    String dialogos[] =  new String[20];
+    public BufferedImage imagem, imagem2, imagem3;
+   
+    //ESTADOS
+    public int mundoX, mundoY;
+    public String direcao = "parado_frente"; // Aqui será guardado qual imagem deve ser mostarda com determinada ação
+    public boolean invencivel = false;
+    int index_de_dialogo = 0;
+    public boolean colisao_ligada = false;
+    public int numeroDoEstado = 1;
+    public boolean atacando = false;
+
+    //CONTADORES 
+    public int contadorDoEstado = 0;
+    public int trava_de_contador_de_acao = 0;
+    public int contador_de_invencibilidade = 0;
+
 
     // Status do personagem
     public int vidaMaxima;
     public int vida;
+    public String nome;
+    public int tipo; // 0 = jogador, 1 = npc, 2 = monstro
+    public int velocidade;
 
     public Entidade(PainelDoJogo pj){
         this.pj = pj;
     }
 
-    public BufferedImage configuracoes(String caminho_da_imagem){
+    public BufferedImage configuracoes(String caminho_da_imagem, int width, int height) {
 
         FerramentaUtilitaria ferramenta = new FerramentaUtilitaria();
-
         BufferedImage imagem = null;
 
         try {
-            InputStream is = getClass().getResourceAsStream(caminho_da_imagem + ".png");
-            if (is == null) {
-                throw new IllegalArgumentException("Imagem não encontrada: " + caminho_da_imagem + ".png");
+            // 1️⃣ garante que o caminho começa com /
+            String caminho = caminho_da_imagem.startsWith("/")
+                    ? caminho_da_imagem
+                    : "/" + caminho_da_imagem;
+
+            // 2️⃣ adiciona .png automaticamente se não tiver
+            if (!caminho.endsWith(".png")) {
+                caminho += ".png";
             }
+
+            // 3️⃣ carrega pelo classpath corretamente
+            InputStream is = Entidade.class.getResourceAsStream(caminho);
+
+            if (is == null) {
+                throw new RuntimeException("Imagem não encontrada: " + caminho);
+            }
+            System.out.println(is);
+
             imagem = ImageIO.read(is);
-            imagem = ferramenta.imagemRedimensionada(imagem, pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+            imagem = ferramenta.imagemRedimensionada(imagem, width, height);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,11 +104,11 @@ public class Entidade {
 
         switch (pj.jogador.direcao) {
             case "cima":
-                direcao = "baixo";
-                break;
-            case "baixo":
                 direcao = "cima";
             break;
+            case "baixo":
+                direcao = "baixo";
+                break;
             case "direita":
                 direcao = "direita";
                 break;
@@ -91,8 +116,8 @@ public class Entidade {
                 direcao = "esquerda";
                 break;
         }
-
     }
+        
 
     public void update(){
 
@@ -144,6 +169,15 @@ public class Entidade {
                 contadorDoEstado = 0;
             }
 
+            //Trazemos o invencivel para conseguir atacar o monstro 
+             if(invencivel == true){
+            contador_de_invencibilidade++;
+            if(contador_de_invencibilidade > 40){
+                invencivel = false;
+                contador_de_invencibilidade = 0;
+            }
+        }
+
             else{
                 estadoInicial++;
                 if(estadoInicial == 20){
@@ -152,7 +186,9 @@ public class Entidade {
                 }
             }
 
-    }
+        }
+
+    
 
     public void desenhar(Graphics2D g2){
         
@@ -206,9 +242,16 @@ public class Entidade {
                     break;
             }
 
+            if(invencivel == true){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f)); // Deixa o jogado meio transparente
+        }
+
             g2.drawImage(imagem, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
         }
-        
+
+        if(invencivel == true){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        }
     }
 
 }

@@ -68,7 +68,7 @@ public class Manipulador implements KeyListener {
         }
 
         // Estado de jogar
-        if(pj.estado_do_jogo == pj.estado_de_jogar){
+        else if(pj.estado_do_jogo == pj.estado_de_jogar){
             
             if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) cimaPrecionado = true;
             if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) baixoPrecionado = true;

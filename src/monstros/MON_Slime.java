@@ -5,11 +5,16 @@ import entidades.Entidade;
 import main.PainelDoJogo;
 import java.awt.Rectangle; 
 
+
 public class MON_Slime extends Entidade{
+
+    PainelDoJogo pj;
+
     
     public MON_Slime(PainelDoJogo pj){
 
         super(pj);
+        this.pj = pj;
         super.nome = "Slime";
         tipo = 2;
 
@@ -31,14 +36,14 @@ public class MON_Slime extends Entidade{
 
     public void getImagem() {
       
-        baixo1 = configuracoes("/res/monstros/m1");
-        baixo2 = configuracoes("/res/monstros/m2");
-        cima1 = configuracoes("/res/monstros/m1");
-        cima2 = configuracoes("/res/monstros/m2");
-        esquerda1 = configuracoes("/res/monstros/m1");
-        esquerda2 = configuracoes("/res/monstros/m2");
-        direita1 = configuracoes("/res/monstros/m1");
-        direita2 = configuracoes("/res/monstros/m2");
+        baixo1 = configuracoes("/res/monstros/m1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        baixo2 = configuracoes("/res/monstros/m2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        cima1 = configuracoes("/res/monstros/m1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        cima2 = configuracoes("/res/monstros/m2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        esquerda1 = configuracoes("/res/monstros/m1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        esquerda2 = configuracoes("/res/monstros/m2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        direita1 = configuracoes("/res/monstros/m1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        direita2 = configuracoes("/res/monstros/m2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
 
     }
 

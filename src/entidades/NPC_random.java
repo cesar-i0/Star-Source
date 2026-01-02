@@ -28,16 +28,16 @@ public class NPC_random extends Entidade {
 
     public void getImagemDoNPC(){
         
-        cima1 = configuracoes("/res/npc/NPC");
-        cima2 = configuracoes("/res/npc/NPC");
-        baixo1 = configuracoes("/res/npc/NPC");
-        baixo2 = configuracoes("/res/npc/NPC");
-        esquerda1 = configuracoes("/res/npc/NPC");
-        esquerda2 = configuracoes("/res/npc/NPC");
-        direita1 = configuracoes("/res/npc/NPC");
-        direita2 = configuracoes("/res/npc/NPC");
-        parado_frente = configuracoes("/res/npc/NPC");
-        parado_costas = configuracoes("/res/npc/NPC");
+        cima1 = configuracoes("/res/npc/NPC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        cima2 = configuracoes("/res/npc/NPC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        baixo1 = configuracoes("/res/npc/NPC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        baixo2 = configuracoes("/res/npc/NPC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        esquerda1 = configuracoes("/res/npc/NPC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        esquerda2 = configuracoes("/res/npc/NPC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        direita1 = configuracoes("/res/npc/NPC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        direita2 = configuracoes("/res/npc/NPC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        parado_frente = configuracoes("/res/npc/NPC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        parado_costas = configuracoes("/res/npc/NPC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         // cima1, cima2, baixo1, baixo2, esquerda1, esquerda2, direita1, direita2;
 
     }

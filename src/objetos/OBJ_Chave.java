@@ -9,7 +9,7 @@ public class OBJ_Chave extends Entidade {
 
         super(pj);
         super.nome = "Chave";
-        parado_frente = configuracoes("/res/objetos/chave");
+        parado_frente = configuracoes("/res/objetos/chave", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
 
     }
 

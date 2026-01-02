@@ -29,9 +29,12 @@ public class Jogador extends Entidade{
         area_solida_padraoY = area_solida.y;
         area_solida.width = 32;
         area_solida.height = 32;
+        AtaqueArea.width = 36;
+        AtaqueArea.height = 36;
 
         setValoresPadroes();
         getImagemDoJogador();
+        getAtaqueJogadorImagem();
     }
 
     public void setValoresPadroes(){
@@ -45,27 +48,45 @@ public class Jogador extends Entidade{
         vidaMaxima = 6;
         vida = vidaMaxima;
 
+
     }
 
     public void getImagemDoJogador(){
         
-        cima1 = configuracoes("/res/jogador/andando_costas1");
-        cima2 = configuracoes("/res/jogador/andando_costas2");
-        baixo1 = configuracoes("/res/jogador/andando_frente1");
-        baixo2 = configuracoes("/res/jogador/andando_frente2");
-        esquerda1 = configuracoes("/res/jogador/parado_esquerda");
-        esquerda2 = configuracoes("/res/jogador/andando_esquerda");
-        direita1 = configuracoes("/res/jogador/parado_direita");
-        direita2 = configuracoes("/res/jogador/andando_direita"); 
-        parado_frente = configuracoes("/res/jogador/parado");
-        parado_costas = configuracoes("/res/jogador/parado_costas");
+        cima1 = configuracoes("/res/jogador/andando_costas1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        cima2 = configuracoes("/res/jogador/andando_costas2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        baixo1 = configuracoes("/res/jogador/andando_frente1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        baixo2 = configuracoes("/res/jogador/andando_frente2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        esquerda1 = configuracoes("/res/jogador/parado_esquerda", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        esquerda2 = configuracoes("/res/jogador/andando_esquerda", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        direita1 = configuracoes("/res/jogador/parado_direita",pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        direita2 = configuracoes("/res/jogador/andando_direita", pj.tamanhoDaPeca, pj.tamanhoDaPeca); 
+        parado_frente = configuracoes("/res/jogador/parado", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        parado_costas = configuracoes("/res/jogador/parado_costas", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
 
+    }
+
+    public void getAtaqueJogadorImagem(){
+
+        ataque = configuracoes("/res/jogador/ataque.png",  pj.tamanhoDaPeca, pj.tamanhoDaPeca); //Busca a imagem deataque
+       /* ataqueCima2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca, pj.tamanhoDaPeca*2); //Multiplica para ficar maior e enquadrar a parte da arma do jogador
+        ataqueBaixo1 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca, pj.tamanhoDaPeca*2);
+        ataqueBaixo2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca, pj.tamanhoDaPeca*2);
+        ataqueEsquerda1 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
+        ataqueEsquerda2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
+        ataqueDireita1 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
+        ataqueDireita2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
+*/ 
     }
 
     
 
     public void update(){
-        if(manipulador.cimaPrecionado || manipulador.baixoPrecionado || manipulador.esquerdaPrecionado || manipulador.direitaPreciondo || manipulador.enterPressionado){
+
+        if(atacando == true){
+           atacando();
+        } 
+        else if(manipulador.cimaPrecionado || manipulador.baixoPrecionado || manipulador.esquerdaPrecionado || manipulador.direitaPreciondo || manipulador.enterPressionado){
             // Coloque todas as condições abaixo para o personagem se mover apenas quando algum botão estiver selecionado
             if(manipulador.cimaPrecionado){
                 direcao = "cima";
@@ -87,6 +108,7 @@ public class Jogador extends Entidade{
             // Verifica a colisao com objetos
             int index_do_objeto = pj.verifica.verificaObjeto(this, true);
             pegueObjeto(index_do_objeto);
+
 
             // Verifica a colisão com NPC
             int index_do_NPC = pj.verifica.verificaEntidade(this, pj.npc);
@@ -150,6 +172,52 @@ public class Jogador extends Entidade{
     
     }
 
+    public void atacando(){
+        contadorDoEstado++;
+        if(contadorDoEstado <= 5){
+            numeroDoEstado = 1;
+        }
+        if(contadorDoEstado > 5 && contadorDoEstado <= 25){
+            numeroDoEstado = 2;
+            int correnteMundoX = mundoX;
+            int correnteMundoY = mundoY;
+            int area_solidaWidth = area_solida.width;
+            int area_solidaHeight = area_solida.height;
+
+            // Ajusta a área de ataque dependendo da direção
+            switch(direcao){
+                case "cima":
+                    mundoY -= AtaqueArea.height; break;
+                case "baixo":
+                    mundoY += area_solidaHeight; break;
+                case "esquerda":
+                    mundoX -= AtaqueArea.width; break;
+                case "direita":
+                    mundoX += area_solidaWidth; break;
+            }
+
+            //Area de ataque se torna sólida
+            area_solida.width = AtaqueArea.width;
+            area_solida.height = AtaqueArea.height;
+
+            //Checa colisão com monstros
+            int index_do_monstro = pj.verifica.verificaEntidade(this, pj.monstros);
+            danoMonstro(index_do_monstro);
+
+            //Reverte as posições e tamanhos após o ataque
+            mundoX = correnteMundoX;
+            mundoY = correnteMundoY;
+            area_solida.width = area_solidaWidth;
+            area_solida.height = area_solidaHeight;
+
+        }
+        if(contadorDoEstado > 25){
+            numeroDoEstado = 1;
+            contadorDoEstado = 0;
+            atacando = false;
+        }
+    }
+
     public void pegueObjeto(int i){
         // Se não for 999 então a entidade tocou no objeto
         if(i != 999){
@@ -162,14 +230,23 @@ public class Jogador extends Entidade{
 
     public void interacaoNPC(int i){
 
-        if(i != 999){
+        if(pj.chaveManipuladora.enterPressionado == true){
+
+             if(i != 999){
+
             if(pj.chaveManipuladora.enterPressionado == true){
                 // System.out.println("Colidindo com NPC");
                 pj.estado_do_jogo = pj.estado_de_dialogo;
                 pj.npc[i].falar();
             }
+        } else {
+            atacando = true;
         }
     }
+}
+
+
+       
 
     public void contatoComMonstros(int i){
         if(i != 999){
@@ -180,46 +257,98 @@ public class Jogador extends Entidade{
         }
     }
 
+    public void danoMonstro(int i){
+        if(i != 999){
+            if(pj.monstros[i].invencivel == false){
+                pj.monstros[i].vida-=1;
+                pj.monstros[i].invencivel = true;
+
+                // System.out.println("Dano no monstro: " + pj.monstros[i].vida);
+
+                if(pj.monstros[i].vida <= 0){
+                    pj.monstros[i] = null;
+                    // System.out.println("Monstro derrotado!");
+                }
+            }
+        }
+    }
+
+
     public void desenhar(Graphics2D g2){
 
         BufferedImage imagem = null;
+        int TempTelaX = telaX;
+        int TempTelaY = telaY;  
+
         switch (direcao){
             case "cima":
+                if(atacando == false){
                 if(numeroDoEstado == 1){
                     imagem = cima1;
                 }
                 if(numeroDoEstado == 2){
                     imagem = cima2;
                 }
-                // imagem = bogo;
+            } 
+            if(atacando == true){
+                //TempTelaY = telaY - pj.tamanhoDaPeca; // Ajusta a posição da imagem de ataque para cima
+                 if(numeroDoEstado == 1){ imagem = ataque;
+                }
+                if(numeroDoEstado == 2){ imagem = ataque;
+                }
+            }
                 break;
+
             case "baixo":
-                if(numeroDoEstado == 1){
-                   imagem = baixo1;
+                if(atacando == false){
+                if(numeroDoEstado == 1){ imagem = baixo1;
                 }
-                if(numeroDoEstado == 2){
-                   imagem = baixo2;
+                if(numeroDoEstado == 2){ imagem = baixo2;
                 }
-                // imagem = bogo;
+            } 
+            if(atacando == true){
+                 if(numeroDoEstado == 1){ imagem = ataque;
+                }
+                if(numeroDoEstado == 2){ imagem = ataque;
+                }
+            }
                 break;
+
             case "esquerda":
+                if(atacando == false){
                 if(numeroDoEstado == 1){
                     imagem = esquerda1;
                 }
                 if(numeroDoEstado == 2){
                     imagem = esquerda2;
                 }
-                // imagem = bogo;
+            }
+            if(atacando == true){
+               // TempTelaX = telaX - pj.tamanhoDaPeca; // Ajusta a posição da imagem de ataque para esquerda (usar somente se precisar reajustar a imagem do ataque)
+                 if(numeroDoEstado == 1){ imagem = ataque;
+                }
+                if(numeroDoEstado == 2){ imagem = ataque;
+                }
+            }
                 break;
+
             case "direita":
+                if(atacando == false){
                 if(numeroDoEstado == 1){
                     imagem = direita1;
                 }
                 if(numeroDoEstado == 2){
                     imagem = direita2;
                 }
-                // imagem = bogo;
+            }
+            if(atacando == true){
+                 if(numeroDoEstado == 1){ imagem = ataque;
+                }
+                if(numeroDoEstado == 2){ imagem = ataque;
+                }
+            }
                 break;
+                
             case "parado_frente":
                 imagem = parado_frente;
                 break;
@@ -229,7 +358,7 @@ public class Jogador extends Entidade{
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f)); // Deixa o jogado meio transparente
         }
 
-        g2.drawImage(imagem, telaX, telaY, null);
+        g2.drawImage(imagem, TempTelaX, TempTelaY, null);
         
         // Resta o alpha
         if(invencivel == true){
@@ -244,6 +373,7 @@ public class Jogador extends Entidade{
         // Para ver a área de colisão usamos isso
         // g2.setColor(Color.red);
         // g2.drawRect(telaX + area_solida.x, telaY + area_solida.y, area_solida.width, area_solida.height);
-    }
 
-}
+            }
+        }
+        
