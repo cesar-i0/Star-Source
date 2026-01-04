@@ -14,13 +14,17 @@ public class MON_Slime extends Entidade{
     public MON_Slime(PainelDoJogo pj){
 
         super(pj);
+       
         this.pj = pj;
         super.nome = "Slime";
         tipo = 2;
 
         velocidade = 1;
-        vidaMaxima = 4;
+        vidaMaxima = 20;
         vida = vidaMaxima;
+        ataques = 4;
+        defesa = 0;
+        exp = 2;
 
         area_solida = new Rectangle();
         area_solida.x = 3;
@@ -74,4 +78,10 @@ public class MON_Slime extends Entidade{
         }
     }
 
-}
+    //Método que faz o monstro ir pra direção que o jogador está virado ao receber dano
+    public void reacaoDano(){
+        trava_de_contador_de_acao = 0;
+        direcao = pj.jogador.direcao;      
+        }
+    }
+

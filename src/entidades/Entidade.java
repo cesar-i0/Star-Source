@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.awt.AlphaComposite;
+import java.awt.Color;
 
 import javax.imageio.ImageIO;
 import main.FerramentaUtilitaria;
@@ -40,11 +41,17 @@ public class Entidade {
     public boolean colisao_ligada = false;
     public int numeroDoEstado = 1;
     public boolean atacando = false;
+    public boolean vivo = true;
+    public boolean morrendo = false;
+    public boolean hpBarraDeVidaVisivel = false;
+
 
     //CONTADORES 
     public int contadorDoEstado = 0;
     public int trava_de_contador_de_acao = 0;
     public int contador_de_invencibilidade = 0;
+    public int contador_de_morte = 0;
+    public int contador_de_hpBarraDeVida = 0;
 
 
     // Status do personagem
@@ -53,10 +60,27 @@ public class Entidade {
     public String nome;
     public int tipo; // 0 = jogador, 1 = npc, 2 = monstro
     public int velocidade;
+    public int nivel;
+    public int forca;
+    public int ataques;
+    public int defesa;
+    public int experiencia;
+    public int expProximoNivel;
+    public int moedas;
+    public int exp;
+    public Entidade correnteEscudo;
+    public Entidade correnteArma;
+
+    // Atributos de Itens
+    public int ataqueValor;
+    public int defesaValor;
+    public String descricao = "";
+
 
     public Entidade(PainelDoJogo pj){
         this.pj = pj;
     }
+
 
     public BufferedImage configuracoes(String caminho_da_imagem, int width, int height) {
 
@@ -64,17 +88,17 @@ public class Entidade {
         BufferedImage imagem = null;
 
         try {
-            // 1️⃣ garante que o caminho começa com /
+            // 1 garante que o caminho começa com /
             String caminho = caminho_da_imagem.startsWith("/")
                     ? caminho_da_imagem
                     : "/" + caminho_da_imagem;
 
-            // 2️⃣ adiciona .png automaticamente se não tiver
+            // 2 adiciona .png automaticamente se não tiver
             if (!caminho.endsWith(".png")) {
                 caminho += ".png";
             }
 
-            // 3️⃣ carrega pelo classpath corretamente
+            // 3 carrega pelo classpath corretamente
             InputStream is = Entidade.class.getResourceAsStream(caminho);
 
             if (is == null) {
@@ -94,7 +118,7 @@ public class Entidade {
   
 
     public void setAcao(){}
-
+    public void reacaoDano(){}
     public void falar(){
 
         if(dialogos[index_de_dialogo] == null) index_de_dialogo = 0;
@@ -117,7 +141,7 @@ public class Entidade {
                 break;
         }
     }
-        
+
 
     public void update(){
 
@@ -133,12 +157,19 @@ public class Entidade {
 
         if(this.tipo == 2 && contatoComJogador == true){ // Tipo 2 é monstro
             // System.out.println("Contato com o jogador");
+            
             if(pj.jogador.invencivel == false){
-                pj.jogador.vida--;
+                pj.tocarEfeitoSonoro(1);
+                int dano = pj.jogador.defesa;
+                if(dano < 0){
+                    dano = 0;
+                }
+                pj.jogador.vida -= dano;
                 pj.jogador.invencivel = true;
             }
         }
-        
+
+       
 
         // Se a colisão for false o joagador pode se mover
             if(colisao_ligada == false){
@@ -157,7 +188,8 @@ public class Entidade {
                         break;
                 }
             }
-   
+
+           
             contadorDoEstado++;
             if(contadorDoEstado > 12){
                 if(numeroDoEstado == 1){
@@ -242,16 +274,81 @@ public class Entidade {
                     break;
             }
 
-            if(invencivel == true){
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f)); // Deixa o jogado meio transparente
+            //Se for monstro desenha a barra de vida
+             if(tipo == 2 && hpBarraDeVidaVisivel == true){
+                double umaEscala = (double)pj.tamanhoDaPeca /vidaMaxima;
+                double hpBarraDeVida = umaEscala*vida;
+
+                g2.setColor(new Color(35, 35, 35));
+                g2.fillRect(telaX-1, telaY-16, pj.tamanhoDaPeca+2, 12);
+                g2.setColor(new Color(255, 0, 30));
+                g2.fillRect(telaX, telaY-15, (int)hpBarraDeVida, 10);
+
+             contador_de_hpBarraDeVida++;
+                if(contador_de_hpBarraDeVida > 180){
+                    contador_de_hpBarraDeVida = 0;
+                    hpBarraDeVidaVisivel = false;
+            }  
         }
 
+            
+
+            if(invencivel == true){
+            hpBarraDeVidaVisivel = true;
+            contador_de_hpBarraDeVida = 0;
+           mudaAlpha(g2, 0.4f); // Deixa o jogado meio transparente
+        }
+
+        if(morrendo == true){
+           
+            animaçãoMorte(g2);
+        }
             g2.drawImage(imagem, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
         }
 
-        if(invencivel == true){
+       if(invencivel == true){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
     }
 
+    //Quantidade de frames que a animação de morte vai durar(Intervalos)
+        public void animaçãoMorte(Graphics2D g2){
+
+            contador_de_morte++;
+
+            int i = 10;
+
+            if(contador_de_morte <= i){
+               mudaAlpha(g2, 0f);
+            }
+             if(contador_de_morte > i*2 && contador_de_morte <= i*3){
+                 mudaAlpha(g2, 1f);
+            }
+             if(contador_de_morte > i*3 && contador_de_morte <= i*4){
+                mudaAlpha(g2, 0f);
+            }
+             if(contador_de_morte > i*4 && contador_de_morte <= i*5){
+                mudaAlpha(g2, 1f);
+            }
+            if( contador_de_morte > i*5 && contador_de_morte <= i*6){
+                mudaAlpha(g2, 0f);
+            }
+             if(contador_de_morte > i*6 && contador_de_morte <= i*7){
+                mudaAlpha(g2, 1f);
+            }
+            if(contador_de_morte > i*7 && contador_de_morte <= i*8){
+                mudaAlpha(g2, 0f);
+            }
+            if(contador_de_morte > i*8){
+               vivo = false;
+               morrendo = false;
+            }
+    }
+
+    //Método para mudar a transparência
+    public void mudaAlpha(Graphics2D g2, float alphaContador){
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaContador));
+    }
+
 }
+

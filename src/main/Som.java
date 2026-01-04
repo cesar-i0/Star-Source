@@ -11,8 +11,8 @@ public class Som {
 
     public Som(){
         som_URL[0] = getClass().getResource("/res/sons/MusicaGame.wav");
-        // som_URL[1] = getClass().getResource("/res/sons/MusicaGame.wav");
-        // som_URL[2] = getClass().getResource("/res/sons/MusicaGame.wav");
+        som_URL[1] = getClass().getResource("/res/sons/dano.wav");
+        som_URL[2] = getClass().getResource("/res/sons/LevelUp.wav");
         // som_URL[3] = getClass().getResource("/res/sons/MusicaGame.wav");
         // som_URL[4] = getClass().getResource("/res/sons/MusicaGame.wav");
     }

@@ -2,16 +2,28 @@ package entidades;
 
 import main.Manipulador;
 import main.PainelDoJogo;
+
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.AlphaComposite;
-import java.awt.Graphics2D;
+import java.util.ArrayList;
+
+import objetos.OBJ_Chave;
+import objetos.OBJ_Escudo;
+import objetos.OBJ_Espada;
+
 
 public class Jogador extends Entidade{
+
+    
 
     Manipulador manipulador;
     public final int telaX, telaY;
     int estadoInicial = 0;
+    public boolean ataqueCancelado = false;
+    public ArrayList<Entidade> inventario = new ArrayList<>();
+    public final int tamanho_max_inventario = 20;
+   
 
     public Jogador(PainelDoJogo pj, Manipulador manipulador){
         
@@ -31,13 +43,18 @@ public class Jogador extends Entidade{
         area_solida.height = 32;
         AtaqueArea.width = 36;
         AtaqueArea.height = 36;
+        
 
         setValoresPadroes();
         getImagemDoJogador();
         getAtaqueJogadorImagem();
+        setItens();
     }
 
     public void setValoresPadroes(){
+
+      
+
 
         mundoX = pj.tamanhoDaPeca * 23; // Essa linha vai indicar em que posição do mapa o jogador inicia.
         mundoY = pj.tamanhoDaPeca * 21; // Essa linha vai indicar em que posição do mapa o jogador inicia.  
@@ -47,8 +64,36 @@ public class Jogador extends Entidade{
         // Status do jogador
         vidaMaxima = 6;
         vida = vidaMaxima;
+        nivel = 1;
+        forca = 2;
+        experiencia = 0;
+        correnteArma = new OBJ_Espada(pj);
+        correnteEscudo = new OBJ_Escudo(pj);
+        ataques = getAtaques();
+        defesa = getDefesa();
+        expProximoNivel = 5;
+        moedas = 0;
+        exp = 0;
+        
+        
+        
+        
+    }
 
+    //Seta os objetos paradentro do inventário
+    public void setItens(){
+        inventario.add(correnteArma);
+        inventario.add(correnteEscudo);
+        inventario.add(new OBJ_Chave(pj));
+        inventario.add(new OBJ_Chave(pj));
+    }
 
+    public int getAtaques(){
+        return ataques = forca * correnteArma.ataqueValor;
+    }
+
+    public int getDefesa(){
+        return defesa = experiencia * correnteEscudo.defesaValor;
     }
 
     public void getImagemDoJogador(){
@@ -140,6 +185,15 @@ public class Jogador extends Entidade{
                 }
             }
 
+            //Para que o som de ataque nãos e sobreponha ao de cura ou outros
+           if(pj.chaveManipuladora.enterPressionado == true && ataqueCancelado == false){
+            pj.tocarEfeitoSonoro(1);
+            atacando = true;
+            contadorDoEstado = 0;
+           }
+
+           ataqueCancelado = false;
+
             pj.chaveManipuladora.enterPressionado = false;
    
             contadorDoEstado++;
@@ -216,6 +270,7 @@ public class Jogador extends Entidade{
             contadorDoEstado = 0;
             atacando = false;
         }
+       
     }
 
     public void pegueObjeto(int i){
@@ -233,16 +288,15 @@ public class Jogador extends Entidade{
         if(pj.chaveManipuladora.enterPressionado == true){
 
              if(i != 999){
-
+                ataqueCancelado = true;
             if(pj.chaveManipuladora.enterPressionado == true){
                 // System.out.println("Colidindo com NPC");
                 pj.estado_do_jogo = pj.estado_de_dialogo;
                 pj.npc[i].falar();
             }
-        } else {
-            atacando = true;
-        }
+      
     }
+}
 }
 
 
@@ -250,8 +304,17 @@ public class Jogador extends Entidade{
 
     public void contatoComMonstros(int i){
         if(i != 999){
+            
+             
             if(invencivel == false){
-                vida--;
+               
+                int dano = pj.monstros[i].ataques - defesa;
+                if(dano < 0){
+                    dano = 0;
+                }
+                vida-= dano;
+                pj.tocarEfeitoSonoro(1);
+    
                 invencivel = true;
             }
         }
@@ -259,21 +322,53 @@ public class Jogador extends Entidade{
 
     public void danoMonstro(int i){
         if(i != 999){
+         
             if(pj.monstros[i].invencivel == false){
-                pj.monstros[i].vida-=1;
-                pj.monstros[i].invencivel = true;
+                 
+               int dano = ataques - pj.monstros[i].defesa;
+                if(dano < 0){
+                    dano = 0;
 
-                // System.out.println("Dano no monstro: " + pj.monstros[i].vida);
+                } 
+                pj.monstros[i].vida-=dano;
+                pj.ui.mostrarMensagem(dano + " dano");
+                pj.monstros[i].invencivel = true;
+                reacaoDano();
+                pj.tocarEfeitoSonoro(1);
+
+                System.out.println("Dano no monstro: " + pj.monstros[i].vida);
+                System.out.println(pj.monstros[i].vida);
 
                 if(pj.monstros[i].vida <= 0){
-                    pj.monstros[i] = null;
+                pj.monstros[i].morrendo = true;
+                pj.ui.mostrarMensagem("Vocêmatou " + pj.monstros[i].nome);
+                pj.ui.mostrarMensagem("Exp " + pj.monstros[i].exp);
+                exp += pj.monstros[i].exp;
+                checaLevelUp();
+                 
                     // System.out.println("Monstro derrotado!");
                 }
             }
         }
+        
     }
 
+    public void checaLevelUp(){
+        if(exp >= expProximoNivel){
+            nivel++;
+            expProximoNivel = expProximoNivel*2;
+            vidaMaxima+=2;
+            forca ++;
+            experiencia++;
+            ataques = getAtaques();
+            defesa = getDefesa();
 
+            pj.tocarEfeitoSonoro(2);
+
+            pj.estado_do_jogo = pj.estado_de_dialogo;
+            pj.ui.dialogo_atual = "Você subiu para o nível " + nivel+ "\n" + "Você se sente mais forte";
+        }
+    }
     public void desenhar(Graphics2D g2){
 
         BufferedImage imagem = null;

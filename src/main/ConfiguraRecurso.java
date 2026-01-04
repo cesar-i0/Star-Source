@@ -14,15 +14,38 @@ public class ConfiguraRecurso {
 
 
     public void setMonstro(){
+
+        int i = 0;
         
-        pj.monstros[0] = new MON_Slime(pj);
-        pj.monstros[0].mundoX = pj.tamanhoDaPeca * 8;
-        pj.monstros[0].mundoY = pj.tamanhoDaPeca * 6;
+        pj.monstros[i] = new MON_Slime(pj);
+        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 8;
+        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 6;
+        i++;
 
-        pj.monstros[1] = new MON_Slime(pj);
-        pj.monstros[1].mundoX = pj.tamanhoDaPeca * 14;
-        pj.monstros[1].mundoY = pj.tamanhoDaPeca * 18;
+        pj.monstros[i] = new MON_Slime(pj);
+        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 4;
+        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 5;
+        i++;
 
+        pj.monstros[i] = new MON_Slime(pj);
+        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 23;
+        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 3;
+        i++;
+
+        pj.monstros[i] = new MON_Slime(pj);
+        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 2;
+        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 7;
+        i++;
+
+        pj.monstros[i] = new MON_Slime(pj);
+        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 9;
+        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 8;
+        i++;
+
+        pj.monstros[i] = new MON_Slime(pj);
+        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 8;
+        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 1;
+        i++;
     }
 
     public void setObjeto(){

@@ -11,6 +11,7 @@ public class OBJ_Bota extends Entidade{
         super.nome = "Bota";
         parado_frente = configuracoes("/res/objetos/Bota", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         
+        
     }
 
 }

@@ -107,6 +107,7 @@ public class ManipuladorDeEvento {
     public void localDeCura(int estado_do_jogo){
         if(pj.chaveManipuladora.enterPressionado == true){
             pj.estado_do_jogo = estado_do_jogo;
+            pj.jogador.ataqueCancelado = true;
             pj.ui.dialogo_atual = "Você se curou!\nSua vida foi restaurada.";
             pj.jogador.vida = pj.jogador.vidaMaxima;
         }

@@ -52,6 +52,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estado_de_jogar = 1;
     public final int estado_de_pausa = 2;
     public final int estado_de_dialogo = 3;
+    public final int estado_de_personagem = 4;
 
     public PainelDoJogo() {
         this.setPreferredSize(new Dimension(larguraDaTela, alturaDaTela));
@@ -120,7 +121,12 @@ public class PainelDoJogo extends JPanel implements Runnable {
             // Monstros
             for(int i = 0; i < monstros.length; i++){
                 if(monstros[i] != null){
-                    monstros[i].update();
+                    if(monstros[i].vivo == true && monstros[i].morrendo == false){
+                        monstros[i].update();
+                    }
+                    if(monstros[i].vivo == false){
+                        monstros[i] = null;
+                    }
                 }
             }
 
