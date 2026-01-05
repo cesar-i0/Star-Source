@@ -25,18 +25,22 @@ public class ProjeteisDePecas extends Entidade {
     public void update(){
 
         if(user == pj.jogador){
-            int indexDoMonstro = pj.verifica.verificaEntidade(this, pj.monstros);
-            if(indexDoMonstro != 999){
-                pj.jogador.danoMonstro(indexDoMonstro, ataques);
-                vivo = false;
+            int indexMonstro = pj.verifica.verificaEntidade(this, pj.monstros);
+            if(indexMonstro != 999){
+                pj.jogador.danoMonstro(indexMonstro, ataques);
+                    vivo = false;
+                
             }
-        }
 
+        }
         if(user != pj.jogador){
-
+            boolean contatoJogador = pj.verifica.verificaJogador(this);
+            if(pj.jogador.invencivel == false && contatoJogador == true){
+                danoJogador(ataques);
+                vivo = false;
         }
-
-        switch(direcao){
+        }
+            switch(direcao){
             case "cima": mundoY -= velocidade; break;
             case "baixo": mundoY += velocidade; break;
             case "esquerda": mundoX -= velocidade; break;

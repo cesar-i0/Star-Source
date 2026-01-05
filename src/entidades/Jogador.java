@@ -351,7 +351,7 @@ public class Jogador extends Entidade{
         }
     }
 
-    public void danoMonstro(int i, int ataque){
+    public void danoMonstro(int i, int ataques){
         if(i != 999){
          
             if(pj.monstros[i].invencivel == false && pj.monstros[i].morrendo == false){
