@@ -55,9 +55,6 @@ public class Jogador extends Entidade{
 
     public void setValoresPadroes(){
 
-      
-
-
         mundoX = pj.tamanhoDaPeca * 23; // Essa linha vai indicar em que posição do mapa o jogador inicia.
         mundoY = pj.tamanhoDaPeca * 21; // Essa linha vai indicar em que posição do mapa o jogador inicia.  
         velocidade = 4;
@@ -71,17 +68,13 @@ public class Jogador extends Entidade{
         experiencia = 0;
         correnteArma = new OBJ_Espada(pj);
         correnteEscudo = new OBJ_Escudo(pj);
-        projetosTile = new OBJ_BolaDeFogo(pj);
+        projeteisDePecas = new OBJ_BolaDeFogo(pj);
         ataques = getAtaques();
         defesa = getDefesa();
         expProximoNivel = 5;
         moedas = 0;
         exp = 0;
 
-        
-        
-        
-        
     }
 
     //Seta os objetos para dentro do inventário
@@ -226,13 +219,16 @@ public class Jogador extends Entidade{
             }
         }
 
-        if(pj.chaveManipuladora.tiroPressionado == true && projetosTile.vivo == false){
-            projetosTile.set(mundoX, mundoY, direcao, true, this);
-
-            pj.projetosTileList.add(projetosTile);
+        if(pj.chaveManipuladora.tiroPressionado == true && projeteisDePecas.vivo == false && contador_de_tiro_viavel == 30){
+            // ProjeteisDePecas novoProjetil = new OBJ_BolaDeFogo(pj);
+            // Seleciona coordenadas padrões, direção e o úsuário
+            projeteisDePecas.set(mundoX, mundoY, direcao, true, this);
+            // Adiciona a lista
+            pj.listaDeProjeteisDePecas.add(projeteisDePecas);
+            contador_de_tiro_viavel = 0; // Tempo resetado
             pj.tocarEfeitoSonoro(4);
+            pj.chaveManipuladora.tiroPressionado = false;    
 
-            pj.chaveManipuladora.tiroPressionado = false;
         }
         
         if(invencivel == true){
@@ -242,8 +238,12 @@ public class Jogador extends Entidade{
                 contador_de_invencibilidade = 0;
             }
         }
+
+        // Garante que o jogador só atire nesse espaço de tempo
+        if(contador_de_tiro_viavel < 30){
+            contador_de_tiro_viavel++;
+        }
         
-    
     }
 
     public void atacando(){
@@ -276,7 +276,7 @@ public class Jogador extends Entidade{
 
             //Checa colisão com monstros
             int index_do_monstro = pj.verifica.verificaEntidade(this, pj.monstros);
-            danoMonstro(index_do_monstro);
+            danoMonstro(index_do_monstro, ataques);
 
             //Reverte as posições e tamanhos após o ataque
             mundoX = correnteMundoX;
@@ -351,12 +351,13 @@ public class Jogador extends Entidade{
         }
     }
 
-    public void danoMonstro(int i){
+    public void danoMonstro(int i, int ataque){
         if(i != 999){
          
-            if(pj.monstros[i].invencivel == false){
+            if(pj.monstros[i].invencivel == false && pj.monstros[i].morrendo == false){
                  
-               int dano = ataques - pj.monstros[i].defesa;
+            //    int dano = ataques - pj.monstros[i].defesa;
+                int dano =  pj.monstros[i].ataques - defesa;
                 if(dano < 0){
                     dano = 0;
 

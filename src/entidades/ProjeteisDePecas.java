@@ -2,12 +2,12 @@ package entidades;
 
 import main.PainelDoJogo;
 
-public class ProjetosTile extends Entidade {
+public class ProjeteisDePecas extends Entidade {
+    
     Entidade user;
 
-    public ProjetosTile (PainelDoJogo pj){
+    public ProjeteisDePecas(PainelDoJogo pj){
         super(pj);
-
     }
     
     public void set(int mundoX, int mundoY, String direcao, boolean vivo, Entidade user){
@@ -17,21 +17,31 @@ public class ProjetosTile extends Entidade {
         this.direcao = direcao;
         this.vivo = vivo;
         this.user = user;
-        this.vida = vidaMaxima;
+        this.vida = this.vidaMaxima;
+
     }
 
     
-    public void Updade(){
+    public void update(){
 
-            switch(direcao){
+        if(user == pj.jogador){
+            int indexDoMonstro = pj.verifica.verificaEntidade(this, pj.monstros);
+            if(indexDoMonstro != 999){
+                pj.jogador.danoMonstro(indexDoMonstro, ataques);
+                vivo = false;
+            }
+        }
+
+        if(user != pj.jogador){
+
+        }
+
+        switch(direcao){
             case "cima": mundoY -= velocidade; break;
             case "baixo": mundoY += velocidade; break;
             case "esquerda": mundoX -= velocidade; break;
             case "direita": mundoX +=velocidade; break;
         }
-        
-
-        
 
         vida--;
         if(vida <= 0){

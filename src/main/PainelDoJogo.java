@@ -44,7 +44,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public Entidade obj[] = new Entidade[10]; // Torna possível mostrar 10 objetos no mesmo display/tela
     public Entidade npc[] = new Entidade[10];
     public Entidade monstros[] = new Entidade[20];
-    public ArrayList<Entidade> projetosTileList = new ArrayList<>();
+    public ArrayList<Entidade> listaDeProjeteisDePecas = new ArrayList<>();
     ArrayList<Entidade> listaDeEntidades = new ArrayList<>();
 
     // Estado do jogo
@@ -131,15 +131,10 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 }
             }
 
-             for(int i = 0; i < projetosTileList.size(); i++){
-                if(projetosTileList.get(i)!= null){
-                    if(projetosTileList.get(i).vivo == true ){
-                        projetosTileList.get(i).update();
-                    }
-                    if(projetosTileList.get(i).vivo == false){
-                        projetosTileList.remove(i);
-                    
-                    }
+            for(int i = 0; i < listaDeProjeteisDePecas.size(); i++){
+                if(listaDeProjeteisDePecas.get(i)!= null){
+                    if(listaDeProjeteisDePecas.get(i).vivo == true ) listaDeProjeteisDePecas.get(i).update();
+                    if(listaDeProjeteisDePecas.get(i).vivo == false) listaDeProjeteisDePecas.remove(i);
                 }
             }
 
@@ -183,9 +178,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
                     listaDeEntidades.add(monstros[i]);
                 }
             }
-            for(int i = 0; i < projetosTileList.size(); i++){
-                if(projetosTileList.get(i) != null){
-                    listaDeEntidades.add(projetosTileList.get(i));
+            for(int i = 0; i < listaDeProjeteisDePecas.size(); i++){
+                if(listaDeProjeteisDePecas.get(i) != null){
+                    listaDeEntidades.add(listaDeProjeteisDePecas.get(i));
                 }
             }
 

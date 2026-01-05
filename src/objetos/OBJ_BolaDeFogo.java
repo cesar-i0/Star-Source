@@ -1,10 +1,10 @@
 package objetos;
 
-import entidades.ProjetosTile;
+import entidades.ProjeteisDePecas;
 import main.PainelDoJogo;
 import java.awt.Rectangle;
 
-public class OBJ_BolaDeFogo extends ProjetosTile{
+public class OBJ_BolaDeFogo extends ProjeteisDePecas{
 
     PainelDoJogo pj;
 
@@ -13,7 +13,7 @@ public class OBJ_BolaDeFogo extends ProjetosTile{
         this.pj = pj;
 
         nome = "Bola de Fogo";
-        velocidade = 10;
+        velocidade = 5;
         vidaMaxima = 80;
         vida = vidaMaxima;
         ataques = 2;

@@ -2,7 +2,7 @@ package main;
 
 import entidades.NPC_random;
 import monstros.MON_Slime;
-import objetos.OBJ_Chave;
+// import objetos.OBJ_Chave;
 import objetos.OBJ_Escudo;
 import objetos.OBJ_EscudoFerro;
 import objetos.OBJ_Machado;
