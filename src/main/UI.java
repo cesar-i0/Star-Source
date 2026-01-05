@@ -138,7 +138,7 @@ public class UI{
 
                 if(contador_da_mensagem.get(i)>180){
                     mensagem.remove(i);
-                    contador_da_mensagem.remove(contador_da_mensagem);
+                    contador_da_mensagem.remove(i);
                 }
             }
             }
