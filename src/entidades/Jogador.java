@@ -226,10 +226,12 @@ public class Jogador extends Entidade{
             }
         }
 
-        if(pj.chaveManipuladora.tiroPressionado == true && projetosTile.vivo == false){
+        if(pj.chaveManipuladora.tiroPressionado == true && projetosTile.vivo == false && contador_de_tiro_viavel == 30){
             projetosTile.set(mundoX, mundoY, direcao, true, this);
 
             pj.projetosTileList.add(projetosTile);
+
+            contador_de_tiro_viavel = 0;
             pj.tocarEfeitoSonoro(4);
 
             pj.chaveManipuladora.tiroPressionado = false;
@@ -243,7 +245,9 @@ public class Jogador extends Entidade{
             }
         }
         
-    
+        if(contador_de_tiro_viavel < 30){
+            contador_de_tiro_viavel ++;
+        }
     }
 
     public void atacando(){
@@ -276,7 +280,7 @@ public class Jogador extends Entidade{
 
             //Checa colisão com monstros
             int index_do_monstro = pj.verifica.verificaEntidade(this, pj.monstros);
-            danoMonstro(index_do_monstro);
+            danoMonstro(index_do_monstro, ataques);
 
             //Reverte as posições e tamanhos após o ataque
             mundoX = correnteMundoX;
@@ -351,7 +355,7 @@ public class Jogador extends Entidade{
         }
     }
 
-    public void danoMonstro(int i){
+    public void danoMonstro(int i, int ataques){
         if(i != 999){
          
             if(pj.monstros[i].invencivel == false){

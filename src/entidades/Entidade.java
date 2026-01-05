@@ -72,7 +72,7 @@ public class Entidade {
     public int exp;
     public Entidade correnteEscudo;
     public Entidade correnteArma;
-    public ProjeteisDePecas projeteisDePecas;
+    public ProjetosTile projetosTile;
 
     // Atributos de Itens
     public int ataqueValor;
@@ -171,18 +171,8 @@ public class Entidade {
 
         if(this.tipo == tipo_monstro && contatoComJogador == true){ // Tipo 2 é monstro
             // System.out.println("Contato com o jogador");
-            
-            if(pj.jogador.invencivel == false){
-                pj.tocarEfeitoSonoro(1);
-                int dano = pj.jogador.defesa;
-                if(dano < 0){
-                    dano = 0;
-                }
-                pj.jogador.vida -= dano;
-                pj.jogador.invencivel = true;
-            }
+            danoJogador(ataques);
         }
-
        
 
         // Se a colisão for false o joagador pode se mover
@@ -231,10 +221,27 @@ public class Entidade {
                     estadoInicial = 0;
                 }
             }
+            if(contador_de_tiro_viavel < 30){
+                contador_de_tiro_viavel++;
+            }
 
         }
 
-    
+    public void danoJogador(int ataques){
+            
+            if(pj.jogador.invencivel == false){
+                pj.tocarEfeitoSonoro(1);
+                int dano = pj.jogador.defesa;
+                if(dano < 0){
+                    dano = 0;
+                }
+                pj.jogador.vida -= dano;
+                pj.jogador.invencivel = true;
+            }
+        
+
+
+    }
 
     public void desenhar(Graphics2D g2){
         

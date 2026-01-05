@@ -23,6 +23,22 @@ public class ProjetosTile extends Entidade {
     
     public void Updade(){
 
+        if(user == pj.jogador){
+            int indexMonstro = pj.verifica.verificaEntidade(this, pj.monstros);
+            if(indexMonstro != 999){
+                pj.jogador.danoMonstro(indexMonstro, ataques);
+                    vivo = false;
+                
+            }
+
+        }
+        if(user != pj.jogador){
+            boolean contatoJogador = pj.verifica.verificaJogador(this);
+            if(pj.jogador.invencivel == false && contatoJogador == true){
+                danoJogador(ataques);
+                vivo = false;
+        }
+        }
             switch(direcao){
             case "cima": mundoY -= velocidade; break;
             case "baixo": mundoY += velocidade; break;
