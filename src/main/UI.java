@@ -338,14 +338,26 @@ public class UI{
 
         //desenhar Itens do Jogador
         for(int i = 0; i < pj.jogador.inventario.size(); i++){
+
+             //Equipar cursor
+             if(pj.jogador.inventario.get(i) == pj.jogador.correnteArma || pj.jogador.inventario.get(i) == pj.jogador.correnteEscudo){
+                g2.setColor(new Color(240, 190, 90));
+                g2.fillRoundRect(compartimentoX, compartimentoY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, 10, 10);
+
+             }
+             
+        
             
             g2.drawImage(pj.jogador.inventario.get(i).baixo1, compartimentoX, compartimentoY, null);
             compartimentoX += tamanho_compartimento;
 
             if(i == 4 || i == 9 || i == 14){
                 compartimentoX = compartimentoXinicio;
-                compartimentoY = tamanho_compartimento;
+                compartimentoY += tamanho_compartimento;
             }
+
+        
+
         }
         
 
@@ -360,8 +372,7 @@ public class UI{
         int dFrameY = frameY + frameHeight;
         int dFrameWidth = frameWidth;
         int dFrameHeight = pj.tamanhoDaPeca*3;
-        desenharSubTela(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
-
+       
         //Texto descrição
         int textX = dFrameX+20;
         int textY = dFrameY + pj.tamanhoDaPeca;
@@ -370,6 +381,8 @@ public class UI{
         int index_item = getIndex_item_no_compartimento();
 
         if(index_item < pj.jogador.inventario.size()){
+            desenharSubTela(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+
 
             for(String line: pj.jogador.inventario.get(index_item).descricao.split("\n")){
             g2.drawString(line, textX, textY);

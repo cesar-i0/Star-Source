@@ -4,20 +4,19 @@ import main.PainelDoJogo;
 import entidades.Entidade;
 import java.awt.Rectangle;
 
-public class OBJ_Escudo extends Entidade{
-
-    public OBJ_Escudo(PainelDoJogo pj){
+public class OBJ_EscudoFerro extends Entidade{
+ public OBJ_EscudoFerro(PainelDoJogo pj){
 
         super(pj);
         tipo = tipo_escudo;
-        nome = "Escudo de Madeira";
-        baixo1 = configuracoes("/res/objetos/escudoMadeira", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-       
-        defesaValor = 1;
+        super.nome = "Escudo de ferro";
+        baixo1 = configuracoes("/res/objetos/escudoFerro", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
 
-       
-        descricao = "[" + nome + "]\n" + "Escudo velho";
+        defesaValor = 2;
 
+        
+        descricao = "[" + nome + "]\n" + "Tem maior\nproteção";
+        
         area_solida = new Rectangle();
         area_solida.x = 0;
         area_solida.y = 16;
@@ -25,6 +24,5 @@ public class OBJ_Escudo extends Entidade{
         area_solida.height = 32;
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
-    }
-
+}
 }

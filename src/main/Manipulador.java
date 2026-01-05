@@ -8,7 +8,7 @@ public class Manipulador implements KeyListener {
 
     PainelDoJogo pj;
 
-    public boolean cimaPrecionado, baixoPrecionado, esquerdaPrecionado, direitaPreciondo, enterPressionado;
+    public boolean cimaPrecionado, baixoPrecionado, esquerdaPrecionado, direitaPreciondo, enterPressionado, tiroPressionado;
     //DEBUG
     boolean verificaTempoDeDesenho = false;
 
@@ -95,6 +95,9 @@ public class Manipulador implements KeyListener {
             if(code == KeyEvent.VK_ENTER){
                 enterPressionado = true;
             }
+             if(code == KeyEvent.VK_F){
+                tiroPressionado = true;
+            }
             //Estado de pausa
             if(code == KeyEvent.VK_P){
                 pj.estado_do_jogo = pj.estado_de_pausa;
@@ -102,6 +105,7 @@ public class Manipulador implements KeyListener {
              if(code == KeyEvent.VK_C){
                 pj.estado_do_jogo = pj.estado_de_personagem;
             }
+           
 
     }
 
@@ -137,6 +141,9 @@ public class Manipulador implements KeyListener {
             }
             
         } 
+        if(code == KeyEvent.VK_ENTER){
+            pj.jogador.selecionarItem();
+        }
         
 
     }
@@ -150,6 +157,7 @@ public class Manipulador implements KeyListener {
         if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) baixoPrecionado = false;
         if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) esquerdaPrecionado = false;
         if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) direitaPreciondo = false;
+        if(code == KeyEvent.VK_F){tiroPressionado = false;}
     }
  
     }
