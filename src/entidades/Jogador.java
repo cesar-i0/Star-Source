@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import objetos.OBJ_BolaDeFogo;
 import objetos.OBJ_Chave;
 import objetos.OBJ_Escudo;
 import objetos.OBJ_Espada;
@@ -41,8 +42,9 @@ public class Jogador extends Entidade{
         area_solida_padraoY = area_solida.y;
         area_solida.width = 32;
         area_solida.height = 32;
-        AtaqueArea.width = 36;
-        AtaqueArea.height = 36;
+        //AtaqueArea.width = 36;
+        //AtaqueArea.height = 36;
+
         
 
         setValoresPadroes();
@@ -69,19 +71,22 @@ public class Jogador extends Entidade{
         experiencia = 0;
         correnteArma = new OBJ_Espada(pj);
         correnteEscudo = new OBJ_Escudo(pj);
+        projetosTile = new OBJ_BolaDeFogo(pj);
         ataques = getAtaques();
         defesa = getDefesa();
         expProximoNivel = 5;
         moedas = 0;
         exp = 0;
+
         
         
         
         
     }
 
-    //Seta os objetos paradentro do inventário
+    //Seta os objetos para dentro do inventário
     public void setItens(){
+        
         inventario.add(correnteArma);
         inventario.add(correnteEscudo);
         inventario.add(new OBJ_Chave(pj));
@@ -89,6 +94,7 @@ public class Jogador extends Entidade{
     }
 
     public int getAtaques(){
+        AtaqueArea = correnteArma.AtaqueArea;
         return ataques = forca * correnteArma.ataqueValor;
     }
 
@@ -113,6 +119,7 @@ public class Jogador extends Entidade{
 
     public void getAtaqueJogadorImagem(){
 
+        if(correnteArma.tipo == tipo_espada){
         ataque = configuracoes("/res/jogador/ataque.png",  pj.tamanhoDaPeca, pj.tamanhoDaPeca); //Busca a imagem deataque
        /* ataqueCima2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca, pj.tamanhoDaPeca*2); //Multiplica para ficar maior e enquadrar a parte da arma do jogador
         ataqueBaixo1 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca, pj.tamanhoDaPeca*2);
@@ -122,6 +129,10 @@ public class Jogador extends Entidade{
         ataqueDireita1 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
         ataqueDireita2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
 */ 
+        }
+
+        //Fazemos um if para cada tipo de arma que o personagem for usar, juntamente com as imagens dele
+        
     }
 
     
@@ -214,6 +225,15 @@ public class Jogador extends Entidade{
                 estadoInicial = 0;
             }
         }
+
+        if(pj.chaveManipuladora.tiroPressionado == true && projetosTile.vivo == false){
+            projetosTile.set(mundoX, mundoY, direcao, true, this);
+
+            pj.projetosTileList.add(projetosTile);
+            pj.tocarEfeitoSonoro(4);
+
+            pj.chaveManipuladora.tiroPressionado = false;
+        }
         
         if(invencivel == true){
             contador_de_invencibilidade++;
@@ -276,9 +296,20 @@ public class Jogador extends Entidade{
     public void pegueObjeto(int i){
         // Se não for 999 então a entidade tocou no objeto
         if(i != 999){
+           
+            String text;
             
-            
+            if(inventario.size() != tamanho_max_inventario){
+                inventario.add(pj.obj[i]);
 
+                text = "Você pegou " + pj.obj[i].nome;
+               
+            }
+            else {
+                text = "Inventario cheio";
+            }
+            pj.ui.mostrarMensagem(text);
+            pj.obj[i]=null;
         }
 
     }
@@ -306,7 +337,7 @@ public class Jogador extends Entidade{
         if(i != 999){
             
              
-            if(invencivel == false){
+            if(invencivel == false && pj.monstros[i].morrendo == false){
                
                 int dano = pj.monstros[i].ataques - defesa;
                 if(dano < 0){
@@ -367,6 +398,27 @@ public class Jogador extends Entidade{
 
             pj.estado_do_jogo = pj.estado_de_dialogo;
             pj.ui.dialogo_atual = "Você subiu para o nível " + nivel+ "\n" + "Você se sente mais forte";
+        }
+    }
+
+    public void selecionarItem(){
+        int index_item = pj.ui.getIndex_item_no_compartimento();
+        if(index_item < inventario.size()){
+            Entidade selecionaItem  = inventario.get(index_item);
+            if(selecionaItem.tipo == tipo_espada || selecionaItem.tipo == tipo_machado){
+                correnteArma = selecionaItem;
+                ataques = getAtaques();
+                //Adicionamos aqui o ataque imagens para que ele puxe as imagens com a arma certa;
+            }
+            if(selecionaItem.tipo == tipo_escudo){
+                correnteEscudo = selecionaItem;
+                defesa = getDefesa();
+            }
+            if(selecionaItem.tipo == tipo_consumivel){
+                selecionaItem.use(this);
+                inventario.remove(index_item);
+                pj.tocarEfeitoSonoro(3);
+            }
         }
     }
     public void desenhar(Graphics2D g2){

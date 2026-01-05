@@ -57,8 +57,9 @@ public class Entidade {
     // Status do personagem
     public int vidaMaxima;
     public int vida;
+    public int mana_max;
+    public int mana;
     public String nome;
-    public int tipo; // 0 = jogador, 1 = npc, 2 = monstro
     public int velocidade;
     public int nivel;
     public int forca;
@@ -70,12 +71,23 @@ public class Entidade {
     public int exp;
     public Entidade correnteEscudo;
     public Entidade correnteArma;
+    public ProjetosTile projetosTile;
 
     // Atributos de Itens
     public int ataqueValor;
     public int defesaValor;
     public String descricao = "";
+    public int custo_de_uso;
 
+    //Tipos
+    public int tipo; // 0 = jogador, 1 = npc, 2 = monstro
+    public final int tipo_jogador = 0;
+    public final int tipo_npc = 1;
+    public final int tipo_monstro = 2;
+    public final int tipo_espada = 3;
+    public final int tipo_escudo = 4;
+    public final int tipo_machado = 5;
+    public final int tipo_consumivel = 6;
 
     public Entidade(PainelDoJogo pj){
         this.pj = pj;
@@ -142,6 +154,7 @@ public class Entidade {
         }
     }
 
+    public void use (Entidade entidade){}
 
     public void update(){
 
@@ -155,7 +168,7 @@ public class Entidade {
         pj.verifica.verificaEntidade(this, pj.monstros);
         boolean contatoComJogador = pj.verifica.verificaJogador(this);
 
-        if(this.tipo == 2 && contatoComJogador == true){ // Tipo 2 é monstro
+        if(this.tipo == tipo_monstro && contatoComJogador == true){ // Tipo 2 é monstro
             // System.out.println("Contato com o jogador");
             
             if(pj.jogador.invencivel == false){
@@ -275,7 +288,9 @@ public class Entidade {
             }
 
             //Se for monstro desenha a barra de vida
-             if(tipo == 2 && hpBarraDeVidaVisivel == true){
+             if(tipo == tipo_monstro && hpBarraDeVidaVisivel == true ){
+                System.out.println("DESENHANDO BARRA DE VIDA");
+
                 double umaEscala = (double)pj.tamanhoDaPeca /vidaMaxima;
                 double hpBarraDeVida = umaEscala*vida;
 
@@ -296,7 +311,7 @@ public class Entidade {
             if(invencivel == true){
             hpBarraDeVidaVisivel = true;
             contador_de_hpBarraDeVida = 0;
-           mudaAlpha(g2, 0.4f); // Deixa o jogado meio transparente
+           mudaAlpha(g2, 0.4f); // Deixa o jogador meio transparente
         }
 
         if(morrendo == true){
@@ -341,7 +356,7 @@ public class Entidade {
             }
             if(contador_de_morte > i*8){
                vivo = false;
-               morrendo = false;
+            
             }
     }
 

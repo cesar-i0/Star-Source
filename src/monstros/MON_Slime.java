@@ -17,10 +17,10 @@ public class MON_Slime extends Entidade{
        
         this.pj = pj;
         super.nome = "Slime";
-        tipo = 2;
+        tipo = tipo_monstro;
 
         velocidade = 1;
-        vidaMaxima = 20;
+        vidaMaxima = 6;
         vida = vidaMaxima;
         ataques = 4;
         defesa = 0;

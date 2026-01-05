@@ -44,6 +44,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public Entidade obj[] = new Entidade[10]; // Torna possível mostrar 10 objetos no mesmo display/tela
     public Entidade npc[] = new Entidade[10];
     public Entidade monstros[] = new Entidade[20];
+    public ArrayList<Entidade> projetosTileList = new ArrayList<>();
     ArrayList<Entidade> listaDeEntidades = new ArrayList<>();
 
     // Estado do jogo
@@ -130,6 +131,18 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 }
             }
 
+             for(int i = 0; i < projetosTileList.size(); i++){
+                if(projetosTileList.get(i)!= null){
+                    if(projetosTileList.get(i).vivo == true ){
+                        projetosTileList.get(i).update();
+                    }
+                    if(projetosTileList.get(i).vivo == false){
+                        projetosTileList.remove(i);
+                    
+                    }
+                }
+            }
+
         }
         if(estado_do_jogo == estado_de_pausa){
             // nada por enquanto
@@ -168,6 +181,11 @@ public class PainelDoJogo extends JPanel implements Runnable {
             for(int i = 0; i < monstros.length; i++){
                 if(monstros[i] != null){
                     listaDeEntidades.add(monstros[i]);
+                }
+            }
+            for(int i = 0; i < projetosTileList.size(); i++){
+                if(projetosTileList.get(i) != null){
+                    listaDeEntidades.add(projetosTileList.get(i));
                 }
             }
 

@@ -2,6 +2,11 @@ package main;
 
 import entidades.NPC_random;
 import monstros.MON_Slime;
+import objetos.OBJ_Chave;
+import objetos.OBJ_Escudo;
+import objetos.OBJ_EscudoFerro;
+import objetos.OBJ_Machado;
+import objetos.OBJ_Pocao;
 import objetos.OBJ_Porta;
 
 public class ConfiguraRecurso {
@@ -49,14 +54,40 @@ public class ConfiguraRecurso {
     }
 
     public void setObjeto(){
+        int i = 0;
 
-        pj.obj[0] = new OBJ_Porta(pj);
-        pj.obj[0].mundoX = pj.tamanhoDaPeca * 30;
-        pj.obj[0].mundoY = pj.tamanhoDaPeca * 30;
+        pj.obj[i] = new OBJ_Porta(pj);
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 30;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 30;
+        i++;
 
-        pj.obj[1] = new OBJ_Porta(pj);
-        pj.obj[1].mundoX = pj.tamanhoDaPeca * 12;
-        pj.obj[1].mundoY = pj.tamanhoDaPeca * 40;
+        pj.obj[i] = new OBJ_Pocao(pj);
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 4;
+        i++;
+
+        pj.obj[i] = new OBJ_Escudo(pj);
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 3;
+        i++;
+
+        pj.obj[i] = new OBJ_EscudoFerro(pj);
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 2;
+        i++;
+
+        pj.obj[i] = new OBJ_Machado(pj);
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 1;
+        i++;
+
+
+        pj.obj[i] = new OBJ_Pocao(pj);
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 5;
+        i++;
+
+       
 
     }
 
