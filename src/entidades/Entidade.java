@@ -50,6 +50,7 @@ public class Entidade {
     public int contadorDoEstado = 0;
     public int trava_de_contador_de_acao = 0;
     public int contador_de_invencibilidade = 0;
+    public int contador_de_tiro_viavel = 0;
     public int contador_de_morte = 0;
     public int contador_de_hpBarraDeVida = 0;
 
@@ -71,7 +72,7 @@ public class Entidade {
     public int exp;
     public Entidade correnteEscudo;
     public Entidade correnteArma;
-    public ProjetosTile projetosTile;
+    public ProjeteisDePecas projeteisDePecas;
 
     // Atributos de Itens
     public int ataqueValor;
@@ -356,7 +357,6 @@ public class Entidade {
             }
             if(contador_de_morte > i*8){
                vivo = false;
-            
             }
     }
 
