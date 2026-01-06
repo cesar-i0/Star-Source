@@ -302,7 +302,7 @@ public class Entidade {
 
             //Se for monstro desenha a barra de vida
              if(tipo == tipo_monstro && hpBarraDeVidaVisivel == true ){
-                System.out.println("DESENHANDO BARRA DE VIDA");
+                //System.out.println("DESENHANDO BARRA DE VIDA");
 
                 double umaEscala = (double)pj.tamanhoDaPeca /vidaMaxima;
                 double hpBarraDeVida = umaEscala*vida;
