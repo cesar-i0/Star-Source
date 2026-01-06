@@ -32,14 +32,14 @@ public class OBJ_BolaDeFogo extends ProjeteisDePecas{
     }
 
     public void getImagem(){
-        baixo1 = configuracoes("/res/ProjetosTile/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        baixo2 = configuracoes("/res/ProjetosTile/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        cima1 = configuracoes("/res/ProjetosTile/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        cima2 = configuracoes("/res/ProjetosTile/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        direita1 = configuracoes("/res/ProjetosTile/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        direita2 = configuracoes("/res/ProjetosTile/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        esquerda1 = configuracoes("/res/ProjetosTile/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        esquerda2 = configuracoes("/res/ProjetosTile/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        baixo1 = configuracoes("/res/projeteis/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        baixo2 = configuracoes("/res/projeteis/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        cima1 = configuracoes("/res/projeteis/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        cima2 = configuracoes("/res/projeteis/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        direita1 = configuracoes("/res/projeteis/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        direita2 = configuracoes("/res/projeteis/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        esquerda1 = configuracoes("/res/projeteis/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        esquerda2 = configuracoes("/res/projeteis/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
     }
 }
 

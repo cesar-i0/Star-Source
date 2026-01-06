@@ -188,7 +188,10 @@ public class PainelDoJogo extends JPanel implements Runnable {
             Collections.sort(listaDeEntidades, new Comparator<Entidade>() {
                 @Override
                 public int compare(Entidade e1, Entidade e2) {
-                    int resultado = Integer.compare(e1.mundoX, e2.mundoY);
+                    // Ordena primeiro pela coordenada Y para desenhar de cima para baixo;
+                    int resultado = Integer.compare(e1.mundoY, e2.mundoY);
+                    // Se empatar em Y, ordenda por X(da esquerda para a direita)
+                    if(resultado == 0) resultado = Integer.compare(e1.mundoX, e2.mundoX);
                     return resultado;
                 }
             });
