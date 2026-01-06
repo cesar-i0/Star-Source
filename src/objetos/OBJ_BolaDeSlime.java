@@ -1,11 +1,11 @@
 package objetos;
 
 
-import entidades.ProjetosTile;
+import entidades.ProjeteisDePecas;
 import main.PainelDoJogo;
 import java.awt.Rectangle;
 
-public class OBJ_BolaDeSlime extends ProjetosTile{
+public class OBJ_BolaDeSlime extends ProjeteisDePecas{
 
       PainelDoJogo pj;
 

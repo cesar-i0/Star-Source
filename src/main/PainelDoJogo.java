@@ -202,7 +202,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
             for(int i = 0; i < listaDeEntidades.size(); i++){
                 listaDeEntidades.remove(i);
             }
-            listaDeEntidades.clear();
+            // listaDeEntidades.clear();
 
             // UI
             ui.desenhar(g2);

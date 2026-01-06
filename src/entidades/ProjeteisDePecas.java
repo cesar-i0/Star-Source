@@ -28,8 +28,7 @@ public class ProjeteisDePecas extends Entidade {
             int indexMonstro = pj.verifica.verificaEntidade(this, pj.monstros);
             if(indexMonstro != 999){
                 pj.jogador.danoMonstro(indexMonstro, ataques);
-                    vivo = false;
-                
+                vivo = false;
             }
 
         }
@@ -38,7 +37,7 @@ public class ProjeteisDePecas extends Entidade {
             if(pj.jogador.invencivel == false && contatoJogador == true){
                 danoJogador(ataques);
                 vivo = false;
-        }
+            }
         }
             switch(direcao){
             case "cima": mundoY -= velocidade; break;

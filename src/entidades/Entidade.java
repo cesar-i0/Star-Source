@@ -19,9 +19,6 @@ public class Entidade {
 
     PainelDoJogo pj;
 
-    
-    
-
     // Precisamos usamos variáveis como essas para trazer as imagens que serão as animações de movimentação
     public BufferedImage cima1, cima2, baixo1, baixo2, esquerda1, esquerda2, direita1, direita2, parado_frente, parado_costas;
     public BufferedImage ataque;
@@ -72,7 +69,7 @@ public class Entidade {
     public int exp;
     public Entidade correnteEscudo;
     public Entidade correnteArma;
-    public ProjetosTile projetosTile;
+    public ProjeteisDePecas projeteisDePecas;
 
     // Atributos de Itens
     public int ataqueValor;
@@ -171,7 +168,15 @@ public class Entidade {
 
         if(this.tipo == tipo_monstro && contatoComJogador == true){ // Tipo 2 é monstro
             // System.out.println("Contato com o jogador");
-            danoJogador(ataques);
+            if(pj.jogador.invencivel == false){
+                pj.tocarEfeitoSonoro(1);
+                int dano = pj.jogador.defesa;
+                if(dano < 0){
+                    dano = 0;
+                }
+                pj.jogador.vida -= dano;
+                pj.jogador.invencivel = true;
+            }
         }
        
 
