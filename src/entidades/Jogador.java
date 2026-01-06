@@ -68,7 +68,7 @@ public class Jogador extends Entidade{
         experiencia = 0;
         correnteArma = new OBJ_Espada(pj);
         correnteEscudo = new OBJ_Escudo(pj);
-        projeteisDePecas = new OBJ_BolaDeFogo(pj);
+        projeteis = new OBJ_BolaDeFogo(pj);
         ataques = getAtaques();
         defesa = getDefesa();
         expProximoNivel = 5;
@@ -219,12 +219,12 @@ public class Jogador extends Entidade{
             }
         }
 
-        if(pj.chaveManipuladora.tiroPressionado == true && projeteisDePecas.vivo == false && contador_de_tiro_viavel == 30){
+        if(pj.chaveManipuladora.tiroPressionado == true && projeteis.vivo == false && contador_de_tiro_viavel == 30){
             // ProjeteisDePecas novoProjetil = new OBJ_BolaDeFogo(pj);
             // Seleciona coordenadas padrões, direção e o úsuário
-            projeteisDePecas.set(mundoX, mundoY, direcao, true, this);
+            projeteis.set(mundoX, mundoY, direcao, true, this);
             // Adiciona a lista
-            pj.listaDeProjeteisDePecas.add(projeteisDePecas);
+            pj.listaDeProjeteisDePecas.add(projeteis);
             contador_de_tiro_viavel = 0; // Tempo resetado
             pj.tocarEfeitoSonoro(4);
             pj.chaveManipuladora.tiroPressionado = false;    
@@ -317,26 +317,20 @@ public class Jogador extends Entidade{
     public void interacaoNPC(int i){
 
         if(pj.chaveManipuladora.enterPressionado == true){
-
-             if(i != 999){
+            if(i != 999){
                 ataqueCancelado = true;
-            if(pj.chaveManipuladora.enterPressionado == true){
-                // System.out.println("Colidindo com NPC");
-                pj.estado_do_jogo = pj.estado_de_dialogo;
-                pj.npc[i].falar();
+                if(pj.chaveManipuladora.enterPressionado == true){
+                    // System.out.println("Colidindo com NPC");
+                    pj.estado_do_jogo = pj.estado_de_dialogo;
+                    pj.npc[i].falar();
+                }
             }
-      
+        }
     }
-}
-}
-
-
-       
 
     public void contatoComMonstros(int i){
+        
         if(i != 999){
-            
-             
             if(invencivel == false && pj.monstros[i].morrendo == false){
                
                 int dano = pj.monstros[i].ataques - defesa;

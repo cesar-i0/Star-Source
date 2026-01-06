@@ -69,7 +69,7 @@ public class Entidade {
     public int exp;
     public Entidade correnteEscudo;
     public Entidade correnteArma;
-    public ProjeteisDePecas projeteisDePecas;
+    public ProjeteisDePecas projeteis;
 
     // Atributos de Itens
     public int ataqueValor;
@@ -168,18 +168,9 @@ public class Entidade {
 
         if(this.tipo == tipo_monstro && contatoComJogador == true){ // Tipo 2 é monstro
             // System.out.println("Contato com o jogador");
-            if(pj.jogador.invencivel == false){
-                pj.tocarEfeitoSonoro(1);
-                int dano = pj.jogador.defesa;
-                if(dano < 0){
-                    dano = 0;
-                }
-                pj.jogador.vida -= dano;
-                pj.jogador.invencivel = true;
-            }
+            danoJogador(ataques);
         }
        
-
         // Se a colisão for false o joagador pode se mover
             if(colisao_ligada == false){
                 switch (direcao){
@@ -198,7 +189,6 @@ public class Entidade {
                 }
             }
 
-           
             contadorDoEstado++;
             if(contadorDoEstado > 12){
                 if(numeroDoEstado == 1){
@@ -211,14 +201,13 @@ public class Entidade {
             }
 
             //Trazemos o invencivel para conseguir atacar o monstro 
-             if(invencivel == true){
-            contador_de_invencibilidade++;
-            if(contador_de_invencibilidade > 40){
-                invencivel = false;
-                contador_de_invencibilidade = 0;
+            if(invencivel == true){
+                contador_de_invencibilidade++;
+                if(contador_de_invencibilidade > 40){
+                    invencivel = false;
+                    contador_de_invencibilidade = 0;
+                }
             }
-        }
-
             else{
                 estadoInicial++;
                 if(estadoInicial == 20){
@@ -230,22 +219,18 @@ public class Entidade {
                 contador_de_tiro_viavel++;
             }
 
-        }
+    }
 
     public void danoJogador(int ataques){
-            
-            if(pj.jogador.invencivel == false){
-                pj.tocarEfeitoSonoro(1);
-                int dano = pj.jogador.defesa;
-                if(dano < 0){
-                    dano = 0;
-                }
-                pj.jogador.vida -= dano;
-                pj.jogador.invencivel = true;
+        if(pj.jogador.invencivel == false){
+            pj.tocarEfeitoSonoro(1);
+            int dano = pj.jogador.defesa;
+            if(dano < 0){
+                dano = 0;
             }
-        
-
-
+            pj.jogador.vida -= dano;
+            pj.jogador.invencivel = true;
+        }
     }
 
     public void desenhar(Graphics2D g2){

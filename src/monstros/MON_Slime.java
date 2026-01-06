@@ -3,18 +3,16 @@ package monstros;
 import java.util.Random;
 import entidades.Entidade;
 import main.PainelDoJogo;
+import objetos.OBJ_BolaDeSlime;
 import java.awt.Rectangle; 
-
 
 public class MON_Slime extends Entidade{
 
     PainelDoJogo pj;
 
-    
     public MON_Slime(PainelDoJogo pj){
 
         super(pj);
-       
         this.pj = pj;
         super.nome = "Slime";
         tipo = tipo_monstro;
@@ -25,6 +23,7 @@ public class MON_Slime extends Entidade{
         ataques = 4;
         defesa = 0;
         exp = 2;
+        projeteis = new OBJ_BolaDeSlime(pj);
 
         area_solida = new Rectangle();
         area_solida.x = 3;
@@ -76,6 +75,14 @@ public class MON_Slime extends Entidade{
 
             trava_de_contador_de_acao = 0;
         }
+
+        int i = new Random().nextInt(100)+1;
+        if(i > 99 && projeteis.vivo == false && contador_de_tiro_viavel == 30){
+            projeteis.set(mundoX, mundoY, direcao, true, this);
+            pj.listaDeProjeteisDePecas.add(projeteis);
+            contador_de_tiro_viavel = 0;
+        }
+
     }
 
     //Método que faz o monstro ir pra direção que o jogador está virado ao receber dano
