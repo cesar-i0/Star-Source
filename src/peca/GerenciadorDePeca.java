@@ -27,9 +27,9 @@ public class GerenciadorDePeca {
     // Essa classe carrega as imagens das peças.
     public void getImagemDaPeca(){
 
-        configuracoes(0, "Água", false);
-        configuracoes(1, "Parede", true);
-        configuracoes(2, "caminho", false);
+        configuracoes(0, "grama", false);
+        configuracoes(1, "arvore", true);
+        configuracoes(2, "chao", false);
 
     }
 
