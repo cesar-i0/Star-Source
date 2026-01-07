@@ -114,7 +114,7 @@ public class Entidade {
             if (is == null) {
                 throw new RuntimeException("Imagem não encontrada: " + caminho);
             }
-            System.out.println(is);
+            // System.out.println(is);
 
             imagem = ImageIO.read(is);
             imagem = ferramenta.imagemRedimensionada(imagem, width, height);
@@ -224,7 +224,7 @@ public class Entidade {
     public void danoJogador(int ataques){
         if(pj.jogador.invencivel == false){
             pj.tocarEfeitoSonoro(1);
-            int dano = pj.jogador.defesa;
+            int dano = ataques - pj.jogador.defesa;
             if(dano < 0){
                 dano = 0;
             }
