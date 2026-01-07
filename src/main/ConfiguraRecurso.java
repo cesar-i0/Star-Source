@@ -4,10 +4,13 @@ import entidades.NPC_random;
 import monstros.MON_Escorpiao;
 import monstros.MON_Esqueleto;
 import monstros.MON_Slime;
+import objetos.OBJ_Coracao;
+import objetos.OBJ_CristalMana;
 //import objetos.OBJ_Chave;
 import objetos.OBJ_Escudo;
 import objetos.OBJ_EscudoFerro;
 import objetos.OBJ_Machado;
+import objetos.OBJ_Moeda;
 import objetos.OBJ_Pocao;
 import objetos.OBJ_Porta;
 
@@ -68,12 +71,12 @@ public class ConfiguraRecurso {
         pj.obj[i].mundoY = pj.tamanhoDaPeca * 4;
         i++;
 
-        pj.obj[i] = new OBJ_Escudo(pj);
+        pj.obj[i] = new OBJ_CristalMana(pj);
         pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
         pj.obj[i].mundoY = pj.tamanhoDaPeca * 3;
         i++;
 
-        pj.obj[i] = new OBJ_EscudoFerro(pj);
+        pj.obj[i] = new OBJ_Coracao(pj);
         pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
         pj.obj[i].mundoY = pj.tamanhoDaPeca * 2;
         i++;
@@ -84,7 +87,7 @@ public class ConfiguraRecurso {
         i++;
 
 
-        pj.obj[i] = new OBJ_Pocao(pj);
+        pj.obj[i] = new OBJ_Moeda(pj);
         pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
         pj.obj[i].mundoY = pj.tamanhoDaPeca * 5;
         i++;

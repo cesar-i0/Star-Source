@@ -29,6 +29,7 @@ public class Entidade {
     public boolean colisao = false;
     String dialogos[] =  new String[20];
     public BufferedImage imagem, imagem2, imagem3;
+    public BufferedImage imagem4, imagem5;
    
     //ESTADOS
     public int mundoX, mundoY;
@@ -76,6 +77,7 @@ public class Entidade {
     public int defesaValor;
     public String descricao = "";
     public int custo_de_uso;
+    public int valor;
 
     //Tipos
     public int tipo; // 0 = jogador, 1 = npc, 2 = monstro
@@ -86,6 +88,8 @@ public class Entidade {
     public final int tipo_escudo = 4;
     public final int tipo_machado = 5;
     public final int tipo_consumivel = 6;
+    public static int tipo_pegar_apenas = 7;
+
 
     public Entidade(PainelDoJogo pj){
         this.pj = pj;
@@ -114,6 +118,7 @@ public class Entidade {
             if (is == null) {
                 throw new RuntimeException("Imagem não encontrada: " + caminho);
             }
+            // System.out.println(is);
             // System.out.println(is);
 
             imagem = ImageIO.read(is);
@@ -152,7 +157,15 @@ public class Entidade {
         }
     }
 
-    public void use (Entidade entidade){}
+    public boolean use (Entidade entidade){ return false; }
+
+    public void verificaDrop(){
+
+    }
+
+    public void dropaItem(){
+        
+    }
 
     public void update(){
 
@@ -310,10 +323,11 @@ public class Entidade {
                 mudaAlpha(g2, 0.4f); // Deixa o jogador meio transparente
             }
 
-            if(morrendo == true){
-                animaçãoMorte(g2);
-            }
-                g2.drawImage(imagem, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
+        if(morrendo == true){
+           
+            animaçãoMorte(g2);
+        }
+            g2.drawImage(imagem, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
         }
 
         if(invencivel == true){
