@@ -1,20 +1,21 @@
 package monstros;
 
-import java.util.Random;
 import entidades.Entidade;
 import main.PainelDoJogo;
 import objetos.OBJ_BolaDeSlime;
-import java.awt.Rectangle; 
+import java.awt.Rectangle;
+import java.util.Random; 
 
-public class MON_Slime extends Entidade{
 
+public class MON_Esqueleto extends Entidade {
+    
     PainelDoJogo pj;
 
-    public MON_Slime(PainelDoJogo pj){
+    public MON_Esqueleto(PainelDoJogo pj){
 
         super(pj);
         this.pj = pj;
-        super.nome = "Slime";
+        super.nome = "Esqueleto";
         tipo = tipo_monstro;
 
         velocidade = 1;
@@ -39,27 +40,23 @@ public class MON_Slime extends Entidade{
 
     public void getImagem() {
       
-        baixo1 = configuracoes("/res/monstros/m1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        baixo2 = configuracoes("/res/monstros/m2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        cima1 = configuracoes("/res/monstros/m1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        cima2 = configuracoes("/res/monstros/m2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        esquerda1 = configuracoes("/res/monstros/m1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        esquerda2 = configuracoes("/res/monstros/m2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        direita1 = configuracoes("/res/monstros/m1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        direita2 = configuracoes("/res/monstros/m2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        baixo1 = configuracoes("/res/monstros/esqF1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        baixo2 = configuracoes("/res/monstros/esqF2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        cima1 = configuracoes("/res/monstros/esqC1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        cima2 = configuracoes("/res/monstros/esqC2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        esquerda1 = configuracoes("/res/monstros/esqE1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        esquerda2 = configuracoes("/res/monstros/esqE2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        direita1 = configuracoes("/res/monstros/esqD1", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        direita2 = configuracoes("/res/monstros/esqD2", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
 
     }
 
     public void setAcao() {
-        
         trava_de_contador_de_acao++;
-
         // A cada dois segundos seu movimento é trocado
         if(trava_de_contador_de_acao == 120){
-
             Random aleatorio = new Random();
             int i = aleatorio.nextInt(100) + 1; // Seleciona um número de 1 até 100
-    
             if(i <= 35){
                 direcao = "cima";
             }
@@ -72,23 +69,14 @@ public class MON_Slime extends Entidade{
             if(i> 75 && i <= 100){
                 direcao = "direita";
             }
-
             trava_de_contador_de_acao = 0;
         }
 
-        int i = new Random().nextInt(100)+1;
-        if(i > 99 && projeteis.vivo == false && contador_de_tiro_viavel == 30){
-            projeteis.set(mundoX, mundoY, direcao, true, this);
-            pj.listaDeProjeteisDePecas.add(projeteis);
-            contador_de_tiro_viavel = 0;
-        }
-
     }
-
     //Método que faz o monstro ir pra direção que o jogador está virado ao receber dano
     public void reacaoDano(){
         trava_de_contador_de_acao = 0;
         direcao = pj.jogador.direcao;      
-        }
     }
 
+}

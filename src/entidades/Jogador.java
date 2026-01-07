@@ -58,7 +58,7 @@ public class Jogador extends Entidade{
         mundoX = pj.tamanhoDaPeca * 23; // Essa linha vai indicar em que posição do mapa o jogador inicia.
         mundoY = pj.tamanhoDaPeca * 21; // Essa linha vai indicar em que posição do mapa o jogador inicia.  
         velocidade = 4;
-        direcao = "parado_frente";
+        direcao = "estatico";
 
         // Status do jogador
         vidaMaxima = 6;

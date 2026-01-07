@@ -1,6 +1,7 @@
 package main;
 
 import entidades.NPC_random;
+import monstros.MON_Esqueleto;
 import monstros.MON_Slime;
 //import objetos.OBJ_Chave;
 import objetos.OBJ_Escudo;
@@ -37,17 +38,17 @@ public class ConfiguraRecurso {
         pj.monstros[i].mundoY = pj.tamanhoDaPeca * 3;
         i++;
 
-        pj.monstros[i] = new MON_Slime(pj);
+        pj.monstros[i] = new MON_Esqueleto(pj);
         pj.monstros[i].mundoX = pj.tamanhoDaPeca * 2;
         pj.monstros[i].mundoY = pj.tamanhoDaPeca * 7;
         i++;
 
-        pj.monstros[i] = new MON_Slime(pj);
+        pj.monstros[i] = new MON_Esqueleto(pj);
         pj.monstros[i].mundoX = pj.tamanhoDaPeca * 9;
         pj.monstros[i].mundoY = pj.tamanhoDaPeca * 8;
         i++;
 
-        pj.monstros[i] = new MON_Slime(pj);
+        pj.monstros[i] = new MON_Esqueleto(pj);
         pj.monstros[i].mundoX = pj.tamanhoDaPeca * 8;
         pj.monstros[i].mundoY = pj.tamanhoDaPeca * 1;
         i++;

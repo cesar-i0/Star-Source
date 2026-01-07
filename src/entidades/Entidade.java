@@ -190,7 +190,7 @@ public class Entidade {
             }
 
             contadorDoEstado++;
-            if(contadorDoEstado > 12){
+            if(contadorDoEstado > 15){
                 if(numeroDoEstado == 1){
                     numeroDoEstado = 2;
                 }
