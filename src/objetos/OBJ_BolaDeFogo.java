@@ -1,5 +1,6 @@
 package objetos;
 
+import entidades.Entidade;
 import entidades.ProjeteisDePecas;
 import main.PainelDoJogo;
 import java.awt.Rectangle;
@@ -40,6 +41,17 @@ public class OBJ_BolaDeFogo extends ProjeteisDePecas{
         direita2 = configuracoes("/res/projeteis/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         esquerda1 = configuracoes("/res/projeteis/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         esquerda2 = configuracoes("/res/projeteis/BolaDeFogo", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+    }
+
+    public boolean temRecurso(Entidade user){
+        // Permite atirar se houver mana suficiente (>= custo)
+        return user.mana >= custo_de_uso;
+    }
+
+    public void subtrai_Recurso(Entidade user){
+        // Subtrai o custo e garante que não fique negativo
+        user.mana -= custo_de_uso;
+        if(user.mana < 0) user.mana = 0;
     }
 }
 

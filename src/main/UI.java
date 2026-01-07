@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import entidades.Entidade;
 import objetos.OBJ_Coracao;
+import objetos.OBJ_CristalMana;
 
 // Esta classe vai lidar com mensagens de texto, ícones de itens, etc.
 public class UI{
@@ -18,6 +19,7 @@ public class UI{
 
     Font arial, arial_2;
     BufferedImage coracao_cheio, meio_coracao, coracao_vazio;
+    BufferedImage  CristalManaCheio, CristalManaVazio;
     public boolean mensagem_ligada = false;
     //public String mensagem  = "";
     //int contador_da_mensagem = 0;
@@ -41,9 +43,21 @@ public class UI{
         meio_coracao = coracao.imagem2;
         coracao_cheio = coracao.imagem3;
 
+        Entidade Cristal = new OBJ_CristalMana(pj);
+        CristalManaVazio = Cristal.imagem4;
+        CristalManaCheio = Cristal.imagem5;
+
     }
 
     public void mostrarMensagem(String texto){
+        // Evita adicionar repetidamente a mesma mensagem se ela já estiver visível
+        if(!mensagem.isEmpty()){
+            int last = mensagem.size() - 1;
+            if(mensagem.get(last) != null && mensagem.get(last).equals(texto) && contador_da_mensagem.get(last) < 60){
+                return;
+            }
+        }
+
         mensagem.add(texto);
         contador_da_mensagem.add(0);
     }
@@ -114,7 +128,31 @@ public class UI{
             x += pj.tamanhoDaPeca;
         }
 
-    }
+        //Desenhar ManaMax
+
+        x = (pj.tamanhoDaPeca/2) - 5;
+        y = (int)(pj.tamanhoDaPeca * 1.5);
+        i = 0;
+
+        while(i < pj.jogador.mana_max){
+            g2.drawImage(CristalManaVazio, x, y ,null);
+            i++;
+            x += 35;
+        }
+
+
+        //Desenha Mana
+        x = (pj.tamanhoDaPeca/2) - 5;
+        y = (int)(pj.tamanhoDaPeca * 1.5);
+        i = 0;
+        
+        while(i < pj.jogador.mana){
+            g2.drawImage(CristalManaCheio, x, y ,null);
+            i++;
+            x += 35;
+        }
+            
+        }
 
     public void desenharMensagem(){
         int mensagemX = pj.tamanhoDaPeca;
@@ -251,6 +289,8 @@ public class UI{
         textY += linhaAltura;
         g2.drawString("Defesa", textX, textY);
         textY += linhaAltura;
+        g2.drawString("Mana", textX, textY);
+        textY += linhaAltura;
         g2.drawString("Experiência", textX, textY);
         textY += linhaAltura;
         g2.drawString("Exp", textX, textY);
@@ -263,6 +303,7 @@ public class UI{
         textY += linhaAltura+10;
         g2.drawString("Escudo", textX, textY);
         textY += linhaAltura;
+        
 
         //Valores
         int tailX = frameX + frameLargura - 30;
@@ -288,6 +329,11 @@ public class UI{
         textY += linhaAltura;
 
         valor = String.valueOf(pj.jogador.defesa);
+        textX = getXdoTextoDireita(valor, tailX);
+        g2.drawString(valor, textX, textY);
+        textY += linhaAltura;
+
+        valor = String.valueOf(pj.jogador.mana + "/" + pj.jogador.mana_max);
         textX = getXdoTextoDireita(valor, tailX);
         g2.drawString(valor, textX, textY);
         textY += linhaAltura;

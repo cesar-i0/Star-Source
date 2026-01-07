@@ -7,7 +7,6 @@ import java.awt.Rectangle;
 public class OBJ_Pocao extends Entidade {
 
      PainelDoJogo pj;
-     int valor = 5;
 
     public OBJ_Pocao (PainelDoJogo pj){
         
@@ -18,7 +17,7 @@ public class OBJ_Pocao extends Entidade {
         this.pj = pj;
 
         baixo1 = configuracoes("/res/objetos/pocaoVermelha", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-
+        valor = 5;
         descricao = "[" + nome + "]\n" + "Recupera sua vida em " + valor + ".";
 
         area_solida = new Rectangle();
@@ -30,15 +29,17 @@ public class OBJ_Pocao extends Entidade {
         area_solida_padraoY = area_solida.y;
     }
 
-        public void use(Entidade entidades){
+        @Override
+        public boolean use(Entidade entidades){
             pj.estado_do_jogo = pj.estado_de_dialogo;
-            pj.ui.dialogo_atual = "VOcê bebeu " + nome + "!\n" + "Você recuperou " + valor + " de vida.";
+            pj.ui.dialogo_atual = "Você bebeu " + nome + "!\n" + "Você recuperou " + valor + " de vida.";
             entidades.vida += valor;
 
             if(pj.jogador.vida > pj.jogador.vidaMaxima){
                 pj.jogador.vida = pj.jogador.vidaMaxima;
             }
             //Adicionar som
+            return true;
         }
 
     

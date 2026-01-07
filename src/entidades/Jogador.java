@@ -65,6 +65,8 @@ public class Jogador extends Entidade{
         vida = vidaMaxima;
         nivel = 1;
         forca = 2;
+        mana_max = 4;
+        mana = mana_max;
         experiencia = 0;
         correnteArma = new OBJ_Espada(pj);
         correnteEscudo = new OBJ_Escudo(pj);
@@ -74,6 +76,7 @@ public class Jogador extends Entidade{
         expProximoNivel = 5;
         moedas = 0;
         exp = 0;
+        custo_de_uso = 1;
 
     }
 
@@ -219,7 +222,7 @@ public class Jogador extends Entidade{
             }
         }
 
-        if(pj.chaveManipuladora.tiroPressionado == true && projeteis.vivo == false && contador_de_tiro_viavel == 30){
+        if(pj.chaveManipuladora.tiroPressionado == true && projeteis.vivo == false && contador_de_tiro_viavel >= 30 && projeteis.temRecurso(this) == true){
             // ProjeteisDePecas novoProjetil = new OBJ_BolaDeFogo(pj);
             // Seleciona coordenadas padrões, direção e o úsuário
             projeteis.set(mundoX, mundoY, direcao, true, this);
@@ -227,7 +230,10 @@ public class Jogador extends Entidade{
             pj.listaDeProjeteisDePecas.add(projeteis);
             contador_de_tiro_viavel = 0; // Tempo resetado
             pj.tocarEfeitoSonoro(4);
-            pj.chaveManipuladora.tiroPressionado = false;    
+            pj.chaveManipuladora.tiroPressionado = false; 
+            
+            //Subtração
+            projeteis.subtrai_Recurso(this);
 
         }
         
@@ -244,6 +250,13 @@ public class Jogador extends Entidade{
             contador_de_tiro_viavel++;
         }
         
+        if(vida > vidaMaxima){
+            vida = vidaMaxima;
+        }
+
+        if(mana > mana_max){
+            mana = mana_max;
+        }
     }
 
     public void atacando(){
@@ -296,10 +309,19 @@ public class Jogador extends Entidade{
     public void pegueObjeto(int i){
         // Se não for 999 então a entidade tocou no objeto
         if(i != 999){
-           
+
+            //Apenas pegar itens
+            if(pj.obj[i].tipo == tipo_pegar_apenas){
+                boolean consumido = pj.obj[i].use(this);
+                if(consumido) pj.obj[i] = null;
+            }
+            else{
+
+
+           //Inventário de itens
             String text;
             
-            if(inventario.size() != tamanho_max_inventario){
+          if(inventario.size() != tamanho_max_inventario){
                 inventario.add(pj.obj[i]);
 
                 text = "Você pegou " + pj.obj[i].nome;
@@ -312,6 +334,7 @@ public class Jogador extends Entidade{
             pj.obj[i]=null;
         }
 
+    }
     }
 
     public void interacaoNPC(int i){
@@ -362,8 +385,8 @@ public class Jogador extends Entidade{
                 reacaoDano();
                 pj.tocarEfeitoSonoro(1);
 
-                System.out.println("Dano no monstro: " + pj.monstros[i].vida);
-                System.out.println(pj.monstros[i].vida);
+                // System.out.println("Dano no monstro: " + pj.monstros[i].vida);
+                // System.out.println(pj.monstros[i].vida);
 
                 if(pj.monstros[i].vida <= 0){
                 pj.monstros[i].morrendo = true;

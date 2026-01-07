@@ -69,41 +69,52 @@ public class VerificaColisao {
 
         for(int i = 0; i < pj.obj.length; i++){
 
-            if(pj.obj[i] != null){
-                // Pega a posição área sólida das entidades
-                entidade.area_solida.x = entidade.mundoX + entidade.area_solida.x;
-                entidade.area_solida.y = entidade.mundoY + entidade.area_solida.y;
-                // Pega a posição área sólida dos objetos
-                pj.obj[i].area_solida.x = pj.obj[i].mundoX + pj.obj[i].area_solida.x;
-                pj.obj[i].area_solida.y = pj.obj[i].mundoY + pj.obj[i].area_solida.y;
-
-                // Simulamos o movimento da entidade e verificamos onde ela vai estar após o movimento.
-                switch (entidade.direcao) {
-                    case "cima":
-                        entidade.area_solida.y -= entidade.velocidade;
-                        break;
-                    case "baixo":
-                        entidade.area_solida.y += entidade.velocidade;
-                        break;
-                    case "esquerda":
-                        entidade.area_solida.x -= entidade.velocidade;
-                        break;
-                    case "direita":
-                        entidade.area_solida.x += entidade.velocidade;
-                        break;
-                }
-                    if(entidade.area_solida.intersects(pj.obj[i].area_solida)){
-                            // System.out.println("Colisão para direita!");
-                            if(pj.obj[i].colisao == true) entidade.colisao_ligada = true;
-                            if(joagador == true) index = i;
-                        }
-
-                entidade.area_solida.x = entidade.area_solida_padraoX;
-                entidade.area_solida.y = entidade.area_solida_padraoY;
-                pj.obj[i].area_solida.x = pj.obj[i].area_solida_padraoX;
-                pj.obj[i].area_solida.y = pj.obj[i].area_solida_padraoY;
-
+            if(pj.obj[i] == null) {
+                continue;
             }
+
+            // Se a área sólida do objeto não foi inicializada (nula), ignoramos este objeto
+            if(pj.obj[i].area_solida == null){
+                continue;
+            }
+
+            if(entidade.area_solida == null){
+                // Entidade sem área sólida configurada, pula
+                continue;
+            }
+
+            // Pega a posição área sólida das entidades
+            entidade.area_solida.x = entidade.mundoX + entidade.area_solida.x;
+            entidade.area_solida.y = entidade.mundoY + entidade.area_solida.y;
+            // Pega a posição área sólida dos objetos
+            pj.obj[i].area_solida.x = pj.obj[i].mundoX + pj.obj[i].area_solida.x;
+            pj.obj[i].area_solida.y = pj.obj[i].mundoY + pj.obj[i].area_solida.y;
+
+            // Simulamos o movimento da entidade e verificamos onde ela vai estar após o movimento.
+            switch (entidade.direcao) {
+                case "cima":
+                    entidade.area_solida.y -= entidade.velocidade;
+                    break;
+                case "baixo":
+                    entidade.area_solida.y += entidade.velocidade;
+                    break;
+                case "esquerda":
+                    entidade.area_solida.x -= entidade.velocidade;
+                    break;
+                case "direita":
+                    entidade.area_solida.x += entidade.velocidade;
+                    break;
+            }
+                if(entidade.area_solida.intersects(pj.obj[i].area_solida)){
+                        // System.out.println("Colisão para direita!");
+                        if(pj.obj[i].colisao == true) entidade.colisao_ligada = true;
+                        if(joagador == true) index = i;
+                    }
+
+            entidade.area_solida.x = entidade.area_solida_padraoX;
+            entidade.area_solida.y = entidade.area_solida_padraoY;
+            pj.obj[i].area_solida.x = pj.obj[i].area_solida_padraoX;
+            pj.obj[i].area_solida.y = pj.obj[i].area_solida_padraoY;
 
         }
 

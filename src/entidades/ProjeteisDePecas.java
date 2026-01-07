@@ -63,4 +63,11 @@ public class ProjeteisDePecas extends Entidade {
         }
 
     }
+
+      public boolean temRecurso(Entidade user){
+        boolean tem_recurso = false;
+        return tem_recurso;
+    }
+
+    public void subtrai_Recurso(Entidade user){}
 }
