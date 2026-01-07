@@ -58,7 +58,7 @@ public class Jogador extends Entidade{
         mundoX = pj.tamanhoDaPeca * 23; // Essa linha vai indicar em que posição do mapa o jogador inicia.
         mundoY = pj.tamanhoDaPeca * 21; // Essa linha vai indicar em que posição do mapa o jogador inicia.  
         velocidade = 4;
-        direcao = "parado_frente";
+        direcao = "estatico";
 
         // Status do jogador
         vidaMaxima = 6;
@@ -105,8 +105,7 @@ public class Jogador extends Entidade{
         esquerda2 = configuracoes("/res/jogador/andando_esquerda", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         direita1 = configuracoes("/res/jogador/parado_direita",pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         direita2 = configuracoes("/res/jogador/andando_direita", pj.tamanhoDaPeca, pj.tamanhoDaPeca); 
-        parado_frente = configuracoes("/res/jogador/parado", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        parado_costas = configuracoes("/res/jogador/parado_costas", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        estatico = configuracoes("/res/jogador/parado", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
 
     }
 
@@ -491,8 +490,8 @@ public class Jogador extends Entidade{
             }
                 break;
                 
-            case "parado_frente":
-                imagem = parado_frente;
+            case "estatico":
+                imagem = estatico;
                 break;
         }
 

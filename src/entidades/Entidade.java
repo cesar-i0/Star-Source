@@ -20,7 +20,7 @@ public class Entidade {
     PainelDoJogo pj;
 
     // Precisamos usamos variáveis como essas para trazer as imagens que serão as animações de movimentação
-    public BufferedImage cima1, cima2, baixo1, baixo2, esquerda1, esquerda2, direita1, direita2, parado_frente, parado_costas;
+    public BufferedImage cima1, cima2, baixo1, baixo2, esquerda1, esquerda2, direita1, direita2, estatico;
     public BufferedImage ataque;
     int estadoInicial = 0;
     public int area_solida_padraoX, area_solida_padraoY;
@@ -32,7 +32,7 @@ public class Entidade {
    
     //ESTADOS
     public int mundoX, mundoY;
-    public String direcao = "parado_frente"; // Aqui será guardado qual imagem deve ser mostarda com determinada ação
+    public String direcao = "estatico"; // Aqui será guardado qual imagem deve ser mostarda com determinada ação
     public boolean invencivel = false;
     int index_de_dialogo = 0;
     public boolean colisao_ligada = false;
@@ -114,7 +114,7 @@ public class Entidade {
             if (is == null) {
                 throw new RuntimeException("Imagem não encontrada: " + caminho);
             }
-            System.out.println(is);
+            // System.out.println(is);
 
             imagem = ImageIO.read(is);
             imagem = ferramenta.imagemRedimensionada(imagem, width, height);
@@ -190,7 +190,7 @@ public class Entidade {
             }
 
             contadorDoEstado++;
-            if(contadorDoEstado > 12){
+            if(contadorDoEstado > 15){
                 if(numeroDoEstado == 1){
                     numeroDoEstado = 2;
                 }
@@ -224,7 +224,7 @@ public class Entidade {
     public void danoJogador(int ataques){
         if(pj.jogador.invencivel == false){
             pj.tocarEfeitoSonoro(1);
-            int dano = pj.jogador.defesa;
+            int dano = ataques - pj.jogador.defesa;
             if(dano < 0){
                 dano = 0;
             }
@@ -280,47 +280,44 @@ public class Entidade {
                     }
                     // imagem = bogo;
                     break;
-                case "parado_frente":
-                    imagem = parado_frente;
+                case "estatico":
+                    imagem = estatico;
                     break;
             }
 
-            //Se for monstro desenha a barra de vida
-             if(tipo == tipo_monstro && hpBarraDeVidaVisivel == true ){
-                //System.out.println("DESENHANDO BARRA DE VIDA");
+                //Se for monstro desenha a barra de vida
+                if(tipo == tipo_monstro && hpBarraDeVidaVisivel == true ){
+                    //System.out.println("DESENHANDO BARRA DE VIDA");
 
-                double umaEscala = (double)pj.tamanhoDaPeca /vidaMaxima;
-                double hpBarraDeVida = umaEscala*vida;
+                    double umaEscala = (double)pj.tamanhoDaPeca /vidaMaxima;
+                    double hpBarraDeVida = umaEscala*vida;
 
-                g2.setColor(new Color(35, 35, 35));
-                g2.fillRect(telaX-1, telaY-16, pj.tamanhoDaPeca+2, 12);
-                g2.setColor(new Color(255, 0, 30));
-                g2.fillRect(telaX, telaY-15, (int)hpBarraDeVida, 10);
+                    g2.setColor(new Color(35, 35, 35));
+                    g2.fillRect(telaX-1, telaY-16, pj.tamanhoDaPeca+2, 12);
+                    g2.setColor(new Color(255, 0, 30));
+                    g2.fillRect(telaX, telaY-15, (int)hpBarraDeVida, 10);
 
-             contador_de_hpBarraDeVida++;
-                if(contador_de_hpBarraDeVida > 180){
-                    contador_de_hpBarraDeVida = 0;
-                    hpBarraDeVidaVisivel = false;
-            }  
+                contador_de_hpBarraDeVida++;
+                    if(contador_de_hpBarraDeVida > 180){
+                        contador_de_hpBarraDeVida = 0;
+                        hpBarraDeVidaVisivel = false;
+                }  
+            }
+
+                if(invencivel == true){
+                hpBarraDeVidaVisivel = true;
+                contador_de_hpBarraDeVida = 0;
+                mudaAlpha(g2, 0.4f); // Deixa o jogador meio transparente
+            }
+
+            if(morrendo == true){
+                animaçãoMorte(g2);
+            }
+                g2.drawImage(imagem, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
         }
 
-            
-
-            if(invencivel == true){
-            hpBarraDeVidaVisivel = true;
-            contador_de_hpBarraDeVida = 0;
-           mudaAlpha(g2, 0.4f); // Deixa o jogador meio transparente
-        }
-
-        if(morrendo == true){
-           
-            animaçãoMorte(g2);
-        }
-            g2.drawImage(imagem, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
-        }
-
-       if(invencivel == true){
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        if(invencivel == true){
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
     }
 
