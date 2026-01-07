@@ -39,7 +39,7 @@ public class GerenciadorDePeca {
 
         try {
             peca[index] = new Peca();
-            peca[index].imagem = ImageIO.read(getClass().getResourceAsStream("/res/peças/" + nome_da_imagem + ".png"));
+            peca[index].imagem = ImageIO.read(getClass().getResourceAsStream("/res/pecas/" + nome_da_imagem + ".png"));
             peca[index].imagem = ferramenta.imagemRedimensionada(peca[index].imagem, pj.tamanhoDaPeca, pj.tamanhoDaPeca);
             peca[index].colisao = colisao;
         } catch (IOException e) {

@@ -1,16 +1,16 @@
-package peca.peca_interativa;
+// package peca.peca_interativa;
 
-import main.PainelDoJogo;
+// import main.PainelDoJogo;
 
-public class CortarArvore {
+// public class CortarArvore {
 
-    PainelDoJogo pj;
+//     PainelDoJogo pj;
 
-    public CortarArvore(PainelDoJogo pj){
-        super(pj);
-        this.pj = pj;
+//     public CortarArvore(PainelDoJogo pj){
+//         super(pj);
+//         this.pj = pj;
 
-        baixo1 = configuracoes("/Peca_interativa/arvoreCompleta", )
-    }
+//         baixo1 = configuracoes("/Peca_interativa/arvoreCompleta", )
+//     }
 
-}
+// }
