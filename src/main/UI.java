@@ -169,7 +169,7 @@ public class UI{
             // Personagem principal
             x = pj.larguraDaTela / 2 - (pj.tamanhoDaPeca * 2) / 2;
             y += pj.tamanhoDaPeca * 2;
-            g2.drawImage(pj.jogador.parado_frente, x, y, pj.tamanhoDaPeca * 2, pj.tamanhoDaPeca * 2, null);
+            g2.drawImage(pj.jogador.estatico, x, y, pj.tamanhoDaPeca * 2, pj.tamanhoDaPeca * 2, null);
     
             // Menu
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));

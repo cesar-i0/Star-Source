@@ -105,8 +105,7 @@ public class Jogador extends Entidade{
         esquerda2 = configuracoes("/res/jogador/andando_esquerda", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         direita1 = configuracoes("/res/jogador/parado_direita",pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         direita2 = configuracoes("/res/jogador/andando_direita", pj.tamanhoDaPeca, pj.tamanhoDaPeca); 
-        parado_frente = configuracoes("/res/jogador/parado", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        parado_costas = configuracoes("/res/jogador/parado_costas", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        estatico = configuracoes("/res/jogador/parado", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
 
     }
 
@@ -491,8 +490,8 @@ public class Jogador extends Entidade{
             }
                 break;
                 
-            case "parado_frente":
-                imagem = parado_frente;
+            case "estatico":
+                imagem = estatico;
                 break;
         }
 
