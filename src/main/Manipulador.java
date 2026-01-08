@@ -38,11 +38,15 @@ public class Manipulador implements KeyListener {
         else if(pj.estado_do_jogo == pj.estado_de_personagem){estado_de_personagem(code);}
         // Estado de Pausa
         else if(pj.estado_do_jogo == pj.estado_de_pausa) estado_de_pausa(code);
+        //Estado de Opções
+        else if(pj.estado_do_jogo == pj.estado_de_opcoes){estado_de_opcoes(code);}
+        //Estado de fim de jogo
+        else if(pj.estado_do_jogo == pj.estado_fim_de_jogo){estado_fim_de_jogo(code);}
 
     }
 
     public void estado_de_pausa(int code){
-        if(code ==KeyEvent.VK_ESCAPE){
+        if(code ==KeyEvent.VK_P){
             pj.estado_do_jogo = pj.estado_de_jogar;
         }
     }
@@ -107,7 +111,7 @@ public class Manipulador implements KeyListener {
                 tiroPressionado = true;
             }
             //Estado de pausa
-            if(code == KeyEvent.VK_ESCAPE){
+            if(code == KeyEvent.VK_P){
                 if(pj.estado_do_jogo == pj.estado_de_jogar) pj.estado_do_jogo = pj.estado_de_pausa;
                 else if(pj.estado_do_jogo == pj.estado_de_pausa) pj.estado_do_jogo = pj.estado_de_jogar;
             }
