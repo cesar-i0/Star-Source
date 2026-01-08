@@ -11,7 +11,7 @@ public class OBJ_Machado extends Entidade{
         super(pj);
         tipo = tipo_machado;
         super.nome = "Machado";
-        baixo1 = configuracoes("/res/objetos/machado", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        estatico = configuracoes("/res/objetos/machado", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
        
         ataqueValor = 2;
 

@@ -16,7 +16,7 @@ public class OBJ_Moeda extends Entidade {
         tipo = tipo_pegar_apenas;
         valor = 1;
 
-        baixo1 = configuracoes("/res/objetos/moeda", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        estatico = configuracoes("/res/objetos/moeda", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
 
         area_solida = new Rectangle();
         area_solida.x = 0;

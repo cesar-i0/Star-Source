@@ -10,7 +10,7 @@ public class OBJ_Bota extends Entidade{
 
         super(pj);
         super.nome = "Bota";
-        baixo1 = configuracoes("/res/objetos/Bota", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        estatico = configuracoes("/res/objetos/Bota", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         
       
     }

@@ -11,7 +11,7 @@ public class OBJ_Chave extends Entidade {
 
         super(pj);
         super.nome = "Chave";
-        baixo1 = configuracoes("/res/objetos/chave", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        estatico = configuracoes("/res/objetos/chave", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         
 
         descricao = "[" + nome + "]\n" + "Abre portas";

@@ -16,7 +16,7 @@ public class OBJ_Pocao extends Entidade {
 
         this.pj = pj;
 
-        estatico = configuracoes("/res/objetos/pocao", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        estatico = configuracoes("/res/objetos/pocaoC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
 
         descricao = "[" + nome + "]\n" + "Recupera sua vida em " + valor + ".";
 

@@ -13,12 +13,12 @@ public class OBJ_CristalMana extends Entidade{
         this.pj = pj;
 
         tipo = tipo_pegar_apenas;
-        nome = "Cristal Mana";
+        nome = "Poder Estelar";
         valor = 1;
-        baixo1 = configuracoes("/res/objetos/CristalManaCheio", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        estatico = configuracoes("/res/objetos/esferaDePoder", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
 
-        imagem4 = configuracoes("/res/objetos/CristalManaVazio", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        imagem5 = configuracoes("/res/objetos/CristalManaCheio", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        imagem4 = configuracoes("/res/objetos/poderEstelarV", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        imagem5 = configuracoes("/res/objetos/poderEstelarC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
        
         area_solida = new Rectangle();
         area_solida.x = 0;
