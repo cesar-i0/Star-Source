@@ -3,7 +3,6 @@ package main;
 import entidades.Entidade;
 import entidades.Jogador;
 import peca.GerenciadorDePeca;
-import peca.Peca;
 import peca.peca_interativa.Peca_Interativa;
 
 import java.util.ArrayList;

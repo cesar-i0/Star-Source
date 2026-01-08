@@ -562,8 +562,7 @@ public class UI{
         int textX;
         int textY;
 
-
-        String text = "Controles";
+        // String text = "Controles";
         textX = getXdoTextoCentralizado(dialogo_atual);
         textY = frameY + pj.tamanhoDaPeca;
 
