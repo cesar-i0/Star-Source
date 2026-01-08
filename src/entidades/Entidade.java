@@ -162,8 +162,15 @@ public class Entidade {
 
     }
 
-    public void dropaItem(){
-        
+    public void dropaItem( Entidade ItemDropado){
+        for(int i = 0; i < pj.obj.length; i++){
+            if(pj.obj[i] == null){
+                pj.obj[i] = ItemDropado;
+                pj.obj[i].mundoX = mundoX; //O monstro morto do mapa
+                pj.obj[i].mundoY = mundoY;
+                break;
+            }
+        }
     }
 
     public void update(){

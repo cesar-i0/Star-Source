@@ -41,7 +41,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     
     // Entidade e Objeto
     public Jogador jogador = new Jogador(this, chaveManipuladora);
-    public Entidade obj[] = new Entidade[10]; // Torna possível mostrar 10 objetos no mesmo display/tela
+    public Entidade obj[] = new Entidade[20]; // Torna possível mostrar 10 objetos no mesmo display/tela
     public Entidade npc[] = new Entidade[10];
     public Entidade monstros[] = new Entidade[20];
     public ArrayList<Entidade> listaDeProjeteisDePecas = new ArrayList<>();
@@ -126,6 +126,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
                         monstros[i].update();
                     }
                     if(monstros[i].vivo == false){
+                        monstros[i].verificaDrop();
                         monstros[i] = null;
                     }
                 }

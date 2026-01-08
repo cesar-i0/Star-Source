@@ -4,6 +4,10 @@ import java.util.Random;
 import entidades.Entidade;
 import main.PainelDoJogo;
 import objetos.OBJ_BolaDeSlime;
+import objetos.OBJ_Coracao;
+import objetos.OBJ_CristalMana;
+import objetos.OBJ_Moeda;
+
 import java.awt.Rectangle; 
 
 public class MON_Slime extends Entidade{
@@ -90,5 +94,25 @@ public class MON_Slime extends Entidade{
         trava_de_contador_de_acao = 0;
         direcao = pj.jogador.direcao;      
         }
+
+        public void verificaDrop(){
+
+            //Quando ele morre
+            int i = new Random().nextInt(100)+1;
+
+            //Quando ele morre dropa moeda
+            if(i<50){
+                dropaItem(new OBJ_Moeda(pj));
+            }
+
+            if( i >= 50 && i < 75){
+                dropaItem(new OBJ_Coracao(pj));
+            }
+        
+        if( i >= 75 && i < 100){
+                dropaItem(new OBJ_CristalMana(pj));
+            }
+        
     }
+}
 
