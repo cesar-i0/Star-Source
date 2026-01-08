@@ -397,8 +397,9 @@ public class UI{
         x = getXdoTextoCentralizado(text);
         y += pj.tamanhoDaPeca*4;
         g2.drawString(text, x, y);
-         if(numeroDoComando == 0){
+        if(numeroDoComando == 0){
             g2.drawString(">", x-40, y);
+        }
 
         //Voltar a tela inicial
         text = "Sair";
@@ -407,9 +408,7 @@ public class UI{
         g2.drawString(text, x, y);
         if(numeroDoComando == 1){
             g2.drawString(">", x-40, y);
-
-     }
-      }
+        }
 
     }
     public void desenharOpcoesTela(){
