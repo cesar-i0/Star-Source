@@ -99,8 +99,9 @@ public class Manipulador implements KeyListener {
                 tiroPressionado = true;
             }
             //Estado de pausa
-            if(code == KeyEvent.VK_P){
-                pj.estado_do_jogo = pj.estado_de_pausa;
+            if(code == KeyEvent.VK_ESCAPE){
+                if(pj.estado_do_jogo == pj.estado_de_jogar) pj.estado_do_jogo = pj.estado_de_pausa;
+                else if(pj.estado_do_jogo == pj.estado_de_pausa) pj.estado_do_jogo = pj.estado_de_jogar;
             }
              if(code == KeyEvent.VK_C){
                 pj.estado_do_jogo = pj.estado_de_personagem;
