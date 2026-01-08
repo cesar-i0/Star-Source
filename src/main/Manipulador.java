@@ -28,20 +28,23 @@ public class Manipulador implements KeyListener {
         
         int code = e.getKeyCode(); // retorna o número inteiro do keyCode associado com a chave desse evento.
         
-          // Estado de Titulo
-          if(pj.estado_do_jogo == pj.estado_de_titulo){ estado_de_titulo(code); }
-          // Estado de jogar
-          else if(pj.estado_do_jogo == pj.estado_de_jogar){ estado_de_jogar(code); }
-          // Estado de Dialogo
-          else if(pj.estado_do_jogo == pj.estado_de_dialogo){ estado_de_dialogo(code);}
-              //Estado de Personagem
-          else if(pj.estado_do_jogo == pj.estado_de_personagem){estado_de_personagem(code);}
-              //Estado de Opções
-          else if(pj.estado_do_jogo == pj.estado_de_opcoes){estado_de_opcoes(code);}
-          //Estado de fim de jogo
-            else if(pj.estado_do_jogo == pj.estado_fim_de_jogo){estado_fim_de_jogo(code);}
+        // Estado de Titulo
+        if(pj.estado_do_jogo == pj.estado_de_titulo){ estado_de_titulo(code); }
+        // Estado de jogar
+        else if(pj.estado_do_jogo == pj.estado_de_jogar){ estado_de_jogar(code); }
+        // Estado de Dialogo
+        else if(pj.estado_do_jogo == pj.estado_de_dialogo){ estado_de_dialogo(code);}
+        //Estado de Personagem
+        else if(pj.estado_do_jogo == pj.estado_de_personagem){estado_de_personagem(code);}
+        // Estado de Pausa
+        else if(pj.estado_do_jogo == pj.estado_de_pausa) estado_de_pausa(code);
 
+    }
 
+    public void estado_de_pausa(int code){
+        if(code ==KeyEvent.VK_ESCAPE){
+            pj.estado_do_jogo = pj.estado_de_jogar;
+        }
     }
 
     public void estado_de_titulo(int code){
@@ -104,8 +107,9 @@ public class Manipulador implements KeyListener {
                 tiroPressionado = true;
             }
             //Estado de pausa
-            if(code == KeyEvent.VK_P){
-                pj.estado_do_jogo = pj.estado_de_pausa;
+            if(code == KeyEvent.VK_ESCAPE){
+                if(pj.estado_do_jogo == pj.estado_de_jogar) pj.estado_do_jogo = pj.estado_de_pausa;
+                else if(pj.estado_do_jogo == pj.estado_de_pausa) pj.estado_do_jogo = pj.estado_de_jogar;
             }
              if(code == KeyEvent.VK_C){
                 pj.estado_do_jogo = pj.estado_de_personagem;
