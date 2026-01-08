@@ -18,7 +18,7 @@ public class UI{
     Graphics2D g2;
 
     Font arial, arial_2;
-    BufferedImage coracao_cheio, meio_coracao, coracao_vazio;
+    BufferedImage coracao_cheio, coracao_meio, coracao_vazio;
     BufferedImage  CristalManaCheio, CristalManaVazio;
     public boolean mensagem_ligada = false;
     //public String mensagem  = "";
@@ -40,7 +40,7 @@ public class UI{
         //Cria um objeto mediador(HUD)
         Entidade coracao = new OBJ_Coracao(pj);
         coracao_vazio = coracao.imagem;
-        meio_coracao = coracao.imagem2;
+        coracao_meio = coracao.imagem2;
         coracao_cheio = coracao.imagem3;
 
         Entidade Cristal = new OBJ_CristalMana(pj);
@@ -119,7 +119,7 @@ public class UI{
 
         // Desenhar vida atual
         while(i < pj.jogador.vida){
-            g2.drawImage(meio_coracao, x, y, null);
+            g2.drawImage(coracao_meio, x, y, null);
             i++;
             if(i < pj.jogador.vida){
                 g2.drawImage(coracao_cheio, x, y, null);
@@ -207,7 +207,7 @@ public class UI{
             // Personagem principal
             x = pj.larguraDaTela / 2 - (pj.tamanhoDaPeca * 2) / 2;
             y += pj.tamanhoDaPeca * 2;
-            g2.drawImage(pj.jogador.parado_frente, x, y, pj.tamanhoDaPeca * 2, pj.tamanhoDaPeca * 2, null);
+            g2.drawImage(pj.jogador.estatico, x, y, pj.tamanhoDaPeca * 2, pj.tamanhoDaPeca * 2, null);
     
             // Menu
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));

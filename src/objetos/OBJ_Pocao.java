@@ -16,8 +16,8 @@ public class OBJ_Pocao extends Entidade {
 
         this.pj = pj;
 
-        baixo1 = configuracoes("/res/objetos/pocaoVermelha", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        valor = 5;
+        estatico = configuracoes("/res/objetos/pocao", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+
         descricao = "[" + nome + "]\n" + "Recupera sua vida em " + valor + ".";
 
         area_solida = new Rectangle();
