@@ -15,7 +15,7 @@ public class OBJ_CristalMana extends Entidade{
         tipo = tipo_pegar_apenas;
         nome = "Cristal Mana";
         valor = 1;
-        baixo1 = configuracoes("/res/objetos/CristalManaCheio", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        estatico = configuracoes("/res/objetos/CristalManaCheio", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
 
         imagem4 = configuracoes("/res/objetos/CristalManaVazio", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         imagem5 = configuracoes("/res/objetos/CristalManaCheio", pj.tamanhoDaPeca, pj.tamanhoDaPeca);

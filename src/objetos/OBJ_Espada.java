@@ -13,7 +13,7 @@ public class OBJ_Espada extends Entidade{
         super(pj);
         tipo = tipo_espada;
         nome = "Espada de Madeira";
-        baixo1 = configuracoes("/res/objetos/espadaMadeira", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        estatico = configuracoes("/res/objetos/espadaMadeira", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
        
         ataqueValor = 1;
 

@@ -109,7 +109,9 @@ public class ManipuladorDeEvento {
             pj.estado_do_jogo = estado_do_jogo;
             pj.jogador.ataqueCancelado = true;
             pj.ui.dialogo_atual = "Você se curou!\nSua vida foi restaurada.";
+            pj.jogador.mana = pj.jogador.mana_max;
             pj.jogador.vida = pj.jogador.vidaMaxima;
+            pj.configura_recurso.setMonstro();
         }
     }
 }

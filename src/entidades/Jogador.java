@@ -169,6 +169,9 @@ public class Jogador extends Entidade{
             int index_do_monstro = pj.verifica.verificaEntidade(this, pj.monstros);
             contatoComMonstros(index_do_monstro);
 
+            //Verifica a colisão com peça interativa
+            //int iPeca_index = pj.verifica.verificaEntidade(this, pj.iPeca);
+
             // Verifica evento
             pj.evento.verificaEvento();
             
@@ -290,6 +293,8 @@ public class Jogador extends Entidade{
             int index_do_monstro = pj.verifica.verificaEntidade(this, pj.monstros);
             danoMonstro(index_do_monstro, ataques);
 
+            int iPeca_index = pj.verifica.verificaEntidade(this, pj.iPeca);
+            danoPecaInterativa(iPeca_index);
             //Reverte as posições e tamanhos após o ataque
             mundoX = correnteMundoX;
             mundoY = correnteMundoY;
@@ -401,6 +406,11 @@ public class Jogador extends Entidade{
         
     }
 
+    public void danoPecaInterativa(int i){
+        if(i != 999 && pj.iPeca[i].destrutivel == true && pj.iPeca[i].itemCorreto(this) == true){
+            pj.iPeca[i] = null;
+        }
+    }
     public void checaLevelUp(){
         if(exp >= expProximoNivel){
             nivel++;

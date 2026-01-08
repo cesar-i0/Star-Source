@@ -10,7 +10,7 @@ public class OBJ_Porta extends Entidade{
 
         super(pj);
         super.nome = "Porta";
-        baixo1= configuracoes("/res/objetos/porta", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        estatico = configuracoes("/res/objetos/porta", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         colisao = true;
 
         area_solida = new Rectangle();

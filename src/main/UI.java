@@ -267,7 +267,7 @@ public class UI{
     public void desenharTelaPersonagem(){
 
         //Cria um Frame
-        final int frameX = pj.tamanhoDaPeca;
+        final int frameX = pj.tamanhoDaPeca*2;
         final int frameY = pj.tamanhoDaPeca;
         final int frameLargura = pj.larguraDaTela - (pj.tamanhoDaPeca * 10);
         final int frameAltura = pj.alturaDaTela - (pj.tamanhoDaPeca * 2);
@@ -368,7 +368,7 @@ public class UI{
     }
 
     public void desenharInventario(){
-        int frameX = pj.tamanhoDaPeca*9;
+        int frameX = pj.tamanhoDaPeca*12;
         int frameY = pj.tamanhoDaPeca;
         int frameWidth = pj.tamanhoDaPeca*6;
         int frameHeight = pj.tamanhoDaPeca*5;

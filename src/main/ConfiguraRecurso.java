@@ -12,6 +12,7 @@ import objetos.OBJ_Moeda;
 import objetos.OBJ_Pocao;
 import objetos.OBJ_Porta;
 
+
 public class ConfiguraRecurso {
 
     PainelDoJogo pj;
@@ -105,5 +106,6 @@ public class ConfiguraRecurso {
         pj.npc[1].mundoY = pj.tamanhoDaPeca * 4;
 
     }
+
 
 }

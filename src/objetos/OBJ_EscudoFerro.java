@@ -10,7 +10,7 @@ public class OBJ_EscudoFerro extends Entidade{
         super(pj);
         tipo = tipo_escudo;
         super.nome = "Escudo de ferro";
-        baixo1 = configuracoes("/res/objetos/escudoFerro", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        estatico = configuracoes("/res/objetos/escudoFerro", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
 
         defesaValor = 2;
 
