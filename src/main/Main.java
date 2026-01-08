@@ -11,9 +11,15 @@ public static JFrame window;
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fecha a janela de maneira correta quando o botão "X" é clicado.
         window.setResizable(false); // Impede que o usuário redimensionalize a janela.
         window.setTitle("Jogo"); // O nome do jogo em si.
+        //window.setUndecorated(true);
 
         PainelDoJogo painelDoJogo = new PainelDoJogo();
         window.add(painelDoJogo); // As configurações padrões serão aplicadas no JFrame.
+
+        painelDoJogo.config.carregar_config();
+        if(painelDoJogo.telaCheiaLigada == true){
+            window.setUndecorated(true);
+        }
 
         window.pack(); // Modifica a tela para se encaixar no tamanho preferido e os layouts dos subcomponentesd
 

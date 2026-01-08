@@ -80,9 +80,21 @@ public class Jogador extends Entidade{
 
     }
 
+    public void setPosicoesPadrao(){
+         mundoX = pj.tamanhoDaPeca * 23; 
+         mundoY = pj.tamanhoDaPeca * 21;
+         direcao = "baixo";
+    }
+    public void restauraVidaMana(){
+        vida = vidaMaxima;
+        mana = mana_max;
+        invencivel = false;
+    }
+
+
     //Seta os objetos para dentro do inventário
     public void setItens(){
-        
+        inventario.clear();
         inventario.add(correnteArma);
         inventario.add(correnteEscudo);
         inventario.add(new OBJ_Chave(pj));
@@ -258,6 +270,9 @@ public class Jogador extends Entidade{
 
         if(mana > mana_max){
             mana = mana_max;
+        }
+        if(vida <= 0){
+            pj.estado_do_jogo = pj.estado_fim_de_jogo;
         }
     }
 

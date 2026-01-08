@@ -33,6 +33,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     int alturaDaTela2 = alturaDaTela;
     BufferedImage tempTela;
     Graphics2D g2;
+    public boolean telaCheiaLigada = false;
     // Frames Per Second
     int FPS = 60; 
 
@@ -46,6 +47,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public ConfiguraRecurso configura_recurso = new ConfiguraRecurso(this);
     public UI ui =  new UI(this);
     public ManipuladorDeEvento evento = new ManipuladorDeEvento(this);
+    Config config = new Config(this);
     Thread threadDoJogo; // ALgo que podemos iniciar e parar a fim de deixar o programa rodando.
     
     // Entidade e Objeto
@@ -60,10 +62,12 @@ public class PainelDoJogo extends JPanel implements Runnable {
     // Estado do jogo
     public int estado_do_jogo;
     public final int estado_de_titulo = 0;
-    public final int estado_de_jogar = 1;
+    public int estado_de_jogar = 1;
     public final int estado_de_pausa = 2;
     public final int estado_de_dialogo = 3;
     public final int estado_de_personagem = 4;
+    public final int estado_de_opcoes = 5;
+    public final int estado_fim_de_jogo = 6;
 
     public PainelDoJogo() {
         this.setPreferredSize(new Dimension(larguraDaTela, alturaDaTela));
@@ -85,8 +89,26 @@ public class PainelDoJogo extends JPanel implements Runnable {
        
         tempTela = new BufferedImage(larguraDaTela, alturaDaTela, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D)tempTela.getGraphics();
-
-        setTelaCheia();
+        //Se quisermos que o jogo não seja exibido em tela cheia é só comentar o método abaixo
+        if(telaCheiaLigada == true){
+             setTelaCheia();
+        }
+       
+    }
+    public void novamente(){
+        jogador.setPosicoesPadrao();
+        jogador.restauraVidaMana();
+        configura_recurso.setNPC();
+        configura_recurso.setMonstro();
+    }
+    public void recomecar(){
+        jogador.setValoresPadroes();
+        jogador.setPosicoesPadrao();
+        jogador.restauraVidaMana();
+        jogador.setItens();
+         configura_recurso.setObjeto();
+        configura_recurso.setNPC();
+        configura_recurso.setMonstro();
     }
 
     public void setTelaCheia(){
