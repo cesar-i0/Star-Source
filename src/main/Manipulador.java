@@ -34,9 +34,17 @@ public class Manipulador implements KeyListener {
         else if(pj.estado_do_jogo == pj.estado_de_jogar){ estado_de_jogar(code); }
         // Estado de Dialogo
         else if(pj.estado_do_jogo == pj.estado_de_dialogo){ estado_de_dialogo(code);}
-           //Estado de Personagem
+        //Estado de Personagem
         else if(pj.estado_do_jogo == pj.estado_de_personagem){estado_de_personagem(code);}
+        // Estado de Pausa
+        else if(pj.estado_do_jogo == pj.estado_de_pausa) estado_de_pausa(code);
 
+    }
+
+    public void estado_de_pausa(int code){
+        if(code ==KeyEvent.VK_ESCAPE){
+            pj.estado_do_jogo = pj.estado_de_jogar;
+        }
     }
 
     public void estado_de_titulo(int code){
