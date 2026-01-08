@@ -21,7 +21,6 @@ public class OBJ_Porta extends Entidade{
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
 
-        
     }
 
 }
