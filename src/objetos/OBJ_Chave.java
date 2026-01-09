@@ -1,17 +1,16 @@
 package objetos;
 
-import entidades.Entidade;
 import main.PainelDoJogo;
 import java.awt.Rectangle;
 
 
-public class OBJ_Chave extends Entidade {
+public class OBJ_Chave extends SuperClasse {
 
     public OBJ_Chave(PainelDoJogo pj){
 
         super(pj);
         super.nome = "Chave";
-        estatico = configuracoes("/res/objetos/chave", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        getImagem();
         
 
         descricao = "[" + nome + "]\n" + "Abre portas";
@@ -22,6 +21,11 @@ public class OBJ_Chave extends Entidade {
         area_solida.height = 32;
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
+    }
+
+    @Override
+    public void getImagem() {
+        estatico = configuracoes("/res/objetos/chave", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
     }
 
 }

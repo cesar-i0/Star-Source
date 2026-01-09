@@ -1,11 +1,10 @@
 package objetos;
 
 import main.PainelDoJogo;
-import entidades.Entidade;
 import java.awt.Rectangle;
 
 
-public class OBJ_Espada extends Entidade{
+public class OBJ_Espada extends SuperClasse{
 
     public OBJ_Espada(PainelDoJogo pj){
 
@@ -13,7 +12,7 @@ public class OBJ_Espada extends Entidade{
         super(pj);
         tipo = tipo_espada;
         nome = "Espada de Madeira";
-        estatico = configuracoes("/res/objetos/espadaMadeira", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        
        
         ataqueValor = 1;
 
@@ -29,6 +28,11 @@ public class OBJ_Espada extends Entidade{
         area_solida.height = 32;
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
+    }
+
+    @Override
+    public void getImagem() {
+        estatico = configuracoes("/res/objetos/espadaMadeira", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
     }
 
 }

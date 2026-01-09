@@ -4,7 +4,7 @@ import entidades.Entidade;
 import main.PainelDoJogo;
 import java.awt.Rectangle;
 
-public class OBJ_Moeda extends Entidade {
+public class OBJ_Moeda extends SuperClasse {
 
     PainelDoJogo pj; 
 
@@ -16,7 +16,7 @@ public class OBJ_Moeda extends Entidade {
         tipo = tipo_pegar_apenas;
         valor = 1;
 
-        estatico = configuracoes("/res/objetos/moeda", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        getImagem();
 
         area_solida = new Rectangle();
         area_solida.x = 0;
@@ -25,6 +25,11 @@ public class OBJ_Moeda extends Entidade {
         area_solida.height = 32;
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
+    }
+
+    @Override
+    public void getImagem() {
+        estatico = configuracoes("/res/objetos/moeda", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
     }
 
     @Override

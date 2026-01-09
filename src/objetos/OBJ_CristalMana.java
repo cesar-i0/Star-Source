@@ -4,7 +4,7 @@ import entidades.Entidade;
 import main.PainelDoJogo;
 import java.awt.Rectangle;
 
-public class OBJ_CristalMana extends Entidade{
+public class OBJ_CristalMana extends SuperClasse{
 
     PainelDoJogo pj;
 
@@ -15,11 +15,8 @@ public class OBJ_CristalMana extends Entidade{
         tipo = tipo_pegar_apenas;
         nome = "Poder Estelar";
         valor = 1;
-        estatico = configuracoes("/res/objetos/esferaDePoder", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-
-        imagem4 = configuracoes("/res/objetos/poderEstelarV", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        imagem5 = configuracoes("/res/objetos/poderEstelarC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-       
+        getImagem();
+        
         area_solida = new Rectangle();
         area_solida.x = 0;
         area_solida.y = 16;
@@ -27,7 +24,15 @@ public class OBJ_CristalMana extends Entidade{
         area_solida.height = 32;
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
-    }   
+    }
+
+    @Override
+    public void getImagem() {
+        estatico = configuracoes("/res/objetos/esferaDePoder", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        imagem4 = configuracoes("/res/objetos/poderEstelarV", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        imagem5 = configuracoes("/res/objetos/poderEstelarC", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+    }
+
    // Em OBJ_CristalMana.use
     @Override
     public boolean use(Entidade entidade){

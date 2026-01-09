@@ -1,16 +1,16 @@
 package objetos;
 
-import entidades.Entidade;
 import main.PainelDoJogo;
 import java.awt.Rectangle;
 
-public class OBJ_Porta extends Entidade{
+public class OBJ_Porta extends SuperClasse{
 
     public OBJ_Porta(PainelDoJogo pj){
 
         super(pj);
         super.nome = "Porta";
-        estatico = configuracoes("/res/objetos/porta", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        getImagem();
+        coletavel = false;
         colisao = true;
 
         area_solida = new Rectangle();
@@ -21,6 +21,10 @@ public class OBJ_Porta extends Entidade{
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
 
+    }
+    @Override
+    public void getImagem() {
+        estatico = configuracoes("/res/objetos/porta", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
     }
 
 }

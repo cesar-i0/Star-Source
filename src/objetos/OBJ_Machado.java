@@ -1,17 +1,16 @@
 package objetos;
 
-import entidades.Entidade;
 import main.PainelDoJogo;
 import java.awt.Rectangle;
 
-public class OBJ_Machado extends Entidade{
+public class OBJ_Machado extends SuperClasse{
 
     public OBJ_Machado(PainelDoJogo pj){
 
         super(pj);
         tipo = tipo_machado;
         super.nome = "Machado";
-        estatico = configuracoes("/res/objetos/machado", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        
        
         ataqueValor = 2;
 
@@ -27,6 +26,11 @@ public class OBJ_Machado extends Entidade{
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
 
+    }
+
+    @Override
+    public void getImagem() {
+        estatico = configuracoes("/res/objetos/machado", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
     }
 
 }

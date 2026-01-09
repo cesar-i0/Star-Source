@@ -78,6 +78,7 @@ public class Entidade {
     public String descricao = "";
     public int custo_de_uso;
     public int valor;
+    public boolean coletavel;
 
     //Tipos
     public int tipo; // 0 = jogador, 1 = npc, 2 = monstro

@@ -1,17 +1,16 @@
 package objetos;
 
 import main.PainelDoJogo;
-import entidades.Entidade;
 import java.awt.Rectangle;
 
-public class OBJ_Escudo extends Entidade{
+public class OBJ_Escudo extends SuperClasse{
 
     public OBJ_Escudo(PainelDoJogo pj){
 
         super(pj);
         tipo = tipo_escudo;
         nome = "Escudo de Madeira";
-        estatico = configuracoes("/res/objetos/escudoEstelar", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        getImagem();
        
         defesaValor = 1;
 
@@ -25,6 +24,11 @@ public class OBJ_Escudo extends Entidade{
         area_solida.height = 32;
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
+    }
+
+    @Override
+    public void getImagem() {
+        estatico = configuracoes("/res/objetos/escudoEstelar", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
     }
 
 }
