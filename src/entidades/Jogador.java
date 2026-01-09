@@ -1,13 +1,10 @@
 package entidades;
 
-import main.Manipulador;
-import main.PainelDoJogo;
-
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
+import main.Manipulador;
+import main.PainelDoJogo;
 import objetos.OBJ_BolaDeFogo;
 import objetos.OBJ_Chave;
 import objetos.OBJ_Escudo;
@@ -273,6 +270,10 @@ public class Jogador extends Entidade{
         }
         if(vida <= 0){
             pj.estado_do_jogo = pj.estado_fim_de_jogo;
+            pj.ui.numeroDoComando = -1; // Reseta o número do comando para evitar bugs no menu de fim de jogo e quando voçê atacar não volta imediatamente para o jogo
+            pj.pararMusica(); //para a música de fundo na morte 
+            // Aqui podemos adicionar uma música de morte se quisermos ex:: pj.tocarMusica(5); 
+
         }
     }
 

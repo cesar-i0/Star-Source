@@ -236,6 +236,7 @@ public void estado_fim_de_jogo(int code){
         if(pj.ui.numeroDoComando == 0){
             pj.estado_do_jogo = pj.estado_de_jogar;
             pj.novamente();
+            pj.tocarMusica(0); // volta a tocar a musica de fundo do jogo
         }
         else if(pj.ui.numeroDoComando == 1){
             pj.estado_do_jogo = pj.estado_de_titulo;
