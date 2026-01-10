@@ -336,6 +336,10 @@ public class Entidade {
             animaçãoMorte(g2);
         }
             g2.drawImage(imagem, telaX, telaY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, null);
+            // Desenha a área de colisão
+            g2.setColor(Color.red);
+            g2.drawRect(telaX + area_solida.x, telaY + area_solida.y, area_solida.width, area_solida.height);
+
         }
 
         if(invencivel == true){

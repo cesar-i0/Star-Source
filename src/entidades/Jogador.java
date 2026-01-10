@@ -33,12 +33,12 @@ public class Jogador extends Entidade{
         telaY = pj.alturaDaTela / 2 - (pj.tamanhoDaPeca / 2); // Coloca o personagem no centro da tela
 
         area_solida =  new Rectangle();
-        area_solida.x = 8;
-        area_solida.y = 8;
+        area_solida.x = 13;
+        area_solida.y = 15;
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
-        area_solida.width = 32;
-        area_solida.height = 32;
+        area_solida.width = 20;
+        area_solida.height = 30;
         //AtaqueArea.width = 36;
         //AtaqueArea.height = 36;
 
@@ -549,6 +549,8 @@ public class Jogador extends Entidade{
         }
 
         g2.drawImage(imagem, TempTelaX, TempTelaY, null);
+        g2.setColor(Color.red);
+        g2.drawRect(telaX + area_solida.x, telaY + area_solida.y, area_solida.width, area_solida.height);
         
         // Resta o alpha
         if(invencivel == true){
@@ -561,8 +563,8 @@ public class Jogador extends Entidade{
         // g2.drawString("Invencível: " + contador_de_invencibilidade, 10, 400);
 
         // Para ver a área de colisão usamos isso
-        // g2.setColor(Color.red);
-        // g2.drawRect(telaX + area_solida.x, telaY + area_solida.y, area_solida.width, area_solida.height);
+        g2.setColor(Color.red);
+        g2.drawRect(telaX + area_solida.x, telaY + area_solida.y, area_solida.width, area_solida.height);
 
             }
         }

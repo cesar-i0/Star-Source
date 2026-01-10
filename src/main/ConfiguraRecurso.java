@@ -27,33 +27,33 @@ public class ConfiguraRecurso {
         int i = 0;
         
         pj.monstros[i] = new MON_Slime(pj);
-        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 8;
-        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 6;
+        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 13;
+        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
 
         pj.monstros[i] = new MON_Slime(pj);
-        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 4;
-        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 5;
+        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 31;
+        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
 
         pj.monstros[i] = new MON_Escorpiao(pj);
-        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 23;
-        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 3;
+        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 30;
+        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
 
         pj.monstros[i] = new MON_Escorpiao(pj);
-        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 2;
-        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 7;
+        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 28;
+        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
 
         pj.monstros[i] = new MON_Esqueleto(pj);
-        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 9;
-        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 8;
+        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 27;
+        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
 
         pj.monstros[i] = new MON_Esqueleto(pj);
-        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 8;
-        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 1;
+        pj.monstros[i].mundoX = pj.tamanhoDaPeca * 26;
+        pj.monstros[i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
     }
 
@@ -61,34 +61,34 @@ public class ConfiguraRecurso {
         int i = 0;
 
         pj.obj[i] = new OBJ_Porta(pj);
-        pj.obj[i].mundoX = pj.tamanhoDaPeca * 30;
-        pj.obj[i].mundoY = pj.tamanhoDaPeca * 30;
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 19;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
 
         pj.obj[i] = new OBJ_Pocao(pj);
-        pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
-        pj.obj[i].mundoY = pj.tamanhoDaPeca * 4;
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 18;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
 
         pj.obj[i] = new OBJ_CristalMana(pj);
-        pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
-        pj.obj[i].mundoY = pj.tamanhoDaPeca * 3;
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 17;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
 
         pj.obj[i] = new OBJ_Coracao(pj);
-        pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
-        pj.obj[i].mundoY = pj.tamanhoDaPeca * 2;
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 20;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
 
         pj.obj[i] = new OBJ_Machado(pj);
-        pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
-        pj.obj[i].mundoY = pj.tamanhoDaPeca * 1;
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 22;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
 
 
         pj.obj[i] = new OBJ_Moeda(pj);
-        pj.obj[i].mundoX = pj.tamanhoDaPeca * 1;
-        pj.obj[i].mundoY = pj.tamanhoDaPeca * 5;
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 24;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
 
        
@@ -98,12 +98,12 @@ public class ConfiguraRecurso {
     public void setNPC(){
 
         pj.npc[0] = new NPC_random(pj);
-        pj.npc[0].mundoX = pj.tamanhoDaPeca * 12;
-        pj.npc[0].mundoY = pj.tamanhoDaPeca * 3;
+        pj.npc[0].mundoX = pj.tamanhoDaPeca * 15;
+        pj.npc[0].mundoY = pj.tamanhoDaPeca * 21;
 
         pj.npc[1] = new NPC_random(pj);
         pj.npc[1].mundoX = pj.tamanhoDaPeca * 13;
-        pj.npc[1].mundoY = pj.tamanhoDaPeca * 4;
+        pj.npc[1].mundoY = pj.tamanhoDaPeca * 21;
 
     }
 

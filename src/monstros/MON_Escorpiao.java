@@ -28,9 +28,9 @@ public class MON_Escorpiao extends Entidade {
         exp = 2;
 
         area_solida = new Rectangle();
-        area_solida.x = 3;
-        area_solida.y = 18;
-        area_solida.width = 42;
+        area_solida.x = 5;
+        area_solida.y = 13;
+        area_solida.width = 25;
         area_solida.height = 30;
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
