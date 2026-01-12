@@ -54,16 +54,16 @@ public class Entidade {
 
 
     // Status do personagem
-    public int vidaMaxima;
-    public int vida;
-    public int mana_max;
-    public int mana;
+    public double vidaMaxima;
+    public double vida;
+    public double mana_max;
+    public double mana;
     public String nome;
     public int velocidade;
     public int nivel;
     public int forca;
-    public int ataques;
-    public int defesa;
+    public double ataques;
+    public double defesa;
     public int experiencia;
     public int expProximoNivel;
     public int moedas;
@@ -242,10 +242,10 @@ public class Entidade {
 
     }
 
-    public void danoJogador(int ataques){
+    public void danoJogador(double ataques){
         if(pj.jogador.invencivel == false){
             pj.tocarEfeitoSonoro(1);
-            int dano = ataques - pj.jogador.defesa;
+            double dano = ataques - pj.jogador.defesa;
             if(dano < 0){
                 dano = 0;
             }

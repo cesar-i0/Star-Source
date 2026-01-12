@@ -97,12 +97,12 @@ public class Jogador extends Entidade{
         inventario.add(new OBJ_Chave(pj));
     }
 
-    public int getAtaques(){
+    public double getAtaques(){
         AtaqueArea = correnteArma.AtaqueArea;
         return ataques = forca * correnteArma.ataqueValor;
     }
 
-    public int getDefesa(){
+    public double getDefesa(){
         return defesa = experiencia * correnteEscudo.defesaValor;
     }
 
@@ -375,7 +375,7 @@ public class Jogador extends Entidade{
         if(i != 999){
             if(invencivel == false && pj.monstros[i].morrendo == false){
                
-                int dano = pj.monstros[i].ataques - defesa;
+                double dano = pj.monstros[i].ataques - defesa;
                 if(dano < 0){
                     dano = 0;
                 }
@@ -387,13 +387,13 @@ public class Jogador extends Entidade{
         }
     }
 
-    public void danoMonstro(int i, int ataque){
+    public void danoMonstro(int i, double ataque){
         if(i != 999){
          
             if(pj.monstros[i].invencivel == false && pj.monstros[i].morrendo == false){
                  
             //    int dano = ataques - pj.monstros[i].defesa;
-                int dano =  pj.monstros[i].ataques - defesa;
+                double dano =  pj.monstros[i].ataques - defesa;
                 if(dano < 0){
                     dano = 0;
 

@@ -24,7 +24,7 @@ public class MON_Slime extends Entidade{
         velocidade = 1;
         vidaMaxima = 6;
         vida = vidaMaxima;
-        ataques = 2;
+        ataques = 0.5;
         defesa = 0;
         exp = 2;
         projeteis = new OBJ_BolaDeSlime(pj);
