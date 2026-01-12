@@ -44,23 +44,23 @@ public class ConfiguraRecurso {
         int i = 0;
 
         pj.obj[i] = new OBJ_Pocao(pj);
-        pj.obj[i].mundoX = pj.tamanhoDaPeca * 18;
-        pj.obj[i].mundoY = pj.tamanhoDaPeca * 21;
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 15;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 6;
         i++;
 
         pj.obj[i] = new OBJ_CristalMana(pj);
         pj.obj[i].mundoX = pj.tamanhoDaPeca * 17;
-        pj.obj[i].mundoY = pj.tamanhoDaPeca * 21;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 6;
         i++;
 
         pj.obj[i] = new OBJ_Coracao(pj);
-        pj.obj[i].mundoX = pj.tamanhoDaPeca * 20;
-        pj.obj[i].mundoY = pj.tamanhoDaPeca * 21;
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 14;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 6;
         i++;
 
         pj.obj[i] = new OBJ_Moeda(pj);
-        pj.obj[i].mundoX = pj.tamanhoDaPeca * 24;
-        pj.obj[i].mundoY = pj.tamanhoDaPeca * 21;
+        pj.obj[i].mundoX = pj.tamanhoDaPeca * 16;
+        pj.obj[i].mundoY = pj.tamanhoDaPeca * 6;
         i++;
 
     }

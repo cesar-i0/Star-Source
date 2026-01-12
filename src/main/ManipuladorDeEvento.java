@@ -49,7 +49,7 @@ public class ManipuladorDeEvento {
             // Local da armadilha
             if(atingiu(1, 1, "cima") == true) danoDeArmadilha(1, 1,pj.estado_de_dialogo);
             // Local de cura
-            if(atingiu(1, 3, "cima") == true) localDeCura(pj.estado_de_dialogo);
+            if(atingiu(8, 21, "direita") == true) localDeCura(pj.estado_de_dialogo);
             // Local de teleporte
             if(atingiu(35, 17, "cima") == true) teleporte(pj.estado_de_dialogo);
 

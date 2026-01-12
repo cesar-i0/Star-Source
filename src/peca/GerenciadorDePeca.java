@@ -22,7 +22,7 @@ public class GerenciadorDePeca {
         peca = new Peca[20]; // Cria 10 espaços para cada peça
         numeroDaPecaDoMundo = new int[pj.maxColunasDoMundo][pj.maxLinhaDoMundo];
         getImagemDaPeca();
-        carregaMapa("/res/mapas/50x50.txt");
+        carregaMapa("/res/mapas/mapa_principal.txt");
     }
     // Essa classe carrega as imagens das peças.
     public void getImagemDaPeca(){
@@ -37,7 +37,9 @@ public class GerenciadorDePeca {
         configuracoes(7, "labD", true);
         configuracoes(8, "labID", true);
         configuracoes(9, "labI", true);
-        configuracoes(10, "teleporte", true);
+        configuracoes(10, "teleporte", false);
+        configuracoes(11, "localCura", false);
+        configuracoes(12, "MudaM", false);
 
     }
 

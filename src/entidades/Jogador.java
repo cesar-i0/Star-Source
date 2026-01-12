@@ -38,11 +38,9 @@ public class Jogador extends Entidade{
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
         area_solida.width = 20;
-        area_solida.height = 30;
+        area_solida.height = 25;
         //AtaqueArea.width = 36;
         //AtaqueArea.height = 36;
-
-        
 
         setValoresPadroes();
         getImagemDoJogador();
@@ -52,8 +50,8 @@ public class Jogador extends Entidade{
 
     public void setValoresPadroes(){
 
-        mundoX = pj.tamanhoDaPeca * 23; // Essa linha vai indicar em que posição do mapa o jogador inicia.
-        mundoY = pj.tamanhoDaPeca * 21; // Essa linha vai indicar em que posição do mapa o jogador inicia.  
+        mundoX = pj.tamanhoDaPeca * 10; // Essa linha vai indicar em que posição do mapa o jogador inicia.
+        mundoY = pj.tamanhoDaPeca * 6; // Essa linha vai indicar em que posição do mapa o jogador inicia.  
         velocidade = 4;
         direcao = "estatico";
 
@@ -77,10 +75,11 @@ public class Jogador extends Entidade{
 
     }
 
+    // Aqui é definido a posição padrão depois de morrer
     public void setPosicoesPadrao(){
-         mundoX = pj.tamanhoDaPeca * 23; 
-         mundoY = pj.tamanhoDaPeca * 21;
-         direcao = "baixo";
+        mundoX = pj.tamanhoDaPeca * 10; 
+        mundoY = pj.tamanhoDaPeca * 6;
+        direcao = "baixo";
     }
     public void restauraVidaMana(){
         vida = vidaMaxima;

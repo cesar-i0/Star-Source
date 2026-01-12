@@ -21,10 +21,10 @@ public class OBJ_Pocao extends SuperClasse {
         descricao = "[" + nome + "]\n" + "Recupera sua vida em " + valor + ".";
 
         area_solida = new Rectangle();
-        area_solida.x = 0;
-        area_solida.y = 16;
-        area_solida.width = 48;
-        area_solida.height = 32;
+        area_solida.x = 10;
+        area_solida.y = 8;
+        area_solida.width = 30;
+        area_solida.height = 30;
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
     }
