@@ -51,7 +51,7 @@ public class ManipuladorDeEvento {
             // Local de cura
             if(atingiu(1, 3, "cima") == true) localDeCura(pj.estado_de_dialogo);
             // Local de teleporte
-            if(atingiu(1, 5, "cima") == true) teleporte(pj.estado_de_dialogo);
+            if(atingiu(35, 17, "cima") == true) teleporte(pj.estado_de_dialogo);
 
         }
 
@@ -89,9 +89,9 @@ public class ManipuladorDeEvento {
     public void teleporte(int estado_do_jogo){
 
         pj.estado_do_jogo = estado_do_jogo;
-        pj.ui.dialogo_atual = "Teleporte!";
-        pj.jogador.mundoX = pj.tamanhoDaPeca * 25;
-        pj.jogador.mundoY = pj.tamanhoDaPeca * 25;
+        pj.ui.dialogo_atual = "Você teletransportou!";
+        pj.jogador.mundoX = pj.tamanhoDaPeca * 34;
+        pj.jogador.mundoY = pj.tamanhoDaPeca * 40;
         
     }
 

@@ -19,17 +19,25 @@ public class GerenciadorDePeca {
 
     public GerenciadorDePeca(PainelDoJogo pj){
         this.pj = pj;
-        peca = new Peca[10]; // Cria 10 espaços para cada peça
+        peca = new Peca[20]; // Cria 10 espaços para cada peça
         numeroDaPecaDoMundo = new int[pj.maxColunasDoMundo][pj.maxLinhaDoMundo];
         getImagemDaPeca();
-        carregaMapa("/res/mapas/mapa_do_mundo.txt");
+        carregaMapa("/res/mapas/50x50.txt");
     }
     // Essa classe carrega as imagens das peças.
     public void getImagemDaPeca(){
 
         configuracoes(0, "grama", false);
         configuracoes(1, "arvore", true);
-        configuracoes(2, "chao", false);
+        configuracoes(2, "labSE", true);
+        configuracoes(3, "labE", true);
+        configuracoes(4, "labIE", true);
+        configuracoes(5, "labS", true);
+        configuracoes(6, "labSD", true);
+        configuracoes(7, "labD", true);
+        configuracoes(8, "labID", true);
+        configuracoes(9, "labI", true);
+        configuracoes(10, "teleporte", true);
 
     }
 
