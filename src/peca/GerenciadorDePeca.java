@@ -52,8 +52,9 @@ public class GerenciadorDePeca {
         configuracoes(20, "parTB", true);
         configuracoes(21, "parTBD", true);
         configuracoes(22, "areia", false);
-        // configuracoes(23, "chao", false);
-
+        configuracoes(23, "areiaDT", false);
+        configuracoes(24, "chaoA", false);
+        configuracoes(25, "chao", false);
     }
 
     public void configuracoes(int index, String nome_da_imagem, boolean colisao){
