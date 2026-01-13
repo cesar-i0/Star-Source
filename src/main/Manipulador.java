@@ -155,23 +155,23 @@ public class Manipulador implements KeyListener {
             }
             //Cursor do inventário com limites
         if(code == KeyEvent.VK_W){
-            if(pj.ui.compartimento_linha != 0){
-                pj.ui.compartimento_linha --;
+            if(pj.ui.jogador_compartimento_linha != 0){
+                pj.ui.jogador_compartimento_linha --;
             }
         } 
         if(code == KeyEvent.VK_A){
-            if(pj.ui.compartimento_coluna != 0){
-                pj.ui.compartimento_coluna --;
+            if(pj.ui.jogador_compartimento_coluna != 0){
+                pj.ui.jogador_compartimento_coluna --;
             } 
         } 
         if(code == KeyEvent.VK_S){
-            if(pj.ui.compartimento_linha != 3){
-                pj.ui.compartimento_linha ++;
+            if(pj.ui.jogador_compartimento_linha != 3){
+                pj.ui.jogador_compartimento_linha ++;
             } 
         } 
         if(code == KeyEvent.VK_D){
-            if(pj.ui.compartimento_coluna != 4){
-                pj.ui.compartimento_coluna ++;
+            if(pj.ui.jogador_compartimento_coluna != 4){
+                pj.ui.jogador_compartimento_coluna ++;
             }
             
         } 

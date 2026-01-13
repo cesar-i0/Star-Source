@@ -2,7 +2,6 @@ package entidades;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import main.Manipulador;
 import main.PainelDoJogo;
 import objetos.OBJ_PoeiraEstelar;

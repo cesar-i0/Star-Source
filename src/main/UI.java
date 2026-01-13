@@ -681,6 +681,7 @@ public class UI{
         int frameHeight = 0 ;
         int slotcoluna = 0;
         int slotlinha = 0;
+
         if(entidade == pj.jogador){
             frameX = pj.tamanhoDaPeca*12;
             frameY = pj.tamanhoDaPeca;
@@ -698,10 +699,6 @@ public class UI{
             slotcoluna = npc_compartimento_coluna;
             slotlinha = npc_compartimento_linha;
         }
-
-
-
-
    
         desenharSubTela(frameX, frameY, frameWidth, frameHeight);
 
@@ -723,8 +720,6 @@ public class UI{
 
              }
              
-        
-            
             g2.drawImage(entidade.inventario.get(i).baixo1, compartimentoX, compartimentoY, null);
             compartimentoX += tamanho_compartimento;
 
@@ -733,57 +728,48 @@ public class UI{
                 compartimentoY += tamanho_compartimento;
             }
 
-        
-
         }
         
-
         //Cursor
         if(cursor == true){
-  int cursorX = compartimentoXinicio + (tamanho_compartimento*jogador_compartimento_coluna);
-        int cursorY = compartimentoYinicio + (tamanho_compartimento*jogador_compartimento_linha);
-        int cursorLargura = pj.tamanhoDaPeca;
-        int cursorAltura = pj.tamanhoDaPeca;
+            int cursorX = compartimentoXinicio + (tamanho_compartimento*jogador_compartimento_coluna);
+            int cursorY = compartimentoYinicio + (tamanho_compartimento*jogador_compartimento_linha);
+            int cursorLargura = pj.tamanhoDaPeca;
+            int cursorAltura = pj.tamanhoDaPeca;
 
-        //Descrição frame
-        int dFrameX = frameX;
-        int dFrameY = frameY + frameHeight;
-        int dFrameWidth = frameWidth;
-        int dFrameHeight = pj.tamanhoDaPeca*3;
-       
-        //Texto descrição
-        int textX = dFrameX+20;
-        int textY = dFrameY + pj.tamanhoDaPeca;
-
-        g2.setFont(g2.getFont().deriveFont(28F));
-        int index_item = getIndex_item_no_compartimento(slotcoluna , slotlinha);
-
-        if(index_item < entidade.inventario.size()){
-            desenharSubTela(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
-
-
-            for(String line: entidade.inventario.get(index_item).descricao.split("\n")){
-            g2.drawString(line, textX, textY);
-            textY += 32;
-        }
-        }
-  //Desenhar
-        g2.setColor(Color.white);
-        g2.setStroke(new BasicStroke(3));
-        g2.drawRoundRect(cursorX, cursorY, cursorLargura, cursorAltura, 10, 10);
-        }
-      
-
+            //Descrição frame
+            int dFrameX = frameX;
+            int dFrameY = frameY + frameHeight;
+            int dFrameWidth = frameWidth;
+            int dFrameHeight = pj.tamanhoDaPeca*3;
         
+            //Texto descrição
+            int textX = dFrameX+20;
+            int textY = dFrameY + pj.tamanhoDaPeca;
 
-      
+            g2.setFont(g2.getFont().deriveFont(28F));
+            int index_item = getIndex_item_no_compartimento(slotcoluna, slotlinha);
 
+            if(index_item < entidade.inventario.size()){
+                desenharSubTela(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+
+
+                for(String line: entidade.inventario.get(index_item).descricao.split("\n")){
+                    g2.drawString(line, textX, textY);
+                    textY += 32;
+                }
+            }
+            //Desenhar
+            g2.setColor(Color.white);
+            g2.setStroke(new BasicStroke(3));
+            g2.drawRoundRect(cursorX, cursorY, cursorLargura, cursorAltura, 10, 10);
+        }
+    
     }
 
-  public int getIndex_item_no_compartimento(){
-        int index_item = jogador_compartimento_coluna+(jogador_compartimento_linha*5);
+    public int getIndex_item_no_compartimento(int compartimento_coluna, int compartimento_linha){
+        int index_item = compartimento_coluna + (compartimento_linha * 5);
         return index_item;
-
     }
 
 
@@ -883,14 +869,13 @@ public void desenharTroca(){
       
     }
 
-public void compra_troca(){
+    public void compra_troca(){
 
-}
-public void venda_troca(){
-   public int getIndex_item_no_compartimento( int slotcoluna, int slotlinha){
-        int index_item = npc_compartimento_coluna+(npc_compartimento_linha*5);
-        return index_item;
-}
+    }
+    public void venda_troca(){
+        // public int  = getIndex_item_no_compartimento(int slotcoluna, int slotlinha);
+        // int index_item = npc_compartimento_coluna+(npc_compartimento_linha*5);
+    }
 
-}
+
 }

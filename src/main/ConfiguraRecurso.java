@@ -100,15 +100,15 @@ public class ConfiguraRecurso {
        int mapa = 0;
        int i = 0;
 
-        pj.npc[mapa][0] = new NPC_random(pj);
-        pj.npc[mapa][0].mundoX = pj.tamanhoDaPeca * 15;
-        pj.npc[mapa][0].mundoY = pj.tamanhoDaPeca * 21;
+        pj.npc[mapa][i] = new NPC_random(pj);
+        pj.npc[mapa][i].mundoX = pj.tamanhoDaPeca * 15;
+        pj.npc[mapa][i].mundoY = pj.tamanhoDaPeca * 21;
+        i++;
+        mapa++;
 
-      
-        mapa = 1;
-        pj.npc[mapa][1] = new NPC_mercador(pj);
-        pj.npc[mapa][1].mundoX = pj.tamanhoDaPeca * 13;
-        pj.npc[mapa][1].mundoY = pj.tamanhoDaPeca * 21;
+        pj.npc[mapa][i] = new NPC_mercador(pj);
+        pj.npc[mapa][i].mundoX = pj.tamanhoDaPeca * 13;
+        pj.npc[mapa][i].mundoY = pj.tamanhoDaPeca * 21;
 
     }
 
