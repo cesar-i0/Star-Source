@@ -5,7 +5,8 @@ import main.PainelDoJogo;
 import objetos.OBJ_Escudo;
 import objetos.OBJ_EscudoFerro;
 import objetos.OBJ_Espada;
-import objetos.OBJ_Pocao;
+import objetos.OBJ_PocaoDeCura;
+import objetos.OBJ_PocaoDeMana;
 
 public class NPC_mercador extends Entidade {
      public NPC_mercador(PainelDoJogo pj){
@@ -25,19 +26,19 @@ public class NPC_mercador extends Entidade {
         
         getImagemDoNPC();
         setDialogo();
-
+        setitens();
     }
 
     public void getImagemDoNPC(){
         
-        cima1 = configuracoes("/res/npc/merchan", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        cima2 = configuracoes("/res/npc/merchan", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        baixo1 = configuracoes("/res/npc/merchan", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        baixo2 = configuracoes("/res/npc/merchan", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        esquerda1 = configuracoes("/res/npc/merchan", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        esquerda2 = configuracoes("/res/npc/merchan", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        direita1 = configuracoes("/res/npc/merchan", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
-        direita2 = configuracoes("/res/npc/merchan", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        cima1 = configuracoes("/res/npc/merchant", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        cima2 = configuracoes("/res/npc/merchant", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        baixo1 = configuracoes("/res/npc/merchant", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        baixo2 = configuracoes("/res/npc/merchant", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        esquerda1 = configuracoes("/res/npc/merchant", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        esquerda2 = configuracoes("/res/npc/merchant", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        direita1 = configuracoes("/res/npc/merchant", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+        direita2 = configuracoes("/res/npc/merchant", pj.tamanhoDaPeca, pj.tamanhoDaPeca);
         // cima1, cima2, baixo1, baixo2, esquerda1, esquerda2, direita1, direita2;
 
     }
@@ -53,7 +54,14 @@ public void setitens(){
 
       inventario.add(new OBJ_EscudoFerro(pj));
       inventario.add(new OBJ_Espada(pj));
-      inventario.add(new OBJ_Pocao(pj));
+      inventario.add(new OBJ_PocaoDeCura(pj));
+        inventario.add(new OBJ_PocaoDeMana(pj));
+}
+@Override
+public void falar(){
+    super.falar();
+    pj.estado_do_jogo = pj.estado_de_troca;
+    pj.ui.npc = this;
 }
 
 }

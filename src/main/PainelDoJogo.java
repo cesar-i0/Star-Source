@@ -72,6 +72,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estado_de_opcoes = 5;
     public final int estado_fim_de_jogo = 6;
     public final int estado_de_transicao = 7;
+    public final int estado_de_troca = 8;
 
 
     public PainelDoJogo() {

@@ -1,15 +1,16 @@
 package main;
 
+import entidades.NPC_mercador;
 import entidades.NPC_random;
 import monstros.MON_Escorpiao;
 import monstros.MON_Esqueleto;
 import monstros.MON_Slime;
 import objetos.OBJ_Coracao;
 import objetos.OBJ_CristalMana;
+import objetos.OBJ_Machado;
 import objetos.OBJ_Moeda;
 import objetos.OBJ_PocaoDeCura;
 import objetos.OBJ_Porta;
-import objetos.OBJ_Machado;
 
 
 public class ConfiguraRecurso {
@@ -97,13 +98,18 @@ public class ConfiguraRecurso {
 
     public void setNPC(){
        int mapa = 0;
+       int i = 0;
+
         pj.npc[mapa][0] = new NPC_random(pj);
         pj.npc[mapa][0].mundoX = pj.tamanhoDaPeca * 15;
         pj.npc[mapa][0].mundoY = pj.tamanhoDaPeca * 21;
 
-        pj.npc[mapa][1] = new NPC_random(pj);
+      
+        mapa = 1;
+        pj.npc[mapa][1] = new NPC_mercador(pj);
         pj.npc[mapa][1].mundoX = pj.tamanhoDaPeca * 13;
         pj.npc[mapa][1].mundoY = pj.tamanhoDaPeca * 21;
+
     }
 
 

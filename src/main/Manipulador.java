@@ -42,6 +42,8 @@ public class Manipulador implements KeyListener {
         else if(pj.estado_do_jogo == pj.estado_de_opcoes){estado_de_opcoes(code);}
         //Estado de fim de jogo
         else if(pj.estado_do_jogo == pj.estado_fim_de_jogo){estado_fim_de_jogo(code);}
+        //Estado de trade
+        else if(pj.estado_do_jogo == pj.estado_de_troca){estado_de_troca(code);}
 
     }
 
@@ -258,6 +260,27 @@ public void estado_fim_de_jogo(int code){
         }
     }
 }
+
+public void estado_de_troca(int code){
+    if(code == KeyEvent.VK_ENTER){
+        enterPressionado = true;
+    }
+  if(pj.ui.sub_estado == 0){
+    if(code == KeyEvent.VK_W){
+        pj.ui.numeroDoComando--;
+        if(pj.ui.numeroDoComando < 0){
+            pj.ui.numeroDoComando = 2;
+        }
+    }
+    if(code == KeyEvent.VK_S){
+        pj.ui.numeroDoComando++;
+        if(pj.ui.numeroDoComando > 2){
+            pj.ui.numeroDoComando = 0;
+        }
+    }
+  }
+}
+
 
 @Override
 public void keyReleased(KeyEvent e) {

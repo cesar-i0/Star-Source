@@ -1,5 +1,7 @@
 package main;
 
+import entidades.Entidade;
+
 public class ManipuladorDeEvento {
 
     PainelDoJogo pj;
@@ -60,6 +62,7 @@ public class ManipuladorDeEvento {
             // Local de teleporte 2
            else if(atingiu(0, 8, 22, "any") == true) {teleporte(1 , 20, 10);}
            else if(atingiu(1 ,12 , 10, "any") == true) {teleporte(0 , 10, 10);}
+           // else if(atingiu(1 ,20 , 10, "up") == true) {fala([0] [1]);} para um caso de um npc estar atras de bancada 
         }
 
     }
@@ -139,7 +142,14 @@ public void teleporte (int mapa , int lin , int col){
     evento_possivel_de_tocar = false;
 
 }
-
+public void fala(Entidade entidade){
+    if(pj.chaveManipuladora.enterPressionado == true){
+        pj.estado_do_jogo = pj.estado_de_dialogo;
+        pj.jogador.ataqueCancelado = true;
+        entidade.falar();
+    
+}
 
 }
 
+}
