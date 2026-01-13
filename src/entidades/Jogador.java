@@ -19,8 +19,7 @@ public class Jogador extends Entidade{
     public final int telaX, telaY;
     int estadoInicial = 0;
     public boolean ataqueCancelado = false;
-    public ArrayList<Entidade> inventario = new ArrayList<>();
-    public final int tamanho_max_inventario = 20;
+    
    
 
     public Jogador(PainelDoJogo pj, Manipulador manipulador){

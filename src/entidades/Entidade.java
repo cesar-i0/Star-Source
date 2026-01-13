@@ -1,13 +1,12 @@
 package entidades;
-
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.awt.AlphaComposite;
-import java.awt.Color;
-
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import main.FerramentaUtilitaria;
 import main.PainelDoJogo;
@@ -73,6 +72,8 @@ public class Entidade {
     public ProjeteisDePecas projeteis;
 
     // Atributos de Itens
+    public ArrayList<Entidade> inventario = new ArrayList<>();
+    public final int tamanho_max_inventario = 20;
     public int ataqueValor;
     public int defesaValor;
     public String descricao = "";
