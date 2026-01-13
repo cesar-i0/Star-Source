@@ -5,9 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import javax.imageio.ImageIO;
-
 import main.FerramentaUtilitaria;
 import main.PainelDoJogo;
 
@@ -15,14 +13,15 @@ public class GerenciadorDePeca {
 
     PainelDoJogo pj;
     public Peca[] peca;
-    public int numeroDaPecaDoMundo[][];
+    public int numeroDaPecaDoMundo[][][];
 
     public GerenciadorDePeca(PainelDoJogo pj){
         this.pj = pj;
         peca = new Peca[10]; // Cria 10 espaços para cada peça
-        numeroDaPecaDoMundo = new int[pj.maxColunasDoMundo][pj.maxLinhaDoMundo];
+        numeroDaPecaDoMundo = new int[pj.maximomapa][pj.maxColunasDoMundo][pj.maxLinhaDoMundo];
         getImagemDaPeca();
-        carregaMapa("/res/mapas/mapa_do_mundo.txt");
+        carregaMapa(    "/res/mapas/mapa_do_mundo.txt", 0);
+        carregaMapa(    "/res/mapas/mapa2.txt",     1);
     }
     // Essa classe carrega as imagens das peças.
     public void getImagemDaPeca(){
@@ -30,7 +29,7 @@ public class GerenciadorDePeca {
         configuracoes(0, "grama", false);
         configuracoes(1, "arvore", true);
         configuracoes(2, "chao", false);
-
+        configuracoes(3, "porta1", false);
     }
 
     public void configuracoes(int index, String nome_da_imagem, boolean colisao){
@@ -39,7 +38,13 @@ public class GerenciadorDePeca {
 
         try {
             peca[index] = new Peca();
-            peca[index].imagem = ImageIO.read(getClass().getResourceAsStream("/res/pecas/" + nome_da_imagem + ".png"));
+            String path = "/res/pecas/" + nome_da_imagem + ".png";
+            java.io.InputStream is = getClass().getResourceAsStream(path);
+            if (is == null) {
+                System.err.println("Recurso não encontrado: " + path);
+                return;
+            }
+            peca[index].imagem = ImageIO.read(is);
             peca[index].imagem = ferramenta.imagemRedimensionada(peca[index].imagem, pj.tamanhoDaPeca, pj.tamanhoDaPeca);
             peca[index].colisao = colisao;
         } catch (IOException e) {
@@ -48,7 +53,7 @@ public class GerenciadorDePeca {
 
     }
 
-    public void carregaMapa(String caminho_do_mapa){
+    public void carregaMapa(String caminho_do_mapa , int mapa){
         try{
             InputStream arq = getClass().getResourceAsStream(caminho_do_mapa);
             BufferedReader leitura = new BufferedReader(new InputStreamReader(arq));
@@ -58,7 +63,7 @@ public class GerenciadorDePeca {
                 while(col < pj.maxColunasDoMundo){
                     String numeros[] = linha.split(" "); // split remove da string de acordo com o parâmetro
                     int num = Integer.parseInt(numeros[col]); // Transforma a string em inteiro
-                    numeroDaPecaDoMundo[col][lin] = num;
+                    numeroDaPecaDoMundo[mapa][col][lin] = num;
                     col++;
                 }
                 if(col == pj.maxColunasDoMundo){
@@ -79,7 +84,7 @@ public class GerenciadorDePeca {
         int linhaDoMundo = 0;
         // Cria o plano de fundo do jogo;
         while(colunaDoMundo < pj.maxColunasDoMundo && linhaDoMundo < pj.maxLinhaDoMundo){
-            int pecaNum = numeroDaPecaDoMundo[colunaDoMundo][linhaDoMundo]; // Faz a leitura do número que estava no arquivo e informa qual é a peça
+            int pecaNum = numeroDaPecaDoMundo[pj.mapaatual][colunaDoMundo][linhaDoMundo]; // Faz a leitura do número que estava no arquivo e informa qual é a peça
             
             int mundoX = colunaDoMundo * pj.tamanhoDaPeca;
             int mundoY = linhaDoMundo * pj.tamanhoDaPeca;

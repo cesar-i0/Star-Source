@@ -331,9 +331,9 @@ public class Jogador extends Entidade{
         if(i != 999){
 
             //Apenas pegar itens
-            if(pj.obj[i].tipo == tipo_pegar_apenas){
-                boolean consumido = pj.obj[i].use(this);
-                if(consumido) pj.obj[i] = null;
+            if(pj.obj[pj.mapaatual][i].tipo == tipo_pegar_apenas){
+                boolean consumido = pj.obj[pj.mapaatual][i].use(this);
+                if(consumido) pj.obj[pj.mapaatual][i] = null;
             }
             else{
 
@@ -342,16 +342,16 @@ public class Jogador extends Entidade{
             String text;
             
           if(inventario.size() != tamanho_max_inventario){
-                inventario.add(pj.obj[i]);
+                inventario.add(pj.obj[pj.mapaatual][i]);
 
-                text = "Você pegou " + pj.obj[i].nome;
+                text = "Você pegou " + pj.obj[pj.mapaatual][i].nome;
                
             }
             else {
                 text = "Inventario cheio";
             }
             pj.ui.mostrarMensagem(text);
-            pj.obj[i]=null;
+            pj.obj[pj.mapaatual][i] = null;
         }
 
     }
@@ -365,7 +365,7 @@ public class Jogador extends Entidade{
                 if(pj.chaveManipuladora.enterPressionado == true){
                     // System.out.println("Colidindo com NPC");
                     pj.estado_do_jogo = pj.estado_de_dialogo;
-                    pj.npc[i].falar();
+                    pj.npc[pj.mapaatual][i].falar();
                 }
             }
         }
@@ -374,9 +374,9 @@ public class Jogador extends Entidade{
     public void contatoComMonstros(int i){
         
         if(i != 999){
-            if(invencivel == false && pj.monstros[i].morrendo == false){
+            if(invencivel == false && pj.monstros[pj.mapaatual][i].morrendo == false){
                
-                int dano = pj.monstros[i].ataques - defesa;
+                int dano = pj.monstros[pj.mapaatual][i].ataques - defesa;
                 if(dano < 0){
                     dano = 0;
                 }
@@ -391,28 +391,28 @@ public class Jogador extends Entidade{
     public void danoMonstro(int i, int ataque){
         if(i != 999){
          
-            if(pj.monstros[i].invencivel == false && pj.monstros[i].morrendo == false){
+            if(pj.monstros[pj.mapaatual][i].invencivel == false && pj.monstros[pj.mapaatual][i].morrendo == false){
                  
             //    int dano = ataques - pj.monstros[i].defesa;
-                int dano =  pj.monstros[i].ataques - defesa;
+                int dano =  pj.monstros[pj.mapaatual][i].ataques - defesa;
                 if(dano < 0){
                     dano = 0;
 
                 } 
-                pj.monstros[i].vida-=dano;
+                pj.monstros[pj.mapaatual][i].vida-=dano;
                 pj.ui.mostrarMensagem(dano + " dano");
-                pj.monstros[i].invencivel = true;
+                pj.monstros[pj.mapaatual][i].invencivel = true;
                 reacaoDano();
                 pj.tocarEfeitoSonoro(1);
 
                 // System.out.println("Dano no monstro: " + pj.monstros[i].vida);
                 // System.out.println(pj.monstros[i].vida);
 
-                if(pj.monstros[i].vida <= 0){
-                pj.monstros[i].morrendo = true;
-                pj.ui.mostrarMensagem("Vocêmatou " + pj.monstros[i].nome);
-                pj.ui.mostrarMensagem("Exp " + pj.monstros[i].exp);
-                exp += pj.monstros[i].exp;
+                if(pj.monstros[pj.mapaatual][i].vida <= 0){
+                pj.monstros[pj.mapaatual][i].morrendo = true;
+                pj.ui.mostrarMensagem("Vocêmatou " + pj.monstros[pj.mapaatual][i].nome);
+                pj.ui.mostrarMensagem("Exp " + pj.monstros[pj.mapaatual][i].exp);
+                exp += pj.monstros[pj.mapaatual][i].exp;
                 checaLevelUp();
                  
                     // System.out.println("Monstro derrotado!");
@@ -423,8 +423,8 @@ public class Jogador extends Entidade{
     }
 
     public void danoPecaInterativa(int i){
-        if(i != 999 && pj.iPeca[i].destrutivel == true && pj.iPeca[i].itemCorreto(this) == true){
-            pj.iPeca[i] = null;
+        if(i != 999 && pj.iPeca[pj.mapaatual][i].destrutivel == true && pj.iPeca[pj.mapaatual][i].itemCorreto(this) == true){
+            pj.iPeca[pj.mapaatual][i] = null;
         }
     }
     public void checaLevelUp(){

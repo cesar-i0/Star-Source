@@ -22,6 +22,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int telaMaximaVertical = 12; // Tamanho máximo de linhas. 3:4 = 12; 16:9 = 18.
     public final int larguraDaTela = tamanhoDaPeca * telaMaximaHorizontal; // 48*16 = 768 pixels ou 48*32 = 1536 pixels. WIDTH
     public final int alturaDaTela = tamanhoDaPeca * telaMaximaVertical; // 48*12 = 576 pixels ou 48*18 = 864 pixels. LENGHT
+    public final int maximomapa = 2; // Quantidade máxima de mapas
+    public  int mapaatual = 0; // Mapa atual
 
     // Condigurações do mundo
     public final int maxColunasDoMundo = 50;
@@ -50,11 +52,12 @@ public class PainelDoJogo extends JPanel implements Runnable {
     Thread threadDoJogo; // ALgo que podemos iniciar e parar a fim de deixar o programa rodando.
     
     // Entidade e Objeto
+    // o segundo [] é para indicar em qual mapa o mostro vai ficar 
     public Jogador jogador = new Jogador(this, chaveManipuladora);
-    public Entidade obj[] = new Entidade[20]; // Torna possível mostrar 10 objetos no mesmo display/tela
-    public Entidade npc[] = new Entidade[10];
-    public Entidade monstros[] = new Entidade[20];
-    public Peca_Interativa iPeca[] = new Peca_Interativa[50];
+    public Entidade obj[][] = new Entidade[maximomapa][20]; // Torna possível mostrar 10 objetos no mesmo display/tela
+    public Entidade npc[][] = new Entidade[maximomapa][10];
+    public Entidade monstros[][] = new Entidade[maximomapa][20];
+    public Peca_Interativa iPeca[][] = new Peca_Interativa[maximomapa][50];
     public ArrayList<Entidade> listaDeProjeteisDePecas = new ArrayList<>();
     ArrayList<Entidade> listaDeEntidades = new ArrayList<>();
 
@@ -67,6 +70,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estado_de_personagem = 4;
     public final int estado_de_opcoes = 5;
     public final int estado_fim_de_jogo = 6;
+
 
     public PainelDoJogo() {
         this.setPreferredSize(new Dimension(larguraDaTela, alturaDaTela));
@@ -161,20 +165,20 @@ public class PainelDoJogo extends JPanel implements Runnable {
             // Jogador
             jogador.update();
             // NPC
-            for(int i = 0; i < npc.length; i++){
-                if(npc[i] != null){
-                    npc[i].update();
+            for(int i = 0; i < npc[1].length; i++){
+                if(npc[mapaatual][i] != null){
+                    npc[mapaatual][i].update();
                 }
             }
             // Monstros
-            for(int i = 0; i < monstros.length; i++){
-                if(monstros[i] != null){
-                    if(monstros[i].vivo == true && monstros[i].morrendo == false){
-                        monstros[i].update();
+            for(int i = 0; i < monstros[1].length; i++){
+                if(monstros[mapaatual][i] != null){
+                    if(monstros[mapaatual][i].vivo == true && monstros[mapaatual][i].morrendo == false){
+                        monstros[mapaatual][i].update();
                     }
-                    if(monstros[i].vivo == false){
-                        monstros[i].verificaDrop();
-                        monstros[i] = null;
+                    if(monstros[mapaatual][i].vivo == false){
+                        monstros[mapaatual][i].verificaDrop();
+                        monstros[mapaatual][i] = null;
                     }
                 }
             }
@@ -187,9 +191,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
             }
 
         }
-        for(int i = 0; i < iPeca.length; i++){
-            if(iPeca[i] != null){
-                iPeca[i].update();
+        for(int i = 0; i < iPeca[1].length; i++){
+            if(iPeca[mapaatual][i] != null){
+                iPeca[mapaatual][i].update();
             }
         }
         if(estado_do_jogo == estado_de_pausa){
@@ -209,27 +213,27 @@ public class PainelDoJogo extends JPanel implements Runnable {
             peca_tela.desenhar(g2); 
 
             // Peças interativas
-            for(int i = 0; i < iPeca.length; i++){
-            if(iPeca[i] != null){
-                iPeca[i].desenhar(g2);
+            for(int i = 0; i < iPeca[1].length; i++){
+            if(iPeca[mapaatual][i] != null){
+                iPeca[mapaatual][i].desenhar(g2);
             }
         }
             
             // Adiciona entidades para a lista
             listaDeEntidades.add(jogador);
-            for(int i = 0; i < npc.length; i++){
-                if(npc[i] != null){
-                    listaDeEntidades.add(npc[i]);
+            for(int i = 0; i < npc[1].length; i++){
+                if(npc[mapaatual][i] != null){
+                    listaDeEntidades.add(npc[mapaatual][i]);
                 }
             }
-            for(int i = 0; i < obj.length; i++){
-                if(obj[i] != null){
-                    listaDeEntidades.add(obj[i]);
+            for(int i = 0; i < obj[1].length; i++){
+                if(obj[mapaatual][i] != null){
+                    listaDeEntidades.add(obj[mapaatual][i]);
                 }
             }
-            for(int i = 0; i < monstros.length; i++){
-                if(monstros[i] != null){
-                    listaDeEntidades.add(monstros[i]);
+            for(int i = 0; i < monstros[1].length; i++){
+                if(monstros[mapaatual][i] != null){
+                    listaDeEntidades.add(monstros[mapaatual][i]);
                 }
             }
             for(int i = 0; i < listaDeProjeteisDePecas.size(); i++){

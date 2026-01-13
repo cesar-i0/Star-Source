@@ -28,32 +28,32 @@ public class VerificaColisao {
         switch (entidade.direcao) {
             case "cima":
                 topoDaEntidadeLinha = (topoDaEntidadeMundoY - entidade.velocidade) / pj.tamanhoDaPeca;
-                pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[esquerdaDaEntidadeColuna][topoDaEntidadeLinha];
-                pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[direitaDaEntidadeColuna][topoDaEntidadeLinha];
+                pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[pj.mapaatual][esquerdaDaEntidadeColuna][topoDaEntidadeLinha];
+                pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[pj.mapaatual][direitaDaEntidadeColuna][topoDaEntidadeLinha];
                 if(pj.peca_tela.peca[pecaNum1].colisao == true || pj.peca_tela.peca[pecaNum2].colisao == true){
                     entidade.colisao_ligada = true;
                 }
                 break;
             case "baixo":
                 baseDaEntidadeLinha = (baseDaEntidadeMundoY + entidade.velocidade) / pj.tamanhoDaPeca;
-                pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[esquerdaDaEntidadeColuna][baseDaEntidadeLinha];
-                pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[direitaDaEntidadeColuna][baseDaEntidadeLinha];
+                pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[pj.mapaatual][esquerdaDaEntidadeColuna][baseDaEntidadeLinha];
+                pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[pj.mapaatual][direitaDaEntidadeColuna][baseDaEntidadeLinha];
                 if(pj.peca_tela.peca[pecaNum1].colisao == true || pj.peca_tela.peca[pecaNum2].colisao == true){
                     entidade.colisao_ligada = true;
                 }
                 break;
             case "esquerda":
                 esquerdaDaEntidadeColuna = (esquerdaDaEntidadeMundoX - entidade.velocidade) / pj.tamanhoDaPeca;
-                pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[esquerdaDaEntidadeColuna][topoDaEntidadeLinha];
-                pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[esquerdaDaEntidadeColuna][baseDaEntidadeLinha];
+                pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[pj.mapaatual][esquerdaDaEntidadeColuna][topoDaEntidadeLinha];
+                pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[pj.mapaatual][esquerdaDaEntidadeColuna][baseDaEntidadeLinha];
                 if(pj.peca_tela.peca[pecaNum1].colisao == true || pj.peca_tela.peca[pecaNum2].colisao == true){
                     entidade.colisao_ligada = true;
                 }
                 break;
             case "direita":
                 esquerdaDaEntidadeColuna = (direitaDaEntidadeMundoX + entidade.velocidade) / pj.tamanhoDaPeca;
-                pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[direitaDaEntidadeColuna][topoDaEntidadeLinha];
-                pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[direitaDaEntidadeColuna][baseDaEntidadeLinha];
+                pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[pj.mapaatual][direitaDaEntidadeColuna][topoDaEntidadeLinha];
+                pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[pj.mapaatual][direitaDaEntidadeColuna][baseDaEntidadeLinha];
                 if(pj.peca_tela.peca[pecaNum1].colisao == true || pj.peca_tela.peca[pecaNum2].colisao == true){
                     entidade.colisao_ligada = true;
                 }
@@ -67,14 +67,14 @@ public class VerificaColisao {
 
         int index = 999;
 
-        for(int i = 0; i < pj.obj.length; i++){
+        for(int i = 0; i < pj.obj[1].length; i++){
 
-            if(pj.obj[i] == null) {
+            if(pj.obj[pj.mapaatual][i] == null) {
                 continue;
             }
 
             // Se a área sólida do objeto não foi inicializada (nula), ignoramos este objeto
-            if(pj.obj[i].area_solida == null){
+            if(pj.obj[pj.mapaatual][i].area_solida == null){
                 continue;
             }
 
@@ -87,8 +87,8 @@ public class VerificaColisao {
             entidade.area_solida.x = entidade.mundoX + entidade.area_solida.x;
             entidade.area_solida.y = entidade.mundoY + entidade.area_solida.y;
             // Pega a posição área sólida dos objetos
-            pj.obj[i].area_solida.x = pj.obj[i].mundoX + pj.obj[i].area_solida.x;
-            pj.obj[i].area_solida.y = pj.obj[i].mundoY + pj.obj[i].area_solida.y;
+            pj.obj[pj.mapaatual][i].area_solida.x = pj.obj[pj.mapaatual][i].mundoX + pj.obj[pj.mapaatual][i].area_solida.x;
+            pj.obj[pj.mapaatual][i].area_solida.y = pj.obj[pj.mapaatual][i].mundoY + pj.obj[pj.mapaatual][i].area_solida.y;
 
             // Simulamos o movimento da entidade e verificamos onde ela vai estar após o movimento.
             switch (entidade.direcao) {
@@ -105,16 +105,16 @@ public class VerificaColisao {
                     entidade.area_solida.x += entidade.velocidade;
                     break;
             }
-                if(entidade.area_solida.intersects(pj.obj[i].area_solida)){
+                if(entidade.area_solida.intersects(pj.obj[pj.mapaatual][i].area_solida)){
                         // System.out.println("Colisão para direita!");
-                        if(pj.obj[i].colisao == true) entidade.colisao_ligada = true;
+                        if(pj.obj[pj.mapaatual][i].colisao == true) entidade.colisao_ligada = true;
                         if(joagador == true) index = i;
                     }
 
             entidade.area_solida.x = entidade.area_solida_padraoX;
             entidade.area_solida.y = entidade.area_solida_padraoY;
-            pj.obj[i].area_solida.x = pj.obj[i].area_solida_padraoX;
-            pj.obj[i].area_solida.y = pj.obj[i].area_solida_padraoY;
+            pj.obj[pj.mapaatual][i].area_solida.x = pj.obj[pj.mapaatual][i].area_solida_padraoX;
+            pj.obj[pj.mapaatual][i].area_solida.y = pj.obj[pj.mapaatual][i].area_solida_padraoY;
 
         }
 
@@ -123,19 +123,19 @@ public class VerificaColisao {
     }
 
     // Verifica colisão de NPC ou monstro
-    public int verificaEntidade(Entidade entidade, Entidade[] alvo){
+    public int verificaEntidade(Entidade entidade, Entidade[][] alvo){
        
         int index = 999;
 
-        for(int i = 0; i < alvo.length; i++){
+        for(int i = 0; i < alvo[1].length; i++){
 
-            if(alvo[i] != null){
+            if(alvo [pj.mapaatual][i] != null){
                 // Pega a posição área sólida das entidades
                 entidade.area_solida.x = entidade.mundoX + entidade.area_solida.x;
                 entidade.area_solida.y = entidade.mundoY + entidade.area_solida.y;
                 // Pega a posição área sólida dos objetos
-                alvo[i].area_solida.x = alvo[i].mundoX + alvo[i].area_solida.x;
-                alvo[i].area_solida.y = alvo[i].mundoY + alvo[i].area_solida.y;
+                alvo[pj.mapaatual][i].area_solida.x = alvo[pj.mapaatual][i].mundoX + alvo[pj.mapaatual][i].area_solida.x;
+                alvo[pj.mapaatual][i].area_solida.y = alvo[pj.mapaatual][i].mundoY + alvo[pj.mapaatual][i].area_solida.y;
 
                 // Simulamos o movimento da entidade e verificamos onde ela vai estar após o movimento.
                 switch (entidade.direcao) {
@@ -153,8 +153,8 @@ public class VerificaColisao {
                         break;
                 }
                 
-                if(entidade.area_solida.intersects(alvo[i].area_solida)){
-                    if(alvo[i] != entidade){
+                if(entidade.area_solida.intersects(alvo[pj.mapaatual][i].area_solida)){
+                    if(alvo[pj.mapaatual][i] != entidade){
                         entidade.colisao_ligada = true;
                         index = i;
                     }
@@ -162,8 +162,8 @@ public class VerificaColisao {
 
                 entidade.area_solida.x = entidade.area_solida_padraoX;
                 entidade.area_solida.y = entidade.area_solida_padraoY;
-                alvo[i].area_solida.x = alvo[i].area_solida_padraoX;
-                alvo[i].area_solida.y = alvo[i].area_solida_padraoY;
+                alvo[pj.mapaatual][i].area_solida.x = alvo[pj.mapaatual][i].area_solida_padraoX;
+                alvo[pj.mapaatual][i].area_solida.y = alvo[pj.mapaatual][i].area_solida_padraoY;
 
             }
 

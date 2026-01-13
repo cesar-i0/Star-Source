@@ -123,6 +123,20 @@ public class Manipulador implements KeyListener {
                 pj.ui.sub_estado = 0; // mostra o topo das opções
                 pj.ui.numeroDoComando = 0; // posiciona o cursor na primeira opção
             }
+            // DEBUG
+            if(code == KeyEvent.VK_T){
+                if(verificaTempoDeDesenho == false) verificaTempoDeDesenho = true;
+                else if(verificaTempoDeDesenho == true) verificaTempoDeDesenho = false;
+            }
+            // reset de mapa 
+            if(code == KeyEvent.VK_R){
+                switch(pj.mapaatual){
+                    // função de resetar o mapa atual
+                    case 0: pj.peca_tela.carregaMapa("/res/mapas/mapa_do_mundo.txt", 0); break;
+                    case 1: pj.peca_tela.carregaMapa("/res/mapas/mapa2.txt", 1); break;
+                    default: break;
+                }
+            }
            
 
     }

@@ -165,11 +165,11 @@ public class Entidade {
     }
 
     public void dropaItem( Entidade ItemDropado){
-        for(int i = 0; i < pj.obj.length; i++){
+        for(int i = 0; i < pj.obj[1].length; i++){
             if(pj.obj[i] == null){
-                pj.obj[i] = ItemDropado;
-                pj.obj[i].mundoX = mundoX; //O monstro morto do mapa
-                pj.obj[i].mundoY = mundoY;
+                pj.obj[pj.mapaatual][i] = ItemDropado;
+                pj.obj[pj.mapaatual][i].mundoX = mundoX; //O monstro morto do mapa
+                pj.obj[pj.mapaatual][i].mundoY = mundoY;
                 break;
             }
         }
