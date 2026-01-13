@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import main.Manipulador;
 import main.PainelDoJogo;
-import objetos.OBJ_BolaDeFogo;
+import objetos.OBJ_PoeiraEstelar;
 import objetos.OBJ_Chave;
 import objetos.OBJ_Escudo;
 import objetos.OBJ_Espada;
@@ -65,7 +65,7 @@ public class Jogador extends Entidade{
         experiencia = 0;
         correnteArma = new OBJ_Espada(pj);
         correnteEscudo = new OBJ_Escudo(pj);
-        projeteis = new OBJ_BolaDeFogo(pj);
+        projeteis = new OBJ_PoeiraEstelar(pj);
         ataques = getAtaques();
         defesa = getDefesa();
         expProximoNivel = 5;

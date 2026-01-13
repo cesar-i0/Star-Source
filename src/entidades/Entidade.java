@@ -76,7 +76,7 @@ public class Entidade {
     public int ataqueValor;
     public int defesaValor;
     public String descricao = "";
-    public int custo_de_uso;
+    public double custo_de_uso;
     public int valor;
     public boolean coletavel;
 
