@@ -767,10 +767,10 @@ public class UI{
     
     }
 
-    public int getIndex_item_no_compartimento(int compartimento_coluna, int compartimento_linha){
-        int index_item = compartimento_coluna + (compartimento_linha * 5);
-        return index_item;
-    }
+    // public int getIndex_item_no_compartimento(int compartimento_coluna, int compartimento_linha){
+    //     int index_item = compartimento_coluna + (compartimento_linha * 5);
+    //     return index_item;
+    // }
 
 
     public void desenharTelaDeDialogo(){
@@ -872,9 +872,11 @@ public void desenharTroca(){
     public void compra_troca(){
 
     }
-    public void venda_troca(){
-        // public int  = getIndex_item_no_compartimento(int slotcoluna, int slotlinha);
-        // int index_item = npc_compartimento_coluna+(npc_compartimento_linha*5);
+    public void venda_troca(){}
+
+    public int getIndex_item_no_compartimento(int slotcoluna, int slotlinha){
+        int index_item = npc_compartimento_coluna+(npc_compartimento_linha*5);
+        return index_item;
     }
 
 
