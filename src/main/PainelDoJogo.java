@@ -25,6 +25,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int maximomapa = 2; // Quantidade máxima de mapas
     public  int mapaatual = 0; // Mapa atual
 
+
     // Condigurações do mundo
     public final int maxColunasDoMundo = 50;
     public final int maxLinhaDoMundo = 50;
@@ -70,6 +71,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estado_de_personagem = 4;
     public final int estado_de_opcoes = 5;
     public final int estado_fim_de_jogo = 6;
+    public final int estado_de_transicao = 7;
 
 
     public PainelDoJogo() {
