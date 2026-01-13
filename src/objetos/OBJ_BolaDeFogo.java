@@ -53,6 +53,8 @@ public class OBJ_BolaDeFogo extends ProjeteisDePecas{
         user.mana -= custo_de_uso;
         if(user.mana < 0) user.mana = 0;
     }
+
+    
 }
 
 

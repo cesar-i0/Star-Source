@@ -22,47 +22,58 @@ public class ProjeteisDePecas extends Entidade {
     }
 
     
-    public void update(){
+   public void update() {
 
+        colisao_ligada = false; // reseta colisão
+
+        // Verifica colisão com tiles sólidos ANTES de mover
+        pj.verifica.verificaPeca(this);
+    
+        // Se colidiu com parede, destrói o projétil
+        if (colisao_ligada) {
+        vivo = false;
+        return;
+    }
+
+        // Verifica colisão com entidades
         if(user == pj.jogador){
-            int indexMonstro = pj.verifica.verificaEntidade(this, pj.monstros);
-            if(indexMonstro != 999){
-                pj.jogador.danoMonstro(indexMonstro, ataques);
-                vivo = false;
-            }
+        int indexMonstro = pj.verifica.verificaEntidade(this, pj.monstros);
+        if(indexMonstro != 999){
+            pj.jogador.danoMonstro(indexMonstro, ataques);
+            vivo = false;
+            return;
+        }
+    } else {
+        boolean contatoJogador = pj.verifica.verificaJogador(this);
+        if(!pj.jogador.invencivel && contatoJogador){
+            danoJogador(ataques);
+            vivo = false;
+            return;
+        }
+    }
 
-        }
-        if(user != pj.jogador){
-            boolean contatoJogador = pj.verifica.verificaJogador(this);
-            if(pj.jogador.invencivel == false && contatoJogador == true){
-                danoJogador(ataques);
-                vivo = false;
-            }
-        }
-            switch(direcao){
-            case "cima": mundoY -= velocidade; break;
-            case "baixo": mundoY += velocidade; break;
-            case "esquerda": mundoX -= velocidade; break;
-            case "direita": mundoX +=velocidade; break;
-        }
+        // Move o projétil
+        switch(direcao){
+        case "cima":    mundoY -= velocidade; break;
+        case "baixo":   mundoY += velocidade; break;
+        case "esquerda":mundoX -= velocidade; break;
+        case "direita": mundoX += velocidade; break;
+    }
 
+        // Diminui vida do projétil
         vida--;
         if(vida <= 0){
-            vivo = false;
-        }
-
-        contadorDoEstado++;
-        if(contadorDoEstado>12){
-            if(numeroDoEstado==1){
-                numeroDoEstado = 2;
-            }
-            else if(numeroDoEstado == 2){
-                numeroDoEstado = 1;
-            }
-            contadorDoEstado = 0;
-        }
-
+        vivo = false;
     }
+
+        // Atualiza animação do projétil
+        contadorDoEstado++;
+        if(contadorDoEstado > 12){
+        numeroDoEstado = (numeroDoEstado == 1) ? 2 : 1;
+        contadorDoEstado = 0;
+    }
+}
+
 
       public boolean temRecurso(Entidade user){
         boolean tem_recurso = false;
