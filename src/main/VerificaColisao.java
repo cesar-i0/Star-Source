@@ -1,6 +1,7 @@
 package main;
 
 import entidades.Entidade;
+import java.awt.Rectangle;
 
 public class VerificaColisao {
 
@@ -213,5 +214,36 @@ public class VerificaColisao {
         return contatoComJogador;
 
     }
+    
+    public boolean ataqueBateNaParede(Rectangle areaAtaque) {
+
+    int esquerdaMundoX = areaAtaque.x;
+    int direitaMundoX  = areaAtaque.x + areaAtaque.width;
+    int topoMundoY     = areaAtaque.y;
+    int baseMundoY     = areaAtaque.y + areaAtaque.height;
+
+    int colunaEsq = esquerdaMundoX / pj.tamanhoDaPeca;
+    int colunaDir = direitaMundoX  / pj.tamanhoDaPeca;
+    int linhaCima = topoMundoY     / pj.tamanhoDaPeca;
+    int linhaBaixo= baseMundoY     / pj.tamanhoDaPeca;
+
+    int pecaNum1, pecaNum2;
+
+    // Verifica os 4 cantos do ataque
+    pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[colunaEsq][linhaCima];
+    pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[colunaDir][linhaCima];
+    if (pj.peca_tela.peca[pecaNum1].colisao || pj.peca_tela.peca[pecaNum2].colisao) {
+        return true;
+    }
+
+    pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[colunaEsq][linhaBaixo];
+    pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[colunaDir][linhaBaixo];
+    if (pj.peca_tela.peca[pecaNum1].colisao || pj.peca_tela.peca[pecaNum2].colisao) {
+        return true;
+    }
+
+    return false;
+}
+
 
 }

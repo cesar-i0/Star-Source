@@ -274,6 +274,22 @@ public class Jogador extends Entidade{
             // Aqui podemos adicionar uma música de morte se quisermos ex:: pj.tocarMusica(5); 
 
         }
+
+        // =================================
+// COLISÃO DO PROJÉTIL COM PAREDE
+// =================================
+Rectangle areaProjetil = new Rectangle(
+    mundoX + area_solida.x,
+    mundoY + area_solida.y,
+    area_solida.width,
+    area_solida.height
+);
+
+if (pj.verifica.ataqueBateNaParede(areaProjetil)) {
+    vivo = false;
+    return;
+}
+
     }
 
     public void atacando(){
