@@ -230,14 +230,14 @@ public class VerificaColisao {
     int pecaNum1, pecaNum2;
 
     // Verifica os 4 cantos do ataque
-    pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[colunaEsq][linhaCima];
-    pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[colunaDir][linhaCima];
+    pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[pj.mapaatual][colunaEsq][linhaCima];
+    pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[pj.mapaatual][colunaDir][linhaCima];
     if (pj.peca_tela.peca[pecaNum1].colisao || pj.peca_tela.peca[pecaNum2].colisao) {
         return true;
     }
 
-    pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[colunaEsq][linhaBaixo];
-    pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[colunaDir][linhaBaixo];
+    pecaNum1 = pj.peca_tela.numeroDaPecaDoMundo[pj.mapaatual][colunaEsq][linhaBaixo];
+    pecaNum2 = pj.peca_tela.numeroDaPecaDoMundo[pj.mapaatual][colunaDir][linhaBaixo];
     if (pj.peca_tela.peca[pecaNum1].colisao || pj.peca_tela.peca[pecaNum2].colisao) {
         return true;
     }

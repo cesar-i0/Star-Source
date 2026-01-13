@@ -133,7 +133,7 @@ public class Manipulador implements KeyListener {
                 switch(pj.mapaatual){
                     // função de resetar o mapa atual
                     case 0: pj.peca_tela.carregaMapa("/res/mapas/mapa_do_mundo.txt", 0); break;
-                    case 1: pj.peca_tela.carregaMapa("/res/mapas/mapa2.txt", 1); break;
+                    case 1: pj.peca_tela.carregaMapa("/res/mapas/mapa.txt", 1); break;
                     default: break;
                 }
             }

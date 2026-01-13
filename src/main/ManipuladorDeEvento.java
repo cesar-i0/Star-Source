@@ -57,7 +57,7 @@ public class ManipuladorDeEvento {
             // Local de teleporte
           //  if(atingiu(0, 1, 5, "cima") == true) teleporte(pj.estado_de_dialogo);
             // Local de teleporte 2
-           else if(atingiu(0, 9, 9, "any") == true) {teleporte(1 , 20, 10);}
+           else if(atingiu(0, 8, 22, "any") == true) {teleporte(1 , 20, 10);}
            else if(atingiu(1 ,12 , 10, "any") == true) {teleporte(0 , 10, 10);}
         }
 

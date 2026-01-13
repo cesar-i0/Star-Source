@@ -131,6 +131,11 @@ public class Entidade {
 
         return imagem;
     }
+
+    // Sobrecarga: usa o tamanho padrão de peça do painel do jogo
+    public BufferedImage configuracoes(String caminho_da_imagem) {
+        return configuracoes(caminho_da_imagem, pj.tamanhoDaPeca, pj.tamanhoDaPeca);
+    }
   
 
     public void setAcao(){}

@@ -73,8 +73,8 @@ public class ConfiguraRecurso {
         i++;
 
         pj.obj[mapa][i] = new OBJ_CristalMana(pj);
-        pj.obj[mapa][i].mundoX = pj.tamanhoDaPeca * 17;
-        pj.obj[mapa][i].mundoY = pj.tamanhoDaPeca * 21;
+        pj.obj[mapa][i].mundoX = pj.tamanhoDaPeca * 24;
+        pj.obj[mapa][i].mundoY = pj.tamanhoDaPeca * 8;
         i++;
 
         pj.obj[mapa][i] = new OBJ_Coracao(pj);
