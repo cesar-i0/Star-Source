@@ -32,6 +32,7 @@ public class UI{
     public int compartimento_coluna = 0; 
     public int compartimento_linha = 0;
     int sub_estado = 0;
+    int contador = 0;
 
     public UI(PainelDoJogo pj){
         this.pj = pj;
@@ -99,6 +100,10 @@ public class UI{
     }   //Estado de fim de jogo;
         if(pj.estado_do_jogo == pj.estado_fim_de_jogo){
         desenharFimDeJogoTela();
+    }
+     //Estado de transição;
+        if(pj.estado_do_jogo == pj.estado_de_transicao){
+        desenharTransicao();
     }
 }
 
@@ -638,8 +643,23 @@ public class UI{
             }
         }
         
-    
+     public void desenharTransicao(){
+        
+        contador++;
+        g2.setColor(new Color(0,0,0, contador*5));
+         g2.fillRect(0, 0, pj.larguraDaTela, pj.alturaDaTela);
+         if(contador == 50){
+            contador = 0;
+            pj.estado_do_jogo = pj.estado_de_jogar;
+            pj.mapaatual = pj.evento.tempmap;
+          pj.jogador.mundoX= pj.tamanhoDaPeca * pj.evento.tempcol;
+          pj.jogador.mundoY = pj.tamanhoDaPeca * pj.evento.templin;
+          pj.evento.EventoPrevioX = pj.jogador.mundoX;
+          pj.evento.EventoPrevioY = pj.jogador.mundoY;
+        
 
+            }
+     }
     public void desenharInventario(){
         int frameX = pj.tamanhoDaPeca*12;
         int frameY = pj.tamanhoDaPeca;

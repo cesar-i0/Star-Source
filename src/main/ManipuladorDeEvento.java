@@ -7,6 +7,7 @@ public class ManipuladorDeEvento {
 
     int EventoPrevioX, EventoPrevioY;
     boolean evento_possivel_de_tocar = true; // Torna possível reativar um evento após ocorrer(condicionalmente)
+    int tempmap , templin , tempcol ;
 
     public ManipuladorDeEvento(PainelDoJogo pj){
 
@@ -124,11 +125,17 @@ public class ManipuladorDeEvento {
     }
 
 public void teleporte (int mapa , int lin , int col){
-    pj.mapaatual = mapa;
-    pj.jogador.mundoX = col * pj.tamanhoDaPeca;
-    pj.jogador.mundoY = lin * pj.tamanhoDaPeca;
-    EventoPrevioX = pj.jogador.mundoX;
-    EventoPrevioY = pj.jogador.mundoY;
+        pj.estado_do_jogo = pj.estado_de_transicao;
+        tempmap = mapa;
+        templin = lin;
+        tempcol = col;
+        
+   // pj.mapaatual = mapa;
+   // pj.jogador.mundoX = col * pj.tamanhoDaPeca;
+   // pj.jogador.mundoY = lin * pj.tamanhoDaPeca;
+   // EventoPrevioX = pj.jogador.mundoX;
+   // EventoPrevioY = pj.jogador.mundoY;
+   
     evento_possivel_de_tocar = false;
 
 }
