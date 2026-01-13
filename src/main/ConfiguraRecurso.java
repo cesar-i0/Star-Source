@@ -6,11 +6,10 @@ import monstros.MON_Esqueleto;
 import monstros.MON_Slime;
 import objetos.OBJ_Coracao;
 import objetos.OBJ_CristalMana;
-//import objetos.OBJ_Chave;
-import objetos.OBJ_Machado;
 import objetos.OBJ_Moeda;
 import objetos.OBJ_Pocao;
 import objetos.OBJ_Porta;
+import objetos.OBJ_Machado;
 
 
 public class ConfiguraRecurso {
@@ -93,8 +92,6 @@ public class ConfiguraRecurso {
         pj.obj[mapa][i].mundoX = pj.tamanhoDaPeca * 24;
         pj.obj[mapa][i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
-
-       
 
     }
 

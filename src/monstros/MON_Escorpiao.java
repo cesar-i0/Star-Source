@@ -23,7 +23,7 @@ public class MON_Escorpiao extends Entidade {
         velocidade = 1;
         vidaMaxima = 6;
         vida = vidaMaxima;
-        ataques = 2;
+        ataques = 0.5;
         defesa = 0;
         exp = 2;
 

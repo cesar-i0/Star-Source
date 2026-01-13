@@ -97,9 +97,9 @@ public class ManipuladorDeEvento {
    /*  public void teleporte(int estado_do_jogo){
 
         pj.estado_do_jogo = estado_do_jogo;
-        pj.ui.dialogo_atual = "Teleporte!";
-        pj.jogador.mundoX = pj.tamanhoDaPeca * 25;
-        pj.jogador.mundoY = pj.tamanhoDaPeca * 25;
+        pj.ui.dialogo_atual = "Você teletransportou!";
+        pj.jogador.mundoX = pj.tamanhoDaPeca * 34;
+        pj.jogador.mundoY = pj.tamanhoDaPeca * 40;
         
     }*/
 

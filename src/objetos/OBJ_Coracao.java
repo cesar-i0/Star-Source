@@ -16,10 +16,10 @@ public class OBJ_Coracao extends SuperClasse{
         getImagem();
 
         area_solida = new Rectangle();
-        area_solida.x = 0;
-        area_solida.y = 16;
-        area_solida.width = 48;
-        area_solida.height = 32;
+        area_solida.x = 8;
+        area_solida.y = 8;
+        area_solida.width = 32;
+        area_solida.height = 30;
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
     }

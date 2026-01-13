@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import main.Manipulador;
 import main.PainelDoJogo;
-import objetos.OBJ_BolaDeFogo;
+import objetos.OBJ_PoeiraEstelar;
 import objetos.OBJ_Chave;
 import objetos.OBJ_Escudo;
 import objetos.OBJ_Espada;
@@ -38,11 +38,9 @@ public class Jogador extends Entidade{
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
         area_solida.width = 20;
-        area_solida.height = 30;
+        area_solida.height = 25;
         //AtaqueArea.width = 36;
         //AtaqueArea.height = 36;
-
-        
 
         setValoresPadroes();
         getImagemDoJogador();
@@ -52,8 +50,8 @@ public class Jogador extends Entidade{
 
     public void setValoresPadroes(){
 
-        mundoX = pj.tamanhoDaPeca * 23; // Essa linha vai indicar em que posição do mapa o jogador inicia.
-        mundoY = pj.tamanhoDaPeca * 21; // Essa linha vai indicar em que posição do mapa o jogador inicia.  
+        mundoX = pj.tamanhoDaPeca * 10; // Essa linha vai indicar em que posição do mapa o jogador inicia.
+        mundoY = pj.tamanhoDaPeca * 6; // Essa linha vai indicar em que posição do mapa o jogador inicia.  
         velocidade = 4;
         direcao = "estatico";
 
@@ -67,7 +65,7 @@ public class Jogador extends Entidade{
         experiencia = 0;
         correnteArma = new OBJ_Espada(pj);
         correnteEscudo = new OBJ_Escudo(pj);
-        projeteis = new OBJ_BolaDeFogo(pj);
+        projeteis = new OBJ_PoeiraEstelar(pj);
         ataques = getAtaques();
         defesa = getDefesa();
         expProximoNivel = 5;
@@ -77,10 +75,11 @@ public class Jogador extends Entidade{
 
     }
 
+    // Aqui é definido a posição padrão depois de morrer
     public void setPosicoesPadrao(){
-         mundoX = pj.tamanhoDaPeca * 23; 
-         mundoY = pj.tamanhoDaPeca * 21;
-         direcao = "baixo";
+        mundoX = pj.tamanhoDaPeca * 10; 
+        mundoY = pj.tamanhoDaPeca * 6;
+        direcao = "baixo";
     }
     public void restauraVidaMana(){
         vida = vidaMaxima;
@@ -98,12 +97,12 @@ public class Jogador extends Entidade{
         inventario.add(new OBJ_Chave(pj));
     }
 
-    public int getAtaques(){
+    public double getAtaques(){
         AtaqueArea = correnteArma.AtaqueArea;
         return ataques = forca * correnteArma.ataqueValor;
     }
 
-    public int getDefesa(){
+    public double getDefesa(){
         return defesa = experiencia * correnteEscudo.defesaValor;
     }
 
@@ -275,6 +274,22 @@ public class Jogador extends Entidade{
             // Aqui podemos adicionar uma música de morte se quisermos ex:: pj.tocarMusica(5); 
 
         }
+
+        // =================================
+// COLISÃO DO PROJÉTIL COM PAREDE
+// =================================
+Rectangle areaProjetil = new Rectangle(
+    mundoX + area_solida.x,
+    mundoY + area_solida.y,
+    area_solida.width,
+    area_solida.height
+);
+
+if (pj.verifica.ataqueBateNaParede(areaProjetil)) {
+    vivo = false;
+    return;
+}
+
     }
 
     public void atacando(){
@@ -376,7 +391,7 @@ public class Jogador extends Entidade{
         if(i != 999){
             if(invencivel == false && pj.monstros[pj.mapaatual][i].morrendo == false){
                
-                int dano = pj.monstros[pj.mapaatual][i].ataques - defesa;
+                double dano = pj.monstros[pj.mapaatual][i].ataques - defesa;
                 if(dano < 0){
                     dano = 0;
                 }
@@ -388,13 +403,13 @@ public class Jogador extends Entidade{
         }
     }
 
-    public void danoMonstro(int i, int ataque){
+    public void danoMonstro(int i, double ataque){
         if(i != 999){
          
             if(pj.monstros[pj.mapaatual][i].invencivel == false && pj.monstros[pj.mapaatual][i].morrendo == false){
                  
             //    int dano = ataques - pj.monstros[i].defesa;
-                int dano =  pj.monstros[pj.mapaatual][i].ataques - defesa;
+                double dano =  pj.monstros[pj.mapaatual][i].ataques - defesa;
                 if(dano < 0){
                     dano = 0;
 

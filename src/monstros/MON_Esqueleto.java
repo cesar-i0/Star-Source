@@ -24,14 +24,14 @@ public class MON_Esqueleto extends Entidade {
         velocidade = 1;
         vidaMaxima = 6;
         vida = vidaMaxima;
-        ataques = 2;
+        ataques = 0.5;
         defesa = 0;
         exp = 2;
 
         area_solida = new Rectangle();
-        area_solida.x = 3;
-        area_solida.y = 18;
-        area_solida.width = 42;
+        area_solida.x = 16;
+        area_solida.y = 10;
+        area_solida.width = 18;
         area_solida.height = 30;
         area_solida_padraoX = area_solida.x;
         area_solida_padraoY = area_solida.y;
