@@ -4,11 +4,11 @@ import main.PainelDoJogo;
 import entidades.Entidade;
 import java.awt.Rectangle;
 
-public class OBJ_Pocao extends SuperClasse {
+public class OBJ_PocaoDeCura extends SuperClasse {
 
      PainelDoJogo pj;
 
-    public OBJ_Pocao (PainelDoJogo pj){
+    public OBJ_PocaoDeCura (PainelDoJogo pj){
         
         super(pj);
         tipo = tipo_consumivel;
