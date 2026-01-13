@@ -1,4 +1,4 @@
-package main;
+﻿package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -269,6 +269,6 @@ public void keyReleased(KeyEvent e) {
         if(code == KeyEvent.VK_F) tiroPressionado = false;
     }
  
-    }
+}
 
-    
+   
