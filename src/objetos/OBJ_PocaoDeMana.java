@@ -18,7 +18,9 @@ public class OBJ_PocaoDeMana extends SuperClasse {
 
         getImagem();
 
-        descricao = "[" + nome + "]\n" + "Recupera sua mana em " + valor + ".";
+        valor = 1;
+        descricao = "[" + nome + "]\n" + "Recupera sua \nmana em " + valor + ".";
+        preco = 4;
 
         area_solida = new Rectangle();
         area_solida.x = 10;

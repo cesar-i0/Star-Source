@@ -86,61 +86,118 @@ public class Manipulador implements KeyListener {
     
                 }
             }
-
-
-
     }
 
     public void estado_de_jogar(int code){
 
-         if((code == KeyEvent.VK_W) || (code == KeyEvent.VK_UP)){
-                cimaPrecionado = true;
+        if(code == KeyEvent.VK_W){
+            cimaPrecionado = true;
+        }
+        if(code == KeyEvent.VK_S){
+            baixoPrecionado = true;
+        }
+        if(code == KeyEvent.VK_A){
+            esquerdaPrecionado = true;
+        }
+        if(code == KeyEvent.VK_D){
+            direitaPreciondo = true;
+        }
+        
+        if(code == KeyEvent.VK_ENTER){
+            enterPressionado = true;
+        }
+        if(code == KeyEvent.VK_F){
+            tiroPressionado = true;
+        }
+        //Estado de pausa
+        if(code == KeyEvent.VK_P){
+            if(pj.estado_do_jogo == pj.estado_de_jogar) pj.estado_do_jogo = pj.estado_de_pausa;
+            else if(pj.estado_do_jogo == pj.estado_de_pausa) pj.estado_do_jogo = pj.estado_de_jogar;
+        }
+            if(code == KeyEvent.VK_C){
+            pj.estado_do_jogo = pj.estado_de_personagem;
+        }
+        if(code == KeyEvent.VK_ESCAPE){
+            pj.estado_do_jogo = pj.estado_de_opcoes;
+            pj.ui.sub_estado = 0; // mostra o topo das opções
+            pj.ui.numeroDoComando = 0; // posiciona o cursor na primeira opção
+        }
+        // DEBUG
+        if(code == KeyEvent.VK_T){
+            if(verificaTempoDeDesenho == false) verificaTempoDeDesenho = true;
+            else if(verificaTempoDeDesenho == true) verificaTempoDeDesenho = false;
+        }
+        // reset de mapa 
+        if(code == KeyEvent.VK_R){
+            switch(pj.mapaatual){
+                // função de resetar o mapa atual
+                case 0: pj.peca_tela.carregaMapa("/res/mapas/mapa_do_mundo.txt", 0); break;
+                case 1: pj.peca_tela.carregaMapa("/res/mapas/mapa.txt", 1); break;
+                default: break;
             }
-            if((code == KeyEvent.VK_S) || (code == KeyEvent.VK_DOWN)){
-                baixoPrecionado = 
-                true;
-            }
-            if((code == KeyEvent.VK_A) || (code == KeyEvent.VK_LEFT)){
-                esquerdaPrecionado = true;
-            }
-            if((code == KeyEvent.VK_D) || (code == KeyEvent.VK_RIGHT)){
-                direitaPreciondo = true;
-            }
-            if(code == KeyEvent.VK_ENTER){
-                enterPressionado = true;
-            }
-             if(code == KeyEvent.VK_F){
-                tiroPressionado = true;
-            }
-            //Estado de pausa
-            if(code == KeyEvent.VK_P){
-                if(pj.estado_do_jogo == pj.estado_de_jogar) pj.estado_do_jogo = pj.estado_de_pausa;
-                else if(pj.estado_do_jogo == pj.estado_de_pausa) pj.estado_do_jogo = pj.estado_de_jogar;
-            }
-             if(code == KeyEvent.VK_C){
-                pj.estado_do_jogo = pj.estado_de_personagem;
-            }
-            if(code == KeyEvent.VK_ESCAPE){
-                pj.estado_do_jogo = pj.estado_de_opcoes;
-                pj.ui.sub_estado = 0; // mostra o topo das opções
-                pj.ui.numeroDoComando = 0; // posiciona o cursor na primeira opção
-            }
-            // DEBUG
-            if(code == KeyEvent.VK_T){
-                if(verificaTempoDeDesenho == false) verificaTempoDeDesenho = true;
-                else if(verificaTempoDeDesenho == true) verificaTempoDeDesenho = false;
-            }
-            // reset de mapa 
-            if(code == KeyEvent.VK_R){
-                switch(pj.mapaatual){
-                    // função de resetar o mapa atual
-                    case 0: pj.peca_tela.carregaMapa("/res/mapas/mapa_do_mundo.txt", 0); break;
-                    case 1: pj.peca_tela.carregaMapa("/res/mapas/mapa.txt", 1); break;
-                    default: break;
-                }
-            }
-           
+        }
 
+    }
+    public void inventariojogador(int code){
+        if(code == KeyEvent.VK_UP){
+            if(pj.ui.jogador_compartimento_linha > 0){
+                pj.ui.jogador_compartimento_linha--;
+                // som
+            }
+            // cimaPrecionado = true;
+        }
+        if(code == KeyEvent.VK_DOWN){
+            if(pj.ui.jogador_compartimento_linha < 3){
+                pj.ui.jogador_compartimento_linha++;
+                // som
+            }
+            // baixoPrecionado = true;
+        }
+        if(code == KeyEvent.VK_LEFT){
+            if(pj.ui.jogador_compartimento_coluna > 0){
+                pj.ui.jogador_compartimento_coluna--;
+                // som
+            }
+            // esquerdaPrecionado = true;
+        }
+        if(code == KeyEvent.VK_RIGHT){
+            if(pj.ui.jogador_compartimento_coluna < 4){
+                pj.ui.jogador_compartimento_coluna++;
+                // som
+            }
+            // direitaPreciondo = true;
+        }
+    }
+
+    public void inventarionpc(int code){
+        if(code == KeyEvent.VK_UP){
+            if(pj.ui.npc_compartimento_linha > 0){
+                pj.ui.npc_compartimento_linha--;
+                // som
+            }
+            // cimaPrecionado = true;
+        }
+        if(code == KeyEvent.VK_DOWN){
+            if(pj.ui.npc_compartimento_linha < 3){
+                pj.ui.npc_compartimento_linha++;
+                // som
+            }
+            // baixoPrecionado = true;
+        }
+        if(code == KeyEvent.VK_LEFT){
+            if(pj.ui.npc_compartimento_coluna > 0){
+                pj.ui.npc_compartimento_coluna--;
+                // som
+            }
+            // esquerdaPrecionado = true;
+        }
+        if(code == KeyEvent.VK_RIGHT){
+            if(pj.ui.npc_compartimento_coluna < 4){
+                pj.ui.npc_compartimento_coluna++;
+                // som
+            }
+            // direitaPreciondo = true;
+        }
     }
 
     public void estado_de_dialogo(int code){
@@ -150,140 +207,137 @@ public class Manipulador implements KeyListener {
     }
 
     public void estado_de_personagem(int code){
-         if(code == KeyEvent.VK_C){
-                pj.estado_do_jogo = pj.estado_de_jogar;
-            }
-            //Cursor do inventário com limites
-        if(code == KeyEvent.VK_W){
-            if(pj.ui.jogador_compartimento_linha != 0){
-                pj.ui.jogador_compartimento_linha --;
-            }
-        } 
-        if(code == KeyEvent.VK_A){
-            if(pj.ui.jogador_compartimento_coluna != 0){
-                pj.ui.jogador_compartimento_coluna --;
-            } 
-        } 
-        if(code == KeyEvent.VK_S){
-            if(pj.ui.jogador_compartimento_linha != 3){
-                pj.ui.jogador_compartimento_linha ++;
-            } 
-        } 
-        if(code == KeyEvent.VK_D){
-            if(pj.ui.jogador_compartimento_coluna != 4){
-                pj.ui.jogador_compartimento_coluna ++;
-            }
-            
-        } 
+
+        if(code == KeyEvent.VK_C){
+            pj.estado_do_jogo = pj.estado_de_jogar;
+        }
+        //Cursor do inventário com limites
         if(code == KeyEvent.VK_ENTER){
             pj.jogador.selecionarItem();
         }
+
+        inventariojogador(code);
         
-
     }
 
-public void estado_de_opcoes(int code){
-    if(code == KeyEvent.VK_ESCAPE){
-        pj.estado_do_jogo = pj.estado_de_jogar;
-    }
-    if(code == KeyEvent.VK_ENTER){
-        enterPressionado = true;
-    }
-
-    int numeroMaxComando = 0;
-    switch (pj.ui.sub_estado) {
-        case 0: numeroMaxComando = 5; break; // topo de opções
-        case 1: numeroMaxComando = 1; break; // tela de notificação (apenas 'Voltar')
-        case 2: numeroMaxComando = 0; break; // tela de controles (apenas 'Voltar')
-        default: numeroMaxComando = 5; break;
-    }
-    if(code == KeyEvent.VK_W){
-       pj.ui.numeroDoComando--;
-       //Som
-       if(pj.ui.numeroDoComando < 0){
-        pj.ui.numeroDoComando = numeroMaxComando;
-       }
-    }
-     if(code == KeyEvent.VK_S){
-        pj.ui.numeroDoComando++;
-        //Som
-        if(pj.ui.numeroDoComando > numeroMaxComando){
-            pj.ui.numeroDoComando = 0;
-        }
-    }
-    if(code == KeyEvent.VK_A){
-        // Ajustar volume para a opção selecionada
-        if(pj.ui.numeroDoComando == 1 && pj.musica.escalaVolume > 0){
-            pj.musica.escalaVolume--;
-            pj.musica.verifica_volume();
-        }
-
-        if(pj.ui.numeroDoComando == 2 && pj.efeitoSonoro.escalaVolume > 0){
-            pj.efeitoSonoro.escalaVolume--;
-            pj.efeitoSonoro.verifica_volume();
-        }
-    }
-     if(code == KeyEvent.VK_D){
-        // Ajustar volume para a opção selecionada
-        if(pj.ui.numeroDoComando == 1 && pj.musica.escalaVolume < 5){
-            pj.musica.escalaVolume++;
-            pj.musica.verifica_volume();
-        }
-        if(pj.ui.numeroDoComando == 2 && pj.efeitoSonoro.escalaVolume < 5){
-            pj.efeitoSonoro.escalaVolume++;
-            pj.efeitoSonoro.verifica_volume();
-        }
-     }
-}
-public void estado_fim_de_jogo(int code){
-    if(code == KeyEvent.VK_W){
-        pj.ui.numeroDoComando--;
-        if(pj.ui.numeroDoComando < 0){
-            pj.ui.numeroDoComando = 1;
-        }
-    }
-    if(code == KeyEvent.VK_S){
-        pj.ui.numeroDoComando++;
-        if(pj.ui.numeroDoComando > 1){
-            pj.ui.numeroDoComando = 0;
-        }
-    }
-    if(code == KeyEvent.VK_ENTER){
-        if(pj.ui.numeroDoComando == 0){
+    public void estado_de_opcoes(int code){
+        if(code == KeyEvent.VK_ESCAPE){
             pj.estado_do_jogo = pj.estado_de_jogar;
-            pj.novamente();
-            pj.tocarMusica(0); // volta a tocar a musica de fundo do jogo
         }
-        else if(pj.ui.numeroDoComando == 1){
-            pj.estado_do_jogo = pj.estado_de_titulo;
-            pj.recomecar();
+        if(code == KeyEvent.VK_ENTER){
+            enterPressionado = true;
         }
-    }
-}
 
-public void estado_de_troca(int code){
-    if(code == KeyEvent.VK_ENTER){
-        enterPressionado = true;
-    }
-  if(pj.ui.sub_estado == 0){
-    if(code == KeyEvent.VK_W){
+        int numeroMaxComando = 0;
+        switch (pj.ui.sub_estado) {
+            case 0: numeroMaxComando = 5; break; // topo de opções
+            case 1: numeroMaxComando = 1; break; // tela de notificação (apenas 'Voltar')
+            case 2: numeroMaxComando = 0; break; // tela de controles (apenas 'Voltar')
+            default: numeroMaxComando = 5; break;
+        }
+        if(code == KeyEvent.VK_W){
         pj.ui.numeroDoComando--;
+        //Som
         if(pj.ui.numeroDoComando < 0){
-            pj.ui.numeroDoComando = 2;
+            pj.ui.numeroDoComando = numeroMaxComando;
+        }
+        }
+        if(code == KeyEvent.VK_S){
+            pj.ui.numeroDoComando++;
+            //Som
+            if(pj.ui.numeroDoComando > numeroMaxComando){
+                pj.ui.numeroDoComando = 0;
+            }
+        }
+        if(code == KeyEvent.VK_A){
+            // Ajustar volume para a opção selecionada
+            if(pj.ui.numeroDoComando == 1 && pj.musica.escalaVolume > 0){
+                pj.musica.escalaVolume--;
+                pj.musica.verifica_volume();
+            }
+
+            if(pj.ui.numeroDoComando == 2 && pj.efeitoSonoro.escalaVolume > 0){
+                pj.efeitoSonoro.escalaVolume--;
+                pj.efeitoSonoro.verifica_volume();
+            }
+        }
+        if(code == KeyEvent.VK_D){
+            // Ajustar volume para a opção selecionada
+            if(pj.ui.numeroDoComando == 1 && pj.musica.escalaVolume < 5){
+                pj.musica.escalaVolume++;
+                pj.musica.verifica_volume();
+            }
+            if(pj.ui.numeroDoComando == 2 && pj.efeitoSonoro.escalaVolume < 5){
+                pj.efeitoSonoro.escalaVolume++;
+                pj.efeitoSonoro.verifica_volume();
+            }
         }
     }
-    if(code == KeyEvent.VK_S){
-        pj.ui.numeroDoComando++;
-        if(pj.ui.numeroDoComando > 2){
-            pj.ui.numeroDoComando = 0;
+    public void estado_fim_de_jogo(int code){
+        if(code == KeyEvent.VK_W){
+            pj.ui.numeroDoComando--;
+            if(pj.ui.numeroDoComando < 0){
+                pj.ui.numeroDoComando = 1;
+            }
+        }
+        if(code == KeyEvent.VK_S){
+            pj.ui.numeroDoComando++;
+            if(pj.ui.numeroDoComando > 1){
+                pj.ui.numeroDoComando = 0;
+            }
+        }
+        if(code == KeyEvent.VK_ENTER){
+            if(pj.ui.numeroDoComando == 0){
+                pj.estado_do_jogo = pj.estado_de_jogar;
+                pj.novamente();
+                pj.tocarMusica(0); // volta a tocar a musica de fundo do jogo
+            }
+            else if(pj.ui.numeroDoComando == 1){
+                pj.estado_do_jogo = pj.estado_de_titulo;
+                pj.recomecar();
+            }
         }
     }
-  }
-}
+
+    public void estado_de_troca(int code){
+        
+        if(code == KeyEvent.VK_ENTER){
+            enterPressionado = true;
+        }
+
+        if(pj.ui.sub_estado == 0){
+            if(code == KeyEvent.VK_W){
+                pj.ui.numeroDoComando--;
+                if(pj.ui.numeroDoComando < 0){
+                    pj.ui.numeroDoComando = 2;
+                }
+                // pj.tocarEfeitoSonoro(1);
+            }
+            if(code == KeyEvent.VK_S){
+                pj.ui.numeroDoComando++;
+                if(pj.ui.numeroDoComando > 2){
+                    pj.ui.numeroDoComando = 0;
+                }
+                // pj.tocarEfeitoSonoro(1);
+            }
+        }
+        if(pj.ui.sub_estado == 1){
+            inventarionpc(code);
+            if(code == KeyEvent.VK_ESCAPE){
+                pj.ui.sub_estado = 0;
+            }
+        }
+        if(pj.ui.sub_estado == 2){
+            inventariojogador(code); 
+            if(code == KeyEvent.VK_ESCAPE){
+                pj.ui.sub_estado = 0;
+            }
+        }
+    }
 
 
-@Override
-public void keyReleased(KeyEvent e) {
+    @Override
+    public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
         if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) cimaPrecionado = false;
         if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) baixoPrecionado = false;
@@ -292,6 +346,9 @@ public void keyReleased(KeyEvent e) {
         if(code == KeyEvent.VK_F) tiroPressionado = false;
     }
  
+    public void tese(){
+        System.out.println("Teste");
     }
+}
 
     

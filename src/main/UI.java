@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import objetos.OBJ_Coracao;
 import objetos.OBJ_CristalMana;
+import objetos.OBJ_Moeda;
 
 // Esta classe vai lidar com mensagens de texto, ícones de itens, etc.
 public class UI{
@@ -17,7 +18,7 @@ public class UI{
     Graphics2D g2;
 
     Font arial, arial_2;
-    BufferedImage coracao_cheio, coracao_meio, coracao_vazio;
+    BufferedImage coracao_cheio, coracao_meio, coracao_vazio, moeda;
     BufferedImage  CristalManaCheio, CristalManaVazio;
     public boolean mensagem_ligada = false;
     //public String mensagem  = "";
@@ -50,6 +51,9 @@ public class UI{
         Entidade Cristal = new OBJ_CristalMana(pj);
         CristalManaVazio = Cristal.imagem4;
         CristalManaCheio = Cristal.imagem5;
+
+        Entidade moedas = new OBJ_Moeda(pj);
+        moeda = moedas.estatico;
 
     }
 
@@ -96,25 +100,24 @@ public class UI{
         if(pj.estado_do_jogo == pj.estado_de_personagem){
             desenharTelaPersonagem();
             desenharInventario(pj.jogador,true);
-    } //Estado de opções
+        } 
+        //Estado de opções
         if(pj.estado_do_jogo == pj.estado_de_opcoes){
-        desenharOpcoesTela();
-    }   //Estado de fim de jogo;
+         desenharOpcoesTela();
+        }
+        //Estado de fim de jogo;
         if(pj.estado_do_jogo == pj.estado_fim_de_jogo){
-        desenharFimDeJogoTela();
-    }
-     //Estado de transição;
+            desenharFimDeJogoTela();
+        }
+        //Estado de transição;
         if(pj.estado_do_jogo == pj.estado_de_transicao){
-        desenharTransicao();
-    }
-    //Estado de troca;
+            desenharTransicao();
+        }
+        //Estado de troca;
         if(pj.estado_do_jogo == pj.estado_de_troca){
-        desenharTroca();
+            desenharTroca();
+        }
     }
-}
-
-
-
 
     public void desenharVidaDoJogador(){
 
@@ -323,8 +326,6 @@ public class UI{
         textY += linhaAltura;
         g2.drawString("Moedas", textX, textY);
         textY += linhaAltura+10;
-        g2.drawString("Espada", textX, textY);
-        textY += linhaAltura+10;
         g2.drawString("Escudo", textX, textY);
         textY += linhaAltura;
         
@@ -383,10 +384,10 @@ public class UI{
         textY += linhaAltura;
 
         //Desenhamos asimagens ao lado dasarmas e escudos
-        g2.drawImage(pj.jogador.correnteArma.baixo1, tailX - pj.tamanhoDaPeca, textY-14, null );
+        // g2.drawImage(pj.jogador.correnteArma.baixo1, tailX - pj.tamanhoDaPeca, textY-14, null );
+        g2.drawImage(pj.jogador.correnteEscudo.estatico, tailX - pj.tamanhoDaPeca, textY-14, null );
         textY += pj.tamanhoDaPeca;
 
-        g2.drawImage(pj.jogador.correnteEscudo.baixo1, tailX - pj.tamanhoDaPeca, textY-14, null );
         
 
     }
@@ -657,21 +658,18 @@ public class UI{
         }
         
      public void desenharTransicao(){
-        
         contador++;
-        g2.setColor(new Color(0,0,0, contador*5));
-         g2.fillRect(0, 0, pj.larguraDaTela, pj.alturaDaTela);
-         if(contador == 50){
+        g2.setColor(new Color(0,0,0, contador * 5));
+        g2.fillRect(0, 0, pj.larguraDaTela, pj.alturaDaTela);
+        if(contador == 50){
             contador = 0;
             pj.estado_do_jogo = pj.estado_de_jogar;
             pj.mapaatual = pj.evento.tempmap;
-          pj.jogador.mundoX= pj.tamanhoDaPeca * pj.evento.tempcol;
-          pj.jogador.mundoY = pj.tamanhoDaPeca * pj.evento.templin;
-          pj.evento.EventoPrevioX = pj.jogador.mundoX;
-          pj.evento.EventoPrevioY = pj.jogador.mundoY;
-        
-
-            }
+            pj.jogador.mundoX= pj.tamanhoDaPeca * pj.evento.tempcol;
+            pj.jogador.mundoY = pj.tamanhoDaPeca * pj.evento.templin;
+            pj.evento.EventoPrevioX = pj.jogador.mundoX;
+            pj.evento.EventoPrevioY = pj.jogador.mundoY;
+        }
      }
     public void desenharInventario(Entidade entidade , boolean cursor){
         
@@ -689,13 +687,12 @@ public class UI{
             frameHeight = pj.tamanhoDaPeca*5;
             slotcoluna = jogador_compartimento_coluna;
             slotlinha = jogador_compartimento_linha;
-
         }
         else{
-            frameX = pj.tamanhoDaPeca*2;
+            frameX = pj.tamanhoDaPeca * 2;
             frameY = pj.tamanhoDaPeca;
-            frameWidth = pj.tamanhoDaPeca*6;
-            frameHeight = pj.tamanhoDaPeca*5;
+            frameWidth = pj.tamanhoDaPeca * 6;
+            frameHeight = pj.tamanhoDaPeca * 5;
             slotcoluna = npc_compartimento_coluna;
             slotlinha = npc_compartimento_linha;
         }
@@ -710,32 +707,34 @@ public class UI{
         int compartimentoY = compartimentoYinicio;
         int tamanho_compartimento = pj.tamanhoDaPeca + 3;
 
-        //desenhar Itens do Jogador
+        // desenhar Itens do Jogador
         for(int i = 0; i < entidade.inventario.size(); i++){
-
-             //Equipar cursor
-             if(entidade.inventario.get(i) == entidade.correnteArma || entidade.inventario.get(i) == entidade.correnteEscudo){
+            //Equipar cursor
+            if(entidade.inventario.get(i) == entidade.correnteEscudo){
                 g2.setColor(new Color(240, 190, 90));
                 g2.fillRoundRect(compartimentoX, compartimentoY, pj.tamanhoDaPeca, pj.tamanhoDaPeca, 10, 10);
-
-             }
-             
-            g2.drawImage(entidade.inventario.get(i).baixo1, compartimentoX, compartimentoY, null);
+            }
+            
+            g2.drawImage(entidade.inventario.get(i).estatico, compartimentoX, compartimentoY, null);
             compartimentoX += tamanho_compartimento;
 
             if(i == 4 || i == 9 || i == 14){
                 compartimentoX = compartimentoXinicio;
                 compartimentoY += tamanho_compartimento;
             }
-
         }
         
         //Cursor
         if(cursor == true){
-            int cursorX = compartimentoXinicio + (tamanho_compartimento*jogador_compartimento_coluna);
-            int cursorY = compartimentoYinicio + (tamanho_compartimento*jogador_compartimento_linha);
+            int cursorX = compartimentoXinicio + (tamanho_compartimento*slotcoluna);
+            int cursorY = compartimentoYinicio + (tamanho_compartimento*slotlinha);
             int cursorLargura = pj.tamanhoDaPeca;
             int cursorAltura = pj.tamanhoDaPeca;
+
+            //Desenhar
+            g2.setColor(Color.white);
+            g2.setStroke(new BasicStroke(3));
+            g2.drawRoundRect(cursorX, cursorY, cursorLargura, cursorAltura, 10, 10);
 
             //Descrição frame
             int dFrameX = frameX;
@@ -752,17 +751,11 @@ public class UI{
 
             if(index_item < entidade.inventario.size()){
                 desenharSubTela(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
-
-
                 for(String line: entidade.inventario.get(index_item).descricao.split("\n")){
                     g2.drawString(line, textX, textY);
                     textY += 32;
                 }
             }
-            //Desenhar
-            g2.setColor(Color.white);
-            g2.setStroke(new BasicStroke(3));
-            g2.drawRoundRect(cursorX, cursorY, cursorLargura, cursorAltura, 10, 10);
         }
     
     }
@@ -815,17 +808,21 @@ public class UI{
 
     }
 
-
-
-
-public void desenharTroca(){
-    switch(sub_estado){
-       case 0: selecao_troca();break;
-       case 1: compra_troca();break;
-       case 2: venda_troca();break;
+    public void desenharTroca(){
+        switch(sub_estado){
+            case 0:
+                selecao_troca();
+                break;
+            case 1: 
+                compra_troca();
+                break;
+            case 2: 
+                venda_troca();
+                break;
+        }
+        pj.chaveManipuladora.enterPressionado = false;
     }
 
-}
     public void selecao_troca(){
         //Desenha a tela de seleção de troca
         desenharTelaDeDialogo();
@@ -835,7 +832,7 @@ public void desenharTroca(){
         int altura = (int)(pj.tamanhoDaPeca * 3.5);
 
         desenharSubTela(x,y,largura,altura);
-        // texto de compra
+        // Texto de compra
         x += pj.tamanhoDaPeca;
         y += pj.tamanhoDaPeca;
         g2.drawString("Comprar", x, y);
@@ -843,39 +840,143 @@ public void desenharTroca(){
             g2.drawString(">", x - 24, y);
             if(pj.chaveManipuladora.enterPressionado == true){
                 sub_estado = 1;
-                
             }
         }
         y += pj.tamanhoDaPeca;
         g2.drawString("Vender", x, y);
         if (numeroDoComando == 1){
             g2.drawString(">", x - 24, y);
-             if(pj.chaveManipuladora.enterPressionado == true){
+            if(pj.chaveManipuladora.enterPressionado == true){
                 sub_estado = 2;
-                
             }
         }
         y += pj.tamanhoDaPeca;
         g2.drawString("Sair", x, y);
         if (numeroDoComando == 2){
             g2.drawString(">", x - 24, y);
-             if(pj.chaveManipuladora.enterPressionado == true){
-               numeroDoComando = 0;
-                pj.estado_do_jogo = pj.estado_de_jogar;
-              //  dialogo_atual = "volte a qualquer hora!";
-                
+            if(pj.chaveManipuladora.enterPressionado == true){
+                numeroDoComando = 0;
+                pj.estado_do_jogo = pj.estado_de_dialogo;
+                dialogo_atual = "Agradeço pela preferência!\nVolte a qualquer hora!";
             }
         }
       
     }
 
     public void compra_troca(){
+        // Inventário no jogador
+        desenharInventario(pj.jogador, false);
+        // Inventário no npc
+        desenharInventario(npc,true);
+
+        // Desenha 
+        int x  = pj.tamanhoDaPeca * 2;
+        int y = pj.tamanhoDaPeca * 9;
+        int largura = pj.tamanhoDaPeca * 6;
+        int altura = pj.tamanhoDaPeca * 2;
+        desenharSubTela(x, y, largura, altura);
+        g2.drawString("[ESC] Voltar", x + 24, y + 60);
+        
+        // Tela de moeda
+        x  = pj.tamanhoDaPeca * 12;
+        y = pj.tamanhoDaPeca * 9;
+        largura = pj.tamanhoDaPeca * 6;
+        altura = pj.tamanhoDaPeca * 2;
+        desenharSubTela(x, y, largura, altura);
+        g2.drawString("Seu dinheiro: "+ pj.jogador.moedas, x + 24, y + 60);
+
+        // Tela de preços
+        int itemIndex = getIndex_item_no_compartimento(npc_compartimento_coluna, npc_compartimento_linha);
+        if(itemIndex < npc.inventario.size()){
+            x = (int)(pj.tamanhoDaPeca * 5.5);
+            y = (int)(pj.tamanhoDaPeca * 5.5);
+            largura = (int)(pj.tamanhoDaPeca * 2.5);
+            altura = pj.tamanhoDaPeca;
+
+            desenharSubTela(x, y, largura, altura);
+            g2.drawImage(moeda, x + 10, y + 8, 32, 32, null);
+
+            int preco = npc.inventario.get(itemIndex).preco;
+            String texto = "" + preco;
+            x = getXdoTextoCentralizado(texto) / pj.tamanhoDaPeca * 39;
+            g2.drawString(texto, x, y + 34);
+
+            // Comprar item
+            if(pj.chaveManipuladora.enterPressionado == true){
+                if(npc.inventario.get(itemIndex).moedas > pj.jogador.moedas){
+                    sub_estado = 0;
+                    pj.estado_do_jogo = pj.estado_de_dialogo;
+                    dialogo_atual = "Você precisa de mais moedas para comparar este item!";
+                    desenharTelaDeDialogo();
+                }
+                else if(pj.jogador.inventario.size() == pj.jogador.tamanho_max_inventario){
+                    sub_estado = 0;
+                    pj.estado_do_jogo = pj.estado_de_dialogo;
+                    dialogo_atual = "Você não pode carregar mais nada!";
+
+                }
+                else{
+                    pj.jogador.moedas -= npc.inventario.get(itemIndex).preco;
+                    pj.jogador.inventario.add(npc.inventario.get(itemIndex));
+                }
+            }
+        }
 
     }
-    public void venda_troca(){}
+    public void venda_troca(){
+        // Inventário no jogador
+        desenharInventario(pj.jogador, true);
+
+        // Desenha 
+        int x  = pj.tamanhoDaPeca * 2;
+        int y = pj.tamanhoDaPeca * 9;
+        int largura = pj.tamanhoDaPeca * 6;
+        int altura = pj.tamanhoDaPeca * 2;
+        desenharSubTela(x, y, largura, altura);
+        g2.drawString("[ESC] Voltar", x + 24, y + 60);
+        
+        // Tela de moeda
+        x  = pj.tamanhoDaPeca * 12;
+        y = pj.tamanhoDaPeca * 9;
+        largura = pj.tamanhoDaPeca * 6;
+        altura = pj.tamanhoDaPeca * 2;
+        desenharSubTela(x, y, largura, altura);
+        g2.drawString("Seu dinheiro: "+ pj.jogador.moedas, x + 24, y + 60);
+
+        // Tela de preços
+        int itemIndex = getIndex_item_no_compartimento(jogador_compartimento_coluna, jogador_compartimento_linha);
+        if(itemIndex < pj.jogador.inventario.size()){
+            x = (int)(pj.tamanhoDaPeca * 15.5);
+            y = (int)(pj.tamanhoDaPeca * 5.5);
+            largura = (int)(pj.tamanhoDaPeca * 2.5);
+            altura = pj.tamanhoDaPeca;
+
+            desenharSubTela(x, y, largura, altura);
+            g2.drawImage(moeda, x + 10, y + 8, 32, 32, null);
+
+            int preco = pj.jogador.inventario.get(itemIndex).preco / 2;
+            String texto = "" + preco;
+            x = getXdoTextoCentralizado(texto) / pj.tamanhoDaPeca * 92;
+            g2.drawString(texto, x, y + 34);
+
+            // Vender um item
+            if(pj.chaveManipuladora.enterPressionado == true){
+                if(pj.jogador.inventario.get(itemIndex) == pj.jogador.correnteEscudo){
+                    numeroDoComando = 0;
+                    sub_estado = 0;
+                    pj.estado_do_jogo = pj.estado_de_dialogo;
+                    dialogo_atual = "Você não pode vender um item equipado!";
+                }
+                else{
+                    pj.jogador.inventario.remove(itemIndex);
+                    pj.jogador.moedas += preco;
+                }
+            }
+        }
+    }
 
     public int getIndex_item_no_compartimento(int slotcoluna, int slotlinha){
-        int index_item = npc_compartimento_coluna+(npc_compartimento_linha*5);
+        int index_item = slotcoluna + (slotlinha * 5);
         return index_item;
     }
 

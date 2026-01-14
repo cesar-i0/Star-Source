@@ -80,6 +80,7 @@ public class Entidade {
     public double custo_de_uso;
     public int valor;
     public boolean coletavel;
+    public int preco;
 
     //Tipos
     public int tipo; // 0 = jogador, 1 = npc, 2 = monstro

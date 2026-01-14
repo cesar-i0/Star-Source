@@ -3,19 +3,19 @@ package objetos;
 import main.PainelDoJogo;
 import java.awt.Rectangle;
 
-public class OBJ_Escudo extends SuperClasse{
+public class OBJ_EscudoEstelar extends SuperClasse{
 
-    public OBJ_Escudo(PainelDoJogo pj){
+    public OBJ_EscudoEstelar(PainelDoJogo pj){
 
         super(pj);
         tipo = tipo_escudo;
-        nome = "Escudo de Madeira";
+        nome = "Escudo Estelar";
         getImagem();
        
         defesaValor = 1;
 
        
-        descricao = "[" + nome + "]\n" + "Escudo velho";
+        descricao = "[" + nome + "]\n" + "Escudo Estelar";
 
         area_solida = new Rectangle();
         area_solida.x = 0;

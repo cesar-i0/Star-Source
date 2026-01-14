@@ -1,13 +1,12 @@
 package main;
 
 import entidades.NPC_mercador;
-import entidades.NPC_random;
+import entidades.NPC_VelhoIrineu;
 import monstros.MON_Escorpiao;
 import monstros.MON_Esqueleto;
 import monstros.MON_Slime;
 import objetos.OBJ_Coracao;
 import objetos.OBJ_CristalMana;
-import objetos.OBJ_Machado;
 import objetos.OBJ_Moeda;
 import objetos.OBJ_PocaoDeCura;
 import objetos.OBJ_Porta;
@@ -83,12 +82,6 @@ public class ConfiguraRecurso {
         pj.obj[mapa][i].mundoY = pj.tamanhoDaPeca * 21;
         i++;
 
-        pj.obj[mapa][i] = new OBJ_Machado(pj);
-        pj.obj[mapa][i].mundoX = pj.tamanhoDaPeca * 22;
-        pj.obj[mapa][i].mundoY = pj.tamanhoDaPeca * 21;
-        i++;
-
-
         pj.obj[mapa][i] = new OBJ_Moeda(pj);
         pj.obj[mapa][i].mundoX = pj.tamanhoDaPeca * 24;
         pj.obj[mapa][i].mundoY = pj.tamanhoDaPeca * 21;
@@ -100,16 +93,21 @@ public class ConfiguraRecurso {
        int mapa = 0;
        int i = 0;
 
-        pj.npc[mapa][i] = new NPC_random(pj);
+        pj.npc[mapa][i] = new NPC_VelhoIrineu(pj);
         pj.npc[mapa][i].mundoX = pj.tamanhoDaPeca * 15;
         pj.npc[mapa][i].mundoY = pj.tamanhoDaPeca * 21;
+        // mapa++;
         i++;
-        mapa++;
 
         pj.npc[mapa][i] = new NPC_mercador(pj);
-        pj.npc[mapa][i].mundoX = pj.tamanhoDaPeca * 13;
-        pj.npc[mapa][i].mundoY = pj.tamanhoDaPeca * 21;
+        pj.npc[mapa][i].mundoX = pj.tamanhoDaPeca * 16;
+        pj.npc[mapa][i].mundoY = pj.tamanhoDaPeca * 8;
+        i++;
 
+        pj.npc[mapa][i] = new NPC_VelhoIrineu(pj);
+        pj.npc[mapa][i].mundoX = pj.tamanhoDaPeca * 13;
+        pj.npc[mapa][i].mundoY = pj.tamanhoDaPeca * 8;
+        
     }
 
 

@@ -5,9 +5,10 @@ import java.awt.image.BufferedImage;
 import main.Manipulador;
 import main.PainelDoJogo;
 import objetos.OBJ_PoeiraEstelar;
-import objetos.OBJ_Chave;
-import objetos.OBJ_Escudo;
-import objetos.OBJ_Espada;
+import objetos.OBJ_EscudoEstelar;
+import objetos.OBJ_PocaoDeCura;
+import objetos.OBJ_PocaoDeMana;
+
 
 
 public class Jogador extends Entidade{
@@ -42,7 +43,6 @@ public class Jogador extends Entidade{
 
         setValoresPadroes();
         getImagemDoJogador();
-        getAtaqueJogadorImagem();
         setItens();
     }
 
@@ -61,10 +61,10 @@ public class Jogador extends Entidade{
         mana_max = 4;
         mana = mana_max;
         experiencia = 0;
-        correnteArma = new OBJ_Espada(pj);
-        correnteEscudo = new OBJ_Escudo(pj);
+        // correnteArma ;
+        correnteEscudo = new OBJ_EscudoEstelar(pj);
         projeteis = new OBJ_PoeiraEstelar(pj);
-        ataques = getAtaques();
+        // ataques = getAtaques();
         defesa = getDefesa();
         expProximoNivel = 5;
         moedas = 0;
@@ -88,11 +88,10 @@ public class Jogador extends Entidade{
 
     //Seta os objetos para dentro do inventário
     public void setItens(){
-        inventario.clear();
-        inventario.add(correnteArma);
+        // inventario.clear();
         inventario.add(correnteEscudo);
-        inventario.add(new OBJ_Chave(pj));
-        inventario.add(new OBJ_Chave(pj));
+        inventario.add(new OBJ_PocaoDeCura(pj));
+        inventario.add(new OBJ_PocaoDeMana(pj));
     }
 
     public double getAtaques(){
@@ -118,23 +117,23 @@ public class Jogador extends Entidade{
 
     }
 
-    public void getAtaqueJogadorImagem(){
+//     public void getAtaqueJogadorImagem(){
 
-        if(correnteArma.tipo == tipo_espada){
-        ataque = configuracoes("/res/jogador/ataque.png",  pj.tamanhoDaPeca, pj.tamanhoDaPeca); //Busca a imagem deataque
-       /* ataqueCima2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca, pj.tamanhoDaPeca*2); //Multiplica para ficar maior e enquadrar a parte da arma do jogador
-        ataqueBaixo1 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca, pj.tamanhoDaPeca*2);
-        ataqueBaixo2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca, pj.tamanhoDaPeca*2);
-        ataqueEsquerda1 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
-        ataqueEsquerda2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
-        ataqueDireita1 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
-        ataqueDireita2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
-*/ 
-        }
+//         if(correnteArma.tipo == tipo_espada){
+//         ataque = configuracoes("/res/jogador/ataque.png",  pj.tamanhoDaPeca, pj.tamanhoDaPeca); //Busca a imagem deataque
+//        /* ataqueCima2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca, pj.tamanhoDaPeca*2); //Multiplica para ficar maior e enquadrar a parte da arma do jogador
+//         ataqueBaixo1 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca, pj.tamanhoDaPeca*2);
+//         ataqueBaixo2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca, pj.tamanhoDaPeca*2);
+//         ataqueEsquerda1 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
+//         ataqueEsquerda2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
+//         ataqueDireita1 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
+//         ataqueDireita2 = configuracoes("/res/jogador/ataque",  pj.tamanhoDaPeca*2, pj.tamanhoDaPeca);
+// */ 
+//         }
 
-        //Fazemos um if para cada tipo de arma que o personagem for usar, juntamente com as imagens dele
+//         //Fazemos um if para cada tipo de arma que o personagem for usar, juntamente com as imagens dele
         
-    }
+//     }
 
     
 
@@ -274,19 +273,19 @@ public class Jogador extends Entidade{
         }
 
         // =================================
-// COLISÃO DO PROJÉTIL COM PAREDE
-// =================================
-Rectangle areaProjetil = new Rectangle(
-    mundoX + area_solida.x,
-    mundoY + area_solida.y,
-    area_solida.width,
-    area_solida.height
-);
+        // COLISÃO DO PROJÉTIL COM PAREDE
+        // =================================
+        Rectangle areaProjetil = new Rectangle(
+            mundoX + area_solida.x,
+            mundoY + area_solida.y,
+            area_solida.width,
+            area_solida.height
+        );
 
-if (pj.verifica.ataqueBateNaParede(areaProjetil)) {
-    vivo = false;
-    return;
-}
+        if (pj.verifica.ataqueBateNaParede(areaProjetil)) {
+            vivo = false;
+            return;
+        }
 
     }
 
@@ -458,14 +457,14 @@ if (pj.verifica.ataqueBateNaParede(areaProjetil)) {
     }
 
     public void selecionarItem(){
-        int index_item = pj.ui.getIndex_item_no_compartimento();
+        int index_item = pj.ui.getIndex_item_no_compartimento(pj.ui.jogador_compartimento_coluna, pj.ui.jogador_compartimento_linha);
         if(index_item < inventario.size()){
             Entidade selecionaItem  = inventario.get(index_item);
-            if(selecionaItem.tipo == tipo_espada || selecionaItem.tipo == tipo_machado){
-                correnteArma = selecionaItem;
-                ataques = getAtaques();
-                //Adicionamos aqui o ataque imagens para que ele puxe as imagens com a arma certa;
-            }
+            // if(selecionaItem.tipo == tipo_espada || selecionaItem.tipo == tipo_machado){
+            //     correnteArma = selecionaItem;
+            //     ataques = getAtaques();
+            //     //Adicionamos aqui o ataque imagens para que ele puxe as imagens com a arma certa;
+            // }
             if(selecionaItem.tipo == tipo_escudo){
                 correnteEscudo = selecionaItem;
                 defesa = getDefesa();

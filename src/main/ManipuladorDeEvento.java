@@ -9,7 +9,7 @@ public class ManipuladorDeEvento {
 
     int EventoPrevioX, EventoPrevioY;
     boolean evento_possivel_de_tocar = true; // Torna possível reativar um evento após ocorrer(condicionalmente)
-    int tempmap , templin , tempcol ;
+    int tempmap, templin, tempcol;
 
     public ManipuladorDeEvento(PainelDoJogo pj){
 
@@ -54,15 +54,16 @@ public class ManipuladorDeEvento {
         if (evento_possivel_de_tocar == true){
 
             // Local da armadilha
-            if(atingiu(0, 1, 1, "cima") == true) danoDeArmadilha(pj.estado_de_dialogo);
+            // if(atingiu(0, 1, 1, "cima") == true) danoDeArmadilha(pj.estado_de_dialogo);
             // Local de cura
-           else if(atingiu(0, 1, 3, "cima") == true) localDeCura(pj.estado_de_dialogo);
+            if(atingiu(0, 1, 3, "cima") == true) localDeCura(pj.estado_de_dialogo);
             // Local de teleporte
-          //  if(atingiu(0, 1, 5, "cima") == true) teleporte(pj.estado_de_dialogo);
+            //  if(atingiu(0, 1, 5, "cima") == true) teleporte(pj.estado_de_dialogo);
             // Local de teleporte 2
-           else if(atingiu(0, 8, 22, "any") == true) {teleporte(1 , 20, 10);}
-           else if(atingiu(1 ,12 , 10, "any") == true) {teleporte(0 , 10, 10);}
-           // else if(atingiu(1 ,20 , 10, "up") == true) {fala([0] [1]);} para um caso de um npc estar atras de bancada 
+            else if(atingiu(0, 8, 22, "any") == true) {teleporte(1 , 20, 10);}
+            else if(atingiu(1 ,12 , 10, "any") == true) {teleporte(0 , 10, 10);}
+            else if(atingiu(1, 6, 21, "direita")){fala(pj.npc[0][1]);}
+            // else if(atingiu(1 ,20 , 10, "up") == true) {fala([0] [1]);} para um caso de um npc estar atras de bancada 
         }
 
     }
@@ -127,29 +128,22 @@ public class ManipuladorDeEvento {
         }
     }
 
-public void teleporte (int mapa , int lin , int col){
+    public void teleporte (int mapa , int lin , int col){
+        
         pj.estado_do_jogo = pj.estado_de_transicao;
         tempmap = mapa;
         templin = lin;
         tempcol = col;
-        
-   // pj.mapaatual = mapa;
-   // pj.jogador.mundoX = col * pj.tamanhoDaPeca;
-   // pj.jogador.mundoY = lin * pj.tamanhoDaPeca;
-   // EventoPrevioX = pj.jogador.mundoX;
-   // EventoPrevioY = pj.jogador.mundoY;
-   
-    evento_possivel_de_tocar = false;
+        evento_possivel_de_tocar = false;
 
-}
-public void fala(Entidade entidade){
-    if(pj.chaveManipuladora.enterPressionado == true){
-        pj.estado_do_jogo = pj.estado_de_dialogo;
-        pj.jogador.ataqueCancelado = true;
-        entidade.falar();
-    
-}
+    }
+    public void fala(Entidade entidade){
+        if(pj.chaveManipuladora.enterPressionado == true){
+            pj.estado_do_jogo = pj.estado_de_dialogo;
+            pj.jogador.ataqueCancelado = true;
+            entidade.falar();
+        }
 
-}
+    }
 
 }
