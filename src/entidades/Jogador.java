@@ -561,8 +561,8 @@ public class Jogador extends Entidade{
         }
 
         g2.drawImage(imagem, TempTelaX, TempTelaY, null);
-        g2.setColor(Color.red);
-        g2.drawRect(telaX + area_solida.x, telaY + area_solida.y, area_solida.width, area_solida.height);
+        // g2.setColor(Color.red);
+        // g2.drawRect(telaX + area_solida.x, telaY + area_solida.y, area_solida.width, area_solida.height);
         
         // Resta o alpha
         if(invencivel == true){
@@ -575,8 +575,8 @@ public class Jogador extends Entidade{
         // g2.drawString("Invencível: " + contador_de_invencibilidade, 10, 400);
 
         // Para ver a área de colisão usamos isso
-        g2.setColor(Color.red);
-        g2.drawRect(telaX + area_solida.x, telaY + area_solida.y, area_solida.width, area_solida.height);
+        // g2.setColor(Color.red);
+        // g2.drawRect(telaX + area_solida.x, telaY + area_solida.y, area_solida.width, area_solida.height);
 
             }
         }
